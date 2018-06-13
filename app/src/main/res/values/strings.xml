@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MLkitDemo</string>
+    <string name="gallery_button">Gallery</string>
+    <string name="photo_button">Photo</string>
+</resources>
