@@ -3,8 +3,11 @@ package com.example.shouhei.mlkitdemo;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,14 +19,18 @@ import android.widget.ImageView;
 import com.example.shouhei.mlkitdemo.model.Run;
 import com.example.shouhei.mlkitdemo.model.RunList;
 import com.example.shouhei.mlkitdemo.util.PictureUtils;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.ml.vision.FirebaseVision;
+import com.google.firebase.ml.vision.common.FirebaseVisionImage;
+import com.google.firebase.ml.vision.text.FirebaseVisionText;
+import com.google.firebase.ml.vision.text.FirebaseVisionTextDetector;
 
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.PipedInputStream;
-import java.lang.reflect.Field;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,8 +38,10 @@ public class MainActivity extends AppCompatActivity {
 
   private Button mGalleryButton;
   private Button mPhotoButton;
-  private ImageView mPhotoView;
+  private ImageView mTargetImageView;
+  private Button mDummyButton;
   private File mPhotoFile;
+  private Task<FirebaseVisionText> mResult;
   private static final int REQUEST_PHOTO = 0;
   private static final int REQUEST_GALLERY = 1;
 
@@ -82,7 +91,34 @@ public class MainActivity extends AppCompatActivity {
           }
         });
 
-    mPhotoView = findViewById(R.id.run_photo);
+    mTargetImageView = findViewById(R.id.run_photo);
+
+    mDummyButton = findViewById(R.id.dummy_button);
+    mDummyButton.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+            int i = 1;
+            int j = 1;
+            int k = 1;
+            Log.d(TAG, "DummyButton clicked");
+            for (FirebaseVisionText.Block block : mResult.getResult().getBlocks()) {
+              Log.d(TAG, "Block#" + i + " " + block.getText());
+              Rect boundingBox = block.getBoundingBox();
+              Point[] cornerPoints = block.getCornerPoints();
+              String text = block.getText();
+              i++;
+              for (FirebaseVisionText.Line line : block.getLines()) {
+                Log.d(TAG, "    Line#" + j + " " + line.getText());
+                j++;
+                for (FirebaseVisionText.Element element : line.getElements()) {
+                  Log.d(TAG, "        Element#" + k + " " + element.getText());
+                  k++;
+                }
+              }
+            }
+          }
+        });
   }
 
   @Override
@@ -117,7 +153,33 @@ public class MainActivity extends AppCompatActivity {
       try {
         InputStream stream = this.getContentResolver().openInputStream(uri);
         Bitmap bitmap = BitmapFactory.decodeStream(new BufferedInputStream(stream));
-        mPhotoView.setImageBitmap(bitmap);
+        mTargetImageView.setImageBitmap(bitmap);
+
+        FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(bitmap);
+        FirebaseVisionTextDetector detector = FirebaseVision.getInstance().getVisionTextDetector();
+
+        mResult =
+            detector
+                .detectInImage(image)
+                .addOnSuccessListener(
+                    new OnSuccessListener<FirebaseVisionText>() {
+                      @Override
+                      public void onSuccess(FirebaseVisionText firebaseVisionText) {
+                        // Task completed successfully
+                        // ...
+                        Log.d(TAG, "Task completed successfully");
+                      }
+                    })
+                .addOnFailureListener(
+                    new OnFailureListener() {
+                      @Override
+                      public void onFailure(@NonNull Exception e) {
+                        // Task failed with an exception
+                        // ...
+                        Log.d(TAG, "Task failed with an exception");
+                      }
+                    });
+
       } catch (FileNotFoundException e) {
         e.printStackTrace();
       }
@@ -128,10 +190,10 @@ public class MainActivity extends AppCompatActivity {
   private void updatePhotoView() {
 
     if (mPhotoFile == null || !mPhotoFile.exists()) {
-      mPhotoView.setImageDrawable(null);
+      mTargetImageView.setImageDrawable(null);
     } else {
       Bitmap bitmap = PictureUtils.getScaledBitmap(mPhotoFile.getPath(), MainActivity.this);
-      mPhotoView.setImageBitmap(bitmap);
+      mTargetImageView.setImageBitmap(bitmap);
     }
   }
 
