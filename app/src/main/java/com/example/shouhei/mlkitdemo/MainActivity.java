@@ -103,16 +103,56 @@ public class MainActivity extends AppCompatActivity {
             int k = 1;
             Log.d(TAG, "DummyButton clicked");
             for (FirebaseVisionText.Block block : mResult.getResult().getBlocks()) {
-              Log.d(TAG, "Block#" + i + " " + block.getText());
               Rect boundingBox = block.getBoundingBox();
-              Point[] cornerPoints = block.getCornerPoints();
+              Point[] roxCornerPoints = block.getCornerPoints();
               String text = block.getText();
+
+              Log.d(TAG, "Block#" + i + " " + block.getText());
+              for (int l = 0; l < roxCornerPoints.length; l++) {
+                Log.d(
+                    TAG,
+                    "Block#"
+                        + i
+                        + " Point "
+                        + l
+                        + " x : "
+                        + roxCornerPoints[l].x
+                        + " y : "
+                        + roxCornerPoints[l].y);
+              }
               i++;
               for (FirebaseVisionText.Line line : block.getLines()) {
                 Log.d(TAG, "    Line#" + j + " " + line.getText());
+
+                Point[] lienCornerPoints = line.getCornerPoints();
+                for (int l = 0; l < lienCornerPoints.length; l++) {
+                  Log.d(
+                      TAG,
+                      "Line#"
+                          + i
+                          + " Point "
+                          + l
+                          + " x : "
+                          + lienCornerPoints[l].x
+                          + " y : "
+                          + lienCornerPoints[l].y);
+                }
                 j++;
                 for (FirebaseVisionText.Element element : line.getElements()) {
                   Log.d(TAG, "        Element#" + k + " " + element.getText());
+                  Point[] elementCornerPoints = element.getCornerPoints();
+                  for (int l = 0; l < elementCornerPoints.length; l++) {
+                    Log.d(
+                        TAG,
+                        "Element#"
+                            + i
+                            + " Point "
+                            + l
+                            + " x : "
+                            + elementCornerPoints[l].x
+                            + " y : "
+                            + elementCornerPoints[l].y);
+                  }
                   k++;
                 }
               }
@@ -153,6 +193,9 @@ public class MainActivity extends AppCompatActivity {
       try {
         InputStream stream = this.getContentResolver().openInputStream(uri);
         Bitmap bitmap = BitmapFactory.decodeStream(new BufferedInputStream(stream));
+        Log.d(
+            TAG,
+            "bitmap image size width : " + bitmap.getWidth() + " height " + bitmap.getHeight());
         mTargetImageView.setImageBitmap(bitmap);
 
         FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(bitmap);
