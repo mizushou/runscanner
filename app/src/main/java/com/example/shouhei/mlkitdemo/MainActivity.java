@@ -97,67 +97,7 @@ public class MainActivity extends AppCompatActivity {
     mDummyButton.setOnClickListener(
         new View.OnClickListener() {
           @Override
-          public void onClick(View v) {
-            int i = 1;
-            int j = 1;
-            int k = 1;
-            Log.d(TAG, "DummyButton clicked");
-            for (FirebaseVisionText.Block block : mResult.getResult().getBlocks()) {
-              Rect boundingBox = block.getBoundingBox();
-              Point[] roxCornerPoints = block.getCornerPoints();
-              String text = block.getText();
-
-              Log.d(TAG, "Block#" + i + " " + block.getText());
-              for (int l = 0; l < roxCornerPoints.length; l++) {
-                Log.d(
-                    TAG,
-                    "Block#"
-                        + i
-                        + " Point "
-                        + l
-                        + " x : "
-                        + roxCornerPoints[l].x
-                        + " y : "
-                        + roxCornerPoints[l].y);
-              }
-              i++;
-              for (FirebaseVisionText.Line line : block.getLines()) {
-                Log.d(TAG, "    Line#" + j + " " + line.getText());
-
-                Point[] lienCornerPoints = line.getCornerPoints();
-                for (int l = 0; l < lienCornerPoints.length; l++) {
-                  Log.d(
-                      TAG,
-                      "Line#"
-                          + i
-                          + " Point "
-                          + l
-                          + " x : "
-                          + lienCornerPoints[l].x
-                          + " y : "
-                          + lienCornerPoints[l].y);
-                }
-                j++;
-                for (FirebaseVisionText.Element element : line.getElements()) {
-                  Log.d(TAG, "        Element#" + k + " " + element.getText());
-                  Point[] elementCornerPoints = element.getCornerPoints();
-                  for (int l = 0; l < elementCornerPoints.length; l++) {
-                    Log.d(
-                        TAG,
-                        "Element#"
-                            + i
-                            + " Point "
-                            + l
-                            + " x : "
-                            + elementCornerPoints[l].x
-                            + " y : "
-                            + elementCornerPoints[l].y);
-                  }
-                  k++;
-                }
-              }
-            }
-          }
+          public void onClick(View v) {}
         });
   }
 
@@ -211,6 +151,65 @@ public class MainActivity extends AppCompatActivity {
                         // Task completed successfully
                         // ...
                         Log.d(TAG, "Task completed successfully");
+                        int i = 1;
+                        int j = 1;
+                        int k = 1;
+                        Log.d(TAG, "DummyButton clicked");
+                        for (FirebaseVisionText.Block block : firebaseVisionText.getBlocks()) {
+                          Rect boundingBox = block.getBoundingBox();
+                          Point[] blockCornerPoints = block.getCornerPoints();
+                          String text = block.getText();
+
+                          Log.d(TAG, "Block#" + i + " [" + block.getText() + "]");
+                          for (int l = 0; l < blockCornerPoints.length; l++) {
+                            Log.d(
+                                TAG,
+                                "Block#"
+                                    + i
+                                    + " Point "
+                                    + l
+                                    + " x : "
+                                    + blockCornerPoints[l].x
+                                    + " y : "
+                                    + blockCornerPoints[l].y);
+                          }
+                          i++;
+                          for (FirebaseVisionText.Line line : block.getLines()) {
+                            Log.d(TAG, "    Line#" + j + " [" + line.getText() + "]");
+
+                            Point[] lienCornerPoints = line.getCornerPoints();
+                            for (int l = 0; l < lienCornerPoints.length; l++) {
+                              Log.d(
+                                  TAG,
+                                  "    Line#"
+                                      + j
+                                      + " Point "
+                                      + l
+                                      + " x : "
+                                      + lienCornerPoints[l].x
+                                      + " y : "
+                                      + lienCornerPoints[l].y);
+                            }
+                            j++;
+                            for (FirebaseVisionText.Element element : line.getElements()) {
+                              Log.d(TAG, "        Element#" + k + " [" + element.getText() + "]");
+                              Point[] elementCornerPoints = element.getCornerPoints();
+                              for (int l = 0; l < elementCornerPoints.length; l++) {
+                                Log.d(
+                                    TAG,
+                                    "        Element#"
+                                        + k
+                                        + " Point "
+                                        + l
+                                        + " x : "
+                                        + elementCornerPoints[l].x
+                                        + " y : "
+                                        + elementCornerPoints[l].y);
+                              }
+                              k++;
+                            }
+                          }
+                        }
                       }
                     })
                 .addOnFailureListener(
