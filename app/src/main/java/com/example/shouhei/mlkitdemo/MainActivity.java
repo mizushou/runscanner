@@ -19,6 +19,8 @@ import android.widget.ImageView;
 import com.example.shouhei.mlkitdemo.model.Run;
 import com.example.shouhei.mlkitdemo.model.RunList;
 import com.example.shouhei.mlkitdemo.util.PictureUtils;
+import com.example.shouhei.mlkitdemo.util.RightSideElementsCalculator;
+import com.example.shouhei.mlkitdemo.util.RightSideElementsList;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -40,8 +42,11 @@ public class MainActivity extends AppCompatActivity {
   private Button mPhotoButton;
   private ImageView mTargetImageView;
   private Button mDummyButton;
+
   private File mPhotoFile;
+  private Uri mtargetUri;
   private Task<FirebaseVisionText> mResult;
+  private int mTargetImageWidth;
   private static final int REQUEST_PHOTO = 0;
   private static final int REQUEST_GALLERY = 1;
 
@@ -97,7 +102,57 @@ public class MainActivity extends AppCompatActivity {
     mDummyButton.setOnClickListener(
         new View.OnClickListener() {
           @Override
-          public void onClick(View v) {}
+          public void onClick(View v) {
+
+            Log.d(TAG, "DummyButton clicked");
+            InputStream stream = null;
+            try {
+              stream = MainActivity.this.getContentResolver().openInputStream(mtargetUri);
+            } catch (FileNotFoundException e) {
+              e.printStackTrace();
+            }
+            Bitmap bitmap = BitmapFactory.decodeStream(new BufferedInputStream(stream));
+
+            FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(bitmap);
+            FirebaseVisionTextDetector detector =
+                FirebaseVision.getInstance().getVisionTextDetector();
+
+            mResult =
+                detector
+                    .detectInImage(image)
+                    .addOnSuccessListener(
+                        new OnSuccessListener<FirebaseVisionText>() {
+                          @Override
+                          public void onSuccess(FirebaseVisionText firebaseVisionText) {
+                            // Task completed successfully
+                            Log.d(TAG, "Task completed successfully");
+
+                            RightSideElementsList elementsList =
+                                new RightSideElementsList(mTargetImageWidth);
+                            debugFirebaseVisionText(firebaseVisionText);
+                            for (FirebaseVisionText.Block block : firebaseVisionText.getBlocks()) {
+                              for (FirebaseVisionText.Line line : block.getLines()) {
+                                for (FirebaseVisionText.Element element : line.getElements()) {
+                                  elementsList.add(element);
+                                }
+                              }
+                            }
+
+                            RightSideElementsCalculator calculator =
+                                new RightSideElementsCalculator(elementsList);
+                            calculator.getResultElements();
+                          }
+                        })
+                    .addOnFailureListener(
+                        new OnFailureListener() {
+                          @Override
+                          public void onFailure(@NonNull Exception e) {
+                            // Task failed with an exception
+                            // ...
+                            Log.d(TAG, "Task failed with an exception");
+                          }
+                        });
+          }
         });
   }
 
@@ -111,18 +166,19 @@ public class MainActivity extends AppCompatActivity {
       MainActivity.this.revokeUriPermission(uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
       updatePhotoView();
     } else if (requestCode == REQUEST_GALLERY) {
-      Uri uri = data.getData();
+      mtargetUri = data.getData();
       Log.d(TAG, "Schema : " + data.getScheme()); // content
       Log.d(TAG, "Type : " + data.getType()); // null
       Log.d(TAG, "Flag : " + data.getFlags()); // 1
       Log.d(
           TAG,
           "URI : "
-              + uri
+              + mtargetUri
                   .toString()); // content://com.google.android.apps.photos.contentprovider/0/1/mediakey%3A%2Flocal%253A9ff410cd-a6d7-4f90-8aaf-285b8ce54161/ORIGINAL/NONE/151343972
       Log.d(
           TAG,
-          "Authority : " + uri.getAuthority()); // com.google.android.apps.photos.contentprovider
+          "Authority : "
+              + mtargetUri.getAuthority()); // com.google.android.apps.photos.contentprovider
       //      Bitmap bitmap = null;
       //      try {
       //        bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
@@ -131,96 +187,40 @@ public class MainActivity extends AppCompatActivity {
       //      }
 
       try {
-        InputStream stream = this.getContentResolver().openInputStream(uri);
+        InputStream stream = this.getContentResolver().openInputStream(mtargetUri);
         Bitmap bitmap = BitmapFactory.decodeStream(new BufferedInputStream(stream));
+        mTargetImageWidth = bitmap.getWidth();
         Log.d(
             TAG,
             "bitmap image size width : " + bitmap.getWidth() + " height " + bitmap.getHeight());
         mTargetImageView.setImageBitmap(bitmap);
 
-        FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(bitmap);
-        FirebaseVisionTextDetector detector = FirebaseVision.getInstance().getVisionTextDetector();
-
-        mResult =
-            detector
-                .detectInImage(image)
-                .addOnSuccessListener(
-                    new OnSuccessListener<FirebaseVisionText>() {
-                      @Override
-                      public void onSuccess(FirebaseVisionText firebaseVisionText) {
-                        // Task completed successfully
-                        // ...
-                        Log.d(TAG, "Task completed successfully");
-                        int i = 1;
-                        int j = 1;
-                        int k = 1;
-                        Log.d(TAG, "DummyButton clicked");
-                        for (FirebaseVisionText.Block block : firebaseVisionText.getBlocks()) {
-                          Rect boundingBox = block.getBoundingBox();
-                          Point[] blockCornerPoints = block.getCornerPoints();
-                          String text = block.getText();
-
-                          Log.d(TAG, "Block#" + i + " [" + block.getText() + "]");
-                          for (int l = 0; l < blockCornerPoints.length; l++) {
-                            Log.d(
-                                TAG,
-                                "Block#"
-                                    + i
-                                    + " Point "
-                                    + l
-                                    + " x : "
-                                    + blockCornerPoints[l].x
-                                    + " y : "
-                                    + blockCornerPoints[l].y);
-                          }
-                          i++;
-                          for (FirebaseVisionText.Line line : block.getLines()) {
-                            Log.d(TAG, "    Line#" + j + " [" + line.getText() + "]");
-
-                            Point[] lienCornerPoints = line.getCornerPoints();
-                            for (int l = 0; l < lienCornerPoints.length; l++) {
-                              Log.d(
-                                  TAG,
-                                  "    Line#"
-                                      + j
-                                      + " Point "
-                                      + l
-                                      + " x : "
-                                      + lienCornerPoints[l].x
-                                      + " y : "
-                                      + lienCornerPoints[l].y);
-                            }
-                            j++;
-                            for (FirebaseVisionText.Element element : line.getElements()) {
-                              Log.d(TAG, "        Element#" + k + " [" + element.getText() + "]");
-                              Point[] elementCornerPoints = element.getCornerPoints();
-                              for (int l = 0; l < elementCornerPoints.length; l++) {
-                                Log.d(
-                                    TAG,
-                                    "        Element#"
-                                        + k
-                                        + " Point "
-                                        + l
-                                        + " x : "
-                                        + elementCornerPoints[l].x
-                                        + " y : "
-                                        + elementCornerPoints[l].y);
-                              }
-                              k++;
-                            }
-                          }
-                        }
-                      }
-                    })
-                .addOnFailureListener(
-                    new OnFailureListener() {
-                      @Override
-                      public void onFailure(@NonNull Exception e) {
-                        // Task failed with an exception
-                        // ...
-                        Log.d(TAG, "Task failed with an exception");
-                      }
-                    });
+        //        FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(bitmap);
+        //        FirebaseVisionTextDetector detector =
+        // FirebaseVision.getInstance().getVisionTextDetector();
+        //
+        //        mResult =
+        //            detector
+        //                .detectInImage(image)
+        //                .addOnSuccessListener(
+        //                    new OnSuccessListener<FirebaseVisionText>() {
+        //                      @Override
+        //                      public void onSuccess(FirebaseVisionText firebaseVisionText) {
+        //                        // Task completed successfully
+        //                        // ...
+        //                        Log.d(TAG, "Task completed successfully");
+        //                        debugFirebaseVisionText(firebaseVisionText);
+        //                      }
+        //                    })
+        //                .addOnFailureListener(
+        //                    new OnFailureListener() {
+        //                      @Override
+        //                      public void onFailure(@NonNull Exception e) {
+        //                        // Task failed with an exception
+        //                        // ...
+        //                        Log.d(TAG, "Task failed with an exception");
+        //                      }
+        //                    });
 
       } catch (FileNotFoundException e) {
         e.printStackTrace();
@@ -236,6 +236,66 @@ public class MainActivity extends AppCompatActivity {
     } else {
       Bitmap bitmap = PictureUtils.getScaledBitmap(mPhotoFile.getPath(), MainActivity.this);
       mTargetImageView.setImageBitmap(bitmap);
+    }
+  }
+
+  private void debugFirebaseVisionText(FirebaseVisionText firebaseVisionText) {
+    int i = 1;
+    int j = 1;
+    int k = 1;
+    for (FirebaseVisionText.Block block : firebaseVisionText.getBlocks()) {
+      Rect boundingBox = block.getBoundingBox();
+      Point[] blockCornerPoints = block.getCornerPoints();
+      String text = block.getText();
+
+      Log.d(TAG, "Block#" + i + " [" + block.getText() + "]");
+      for (int l = 0; l < blockCornerPoints.length; l++) {
+        Log.d(
+            TAG,
+            "Block#"
+                + i
+                + " Point "
+                + l
+                + " x : "
+                + blockCornerPoints[l].x
+                + " y : "
+                + blockCornerPoints[l].y);
+      }
+      i++;
+      for (FirebaseVisionText.Line line : block.getLines()) {
+        Log.d(TAG, "    Line#" + j + " [" + line.getText() + "]");
+        Point[] lienCornerPoints = line.getCornerPoints();
+        for (int l = 0; l < lienCornerPoints.length; l++) {
+          Log.d(
+              TAG,
+              "    Line#"
+                  + j
+                  + " Point "
+                  + l
+                  + " x : "
+                  + lienCornerPoints[l].x
+                  + " y : "
+                  + lienCornerPoints[l].y);
+        }
+        j++;
+        for (FirebaseVisionText.Element element : line.getElements()) {
+          Log.d(TAG, "        Element#" + k + " [" + element.getText() + "]");
+          Point[] elementCornerPoints = element.getCornerPoints();
+          for (int l = 0; l < elementCornerPoints.length; l++) {
+            Log.d(
+                TAG,
+                "        Element#"
+                    + k
+                    + " Point "
+                    + l
+                    + " x : "
+                    + elementCornerPoints[l].x
+                    + " y : "
+                    + elementCornerPoints[l].y);
+          }
+          k++;
+        }
+      }
     }
   }
 
