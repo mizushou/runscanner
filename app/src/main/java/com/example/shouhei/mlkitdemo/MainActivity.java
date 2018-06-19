@@ -3,27 +3,37 @@ package com.example.shouhei.mlkitdemo;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.example.shouhei.mlkitdemo.model.Run;
 import com.example.shouhei.mlkitdemo.model.RunList;
+import com.example.shouhei.mlkitdemo.util.ElementWrapper;
 import com.example.shouhei.mlkitdemo.util.PictureUtils;
+import com.example.shouhei.mlkitdemo.util.RightSideElementsCalculator;
+import com.example.shouhei.mlkitdemo.util.RightSideElementsList;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.ml.vision.FirebaseVision;
+import com.google.firebase.ml.vision.common.FirebaseVisionImage;
+import com.google.firebase.ml.vision.text.FirebaseVisionText;
+import com.google.firebase.ml.vision.text.FirebaseVisionTextDetector;
 
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.PipedInputStream;
-import java.lang.reflect.Field;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,8 +41,18 @@ public class MainActivity extends AppCompatActivity {
 
   private Button mGalleryButton;
   private Button mPhotoButton;
-  private ImageView mPhotoView;
+  private ImageView mTargetImageView;
+  private Button mDummyButton;
+  private EditText mDistanceField;
+  private EditText mCaloriesField;
+  private EditText mDurationField;
+  private EditText mAvgPaceField;
+  private EditText mAvgHeartRateField;
+
   private File mPhotoFile;
+  private Uri mTargetUri;
+  private Task<FirebaseVisionText> mResult;
+  private int mTargetImageWidth;
   private static final int REQUEST_PHOTO = 0;
   private static final int REQUEST_GALLERY = 1;
 
@@ -82,7 +102,109 @@ public class MainActivity extends AppCompatActivity {
           }
         });
 
-    mPhotoView = findViewById(R.id.run_photo);
+    mTargetImageView = findViewById(R.id.run_photo);
+
+    mDistanceField = findViewById(R.id.distance_value);
+    mDurationField = findViewById(R.id.duration_value);
+    mCaloriesField = findViewById(R.id.calories_value);
+    mAvgPaceField = findViewById(R.id.avg_pace_value);
+    mAvgHeartRateField = findViewById(R.id.avg_heart_rate_value);
+
+    mDummyButton = findViewById(R.id.dummy_button);
+    mDummyButton.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+
+            Log.d(TAG, "DummyButton clicked");
+            InputStream stream = null;
+            try {
+              stream = MainActivity.this.getContentResolver().openInputStream(mTargetUri);
+            } catch (FileNotFoundException e) {
+              e.printStackTrace();
+            }
+            Bitmap bitmap = BitmapFactory.decodeStream(new BufferedInputStream(stream));
+
+            FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(bitmap);
+            FirebaseVisionTextDetector detector =
+                FirebaseVision.getInstance().getVisionTextDetector();
+
+            mResult =
+                detector
+                    .detectInImage(image)
+                    .addOnSuccessListener(
+                        new OnSuccessListener<FirebaseVisionText>() {
+                          @Override
+                          public void onSuccess(FirebaseVisionText firebaseVisionText) {
+                            // Task completed successfully
+                            Log.d(TAG, "Task completed successfully");
+
+                            RightSideElementsList elementsList =
+                                new RightSideElementsList(mTargetImageWidth);
+                            debugFirebaseVisionText(firebaseVisionText);
+                            for (FirebaseVisionText.Block block : firebaseVisionText.getBlocks()) {
+                              for (FirebaseVisionText.Line line : block.getLines()) {
+                                for (FirebaseVisionText.Element element : line.getElements()) {
+                                  elementsList.add(element);
+                                }
+                              }
+                            }
+
+                            RightSideElementsCalculator calculator =
+                                new RightSideElementsCalculator(elementsList);
+                            Log.d(
+                                TAG, "===================[calculation result]===================");
+                            Log.d(TAG, "mean x = " + String.valueOf(calculator.getMeanX()));
+                            Log.d(TAG, "order = " + String.valueOf(calculator.getOrder()));
+                            Log.d(TAG, "variance = " + String.valueOf(calculator.getVariance()));
+                            Log.d(
+                                TAG,
+                                "coefficient alpha = "
+                                    + String.valueOf(Math.round(calculator.getCoefficient() * 100))
+                                    + "%");
+
+                            elementsList.sortByY();
+
+                            Log.d(TAG, "===================[after sort by Y]===================");
+                            int i = 0;
+                            for (ElementWrapper e : elementsList.getElementList()) {
+                              Log.d(
+                                  TAG,
+                                  "Result#"
+                                      + i
+                                      + " : "
+                                      + e.getValue()
+                                      + " | (x,y) = ("
+                                      + e.getX()
+                                      + ","
+                                      + e.getY()
+                                      + ")");
+                              i++;
+                            }
+                            Log.d(TAG, "===================[get values]===================");
+                            Log.d(TAG, "miles : " + elementsList.getMilesValue());
+                            Log.d(TAG, "calories : " + elementsList.getCaloriesValue());
+                            Log.d(TAG, "duration : " + elementsList.getDurationValue());
+                            Log.d(TAG, "avg pace : " + elementsList.getAvgPaceValue());
+                            Log.d(TAG, "avg heart rate : " + elementsList.getAvgHeartRate());
+
+                            mDistanceField.setText(elementsList.getMilesValue());
+                            mCaloriesField.setText(elementsList.getCaloriesValue());
+                            mDurationField.setText(elementsList.getDurationValue());
+                            mAvgPaceField.setText(elementsList.getAvgPaceValue());
+                            mAvgHeartRateField.setText(elementsList.getAvgHeartRate());
+                          }
+                        })
+                    .addOnFailureListener(
+                        new OnFailureListener() {
+                          @Override
+                          public void onFailure(@NonNull Exception e) {
+                            // Task failed with an exception
+                            Log.d(TAG, "Task failed with an exception");
+                          }
+                        });
+          }
+        });
   }
 
   @Override
@@ -95,18 +217,19 @@ public class MainActivity extends AppCompatActivity {
       MainActivity.this.revokeUriPermission(uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
       updatePhotoView();
     } else if (requestCode == REQUEST_GALLERY) {
-      Uri uri = data.getData();
+      mTargetUri = data.getData();
       Log.d(TAG, "Schema : " + data.getScheme()); // content
       Log.d(TAG, "Type : " + data.getType()); // null
       Log.d(TAG, "Flag : " + data.getFlags()); // 1
       Log.d(
           TAG,
           "URI : "
-              + uri
+              + mTargetUri
                   .toString()); // content://com.google.android.apps.photos.contentprovider/0/1/mediakey%3A%2Flocal%253A9ff410cd-a6d7-4f90-8aaf-285b8ce54161/ORIGINAL/NONE/151343972
       Log.d(
           TAG,
-          "Authority : " + uri.getAuthority()); // com.google.android.apps.photos.contentprovider
+          "Authority : "
+              + mTargetUri.getAuthority()); // com.google.android.apps.photos.contentprovider
       //      Bitmap bitmap = null;
       //      try {
       //        bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
@@ -115,9 +238,14 @@ public class MainActivity extends AppCompatActivity {
       //      }
 
       try {
-        InputStream stream = this.getContentResolver().openInputStream(uri);
+        InputStream stream = this.getContentResolver().openInputStream(mTargetUri);
         Bitmap bitmap = BitmapFactory.decodeStream(new BufferedInputStream(stream));
-        mPhotoView.setImageBitmap(bitmap);
+        mTargetImageWidth = bitmap.getWidth();
+        Log.d(
+            TAG,
+            "bitmap image size width : " + bitmap.getWidth() + " height " + bitmap.getHeight());
+        mTargetImageView.setImageBitmap(bitmap);
+
       } catch (FileNotFoundException e) {
         e.printStackTrace();
       }
@@ -128,10 +256,71 @@ public class MainActivity extends AppCompatActivity {
   private void updatePhotoView() {
 
     if (mPhotoFile == null || !mPhotoFile.exists()) {
-      mPhotoView.setImageDrawable(null);
+      mTargetImageView.setImageDrawable(null);
     } else {
       Bitmap bitmap = PictureUtils.getScaledBitmap(mPhotoFile.getPath(), MainActivity.this);
-      mPhotoView.setImageBitmap(bitmap);
+      mTargetImageView.setImageBitmap(bitmap);
+    }
+  }
+
+  private void debugFirebaseVisionText(FirebaseVisionText firebaseVisionText) {
+    int i = 1;
+    int j = 1;
+    int k = 1;
+    for (FirebaseVisionText.Block block : firebaseVisionText.getBlocks()) {
+      Point[] blockCornerPoints = block.getCornerPoints();
+
+      Log.d(TAG, "Block#" + i + " [" + block.getText() + "]");
+      for (int l = 0; l < blockCornerPoints.length; l++) {
+        Log.d(
+            TAG,
+            "Block#"
+                + i
+                + " Point "
+                + l
+                + " (x,y) = ("
+                + blockCornerPoints[l].x
+                + ","
+                + blockCornerPoints[l].y
+                + ")");
+      }
+      i++;
+      for (FirebaseVisionText.Line line : block.getLines()) {
+        Log.d(TAG, "    Line#" + j + " [" + line.getText() + "]");
+        Point[] lienCornerPoints = line.getCornerPoints();
+        for (int l = 0; l < lienCornerPoints.length; l++) {
+          Log.d(
+              TAG,
+              "    Line#"
+                  + j
+                  + " Point "
+                  + l
+                  + " (x,y) = ("
+                  + lienCornerPoints[l].x
+                  + ","
+                  + lienCornerPoints[l].y
+                  + ")");
+        }
+        j++;
+        for (FirebaseVisionText.Element element : line.getElements()) {
+          Log.d(TAG, "        Element#" + k + " [" + element.getText() + "]");
+          Point[] elementCornerPoints = element.getCornerPoints();
+          for (int l = 0; l < elementCornerPoints.length; l++) {
+            Log.d(
+                TAG,
+                "        Element#"
+                    + k
+                    + " Point "
+                    + l
+                    + " (x,y) = ("
+                    + elementCornerPoints[l].x
+                    + ","
+                    + elementCornerPoints[l].y
+                    + ")");
+          }
+          k++;
+        }
+      }
     }
   }
 
