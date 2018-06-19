@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
-import android.graphics.Rect;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -14,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.example.shouhei.mlkitdemo.model.Run;
@@ -34,7 +34,6 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,9 +43,14 @@ public class MainActivity extends AppCompatActivity {
   private Button mPhotoButton;
   private ImageView mTargetImageView;
   private Button mDummyButton;
+  private EditText mDistanceField;
+  private EditText mCaloriesField;
+  private EditText mDurationField;
+  private EditText mAvgPaceField;
+  private EditText mAvgHeartRateField;
 
   private File mPhotoFile;
-  private Uri mtargetUri;
+  private Uri mTargetUri;
   private Task<FirebaseVisionText> mResult;
   private int mTargetImageWidth;
   private static final int REQUEST_PHOTO = 0;
@@ -100,6 +104,12 @@ public class MainActivity extends AppCompatActivity {
 
     mTargetImageView = findViewById(R.id.run_photo);
 
+    mDistanceField = findViewById(R.id.distance_value);
+    mDurationField = findViewById(R.id.duration_value);
+    mCaloriesField = findViewById(R.id.calories_value);
+    mAvgPaceField = findViewById(R.id.avg_pace_value);
+    mAvgHeartRateField = findViewById(R.id.avg_heart_rate_value);
+
     mDummyButton = findViewById(R.id.dummy_button);
     mDummyButton.setOnClickListener(
         new View.OnClickListener() {
@@ -109,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "DummyButton clicked");
             InputStream stream = null;
             try {
-              stream = MainActivity.this.getContentResolver().openInputStream(mtargetUri);
+              stream = MainActivity.this.getContentResolver().openInputStream(mTargetUri);
             } catch (FileNotFoundException e) {
               e.printStackTrace();
             }
@@ -152,9 +162,9 @@ public class MainActivity extends AppCompatActivity {
                                 "coefficient alpha = "
                                     + String.valueOf(Math.round(calculator.getCoefficient() * 100))
                                     + "%");
-                            //                            List<ElementWrapper> resultElements =
-                            // calculator.getResultElements();
+
                             elementsList.sortByY();
+
                             Log.d(TAG, "===================[after sort by Y]===================");
                             int i = 0;
                             for (ElementWrapper e : elementsList.getElementList()) {
@@ -177,6 +187,12 @@ public class MainActivity extends AppCompatActivity {
                             Log.d(TAG, "duration : " + elementsList.getDurationValue());
                             Log.d(TAG, "avg pace : " + elementsList.getAvgPaceValue());
                             Log.d(TAG, "avg heart rate : " + elementsList.getAvgHeartRate());
+
+                            mDistanceField.setText(elementsList.getMilesValue());
+                            mCaloriesField.setText(elementsList.getCaloriesValue());
+                            mDurationField.setText(elementsList.getDurationValue());
+                            mAvgPaceField.setText(elementsList.getAvgPaceValue());
+                            mAvgHeartRateField.setText(elementsList.getAvgHeartRate());
                           }
                         })
                     .addOnFailureListener(
@@ -184,7 +200,6 @@ public class MainActivity extends AppCompatActivity {
                           @Override
                           public void onFailure(@NonNull Exception e) {
                             // Task failed with an exception
-                            // ...
                             Log.d(TAG, "Task failed with an exception");
                           }
                         });
@@ -202,19 +217,19 @@ public class MainActivity extends AppCompatActivity {
       MainActivity.this.revokeUriPermission(uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
       updatePhotoView();
     } else if (requestCode == REQUEST_GALLERY) {
-      mtargetUri = data.getData();
+      mTargetUri = data.getData();
       Log.d(TAG, "Schema : " + data.getScheme()); // content
       Log.d(TAG, "Type : " + data.getType()); // null
       Log.d(TAG, "Flag : " + data.getFlags()); // 1
       Log.d(
           TAG,
           "URI : "
-              + mtargetUri
+              + mTargetUri
                   .toString()); // content://com.google.android.apps.photos.contentprovider/0/1/mediakey%3A%2Flocal%253A9ff410cd-a6d7-4f90-8aaf-285b8ce54161/ORIGINAL/NONE/151343972
       Log.d(
           TAG,
           "Authority : "
-              + mtargetUri.getAuthority()); // com.google.android.apps.photos.contentprovider
+              + mTargetUri.getAuthority()); // com.google.android.apps.photos.contentprovider
       //      Bitmap bitmap = null;
       //      try {
       //        bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
@@ -223,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
       //      }
 
       try {
-        InputStream stream = this.getContentResolver().openInputStream(mtargetUri);
+        InputStream stream = this.getContentResolver().openInputStream(mTargetUri);
         Bitmap bitmap = BitmapFactory.decodeStream(new BufferedInputStream(stream));
         mTargetImageWidth = bitmap.getWidth();
         Log.d(

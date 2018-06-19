@@ -127,8 +127,9 @@ public class RightSideElementsList {
         list.add(e);
       }
     }
-    String caloriesValue = list.get(EXPECTEDCALORIESINDEX).getValue();
+    String caloriesValue = "";
     if (list.size() == 2) {
+      caloriesValue = list.get(EXPECTEDCALORIESINDEX).getValue();
       if (list.get(EXPECTEDCALORIESINDEX).getY() > list.get(EXPECTEDAVGHEARTRATE).getY()) {
         caloriesValue = list.get(EXPECTEDAVGHEARTRATE).getValue();
       }
