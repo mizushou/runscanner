@@ -4,10 +4,10 @@ import com.google.firebase.ml.vision.text.FirebaseVisionText;
 
 public class ElementWrapper {
 
-  FirebaseVisionText.Element mElement;
-  int mX;
-  int mY;
-  String mValue;
+  private FirebaseVisionText.Element mElement;
+  private int mX;
+  private int mY;
+  private String mValue;
 
   public ElementWrapper(FirebaseVisionText.Element element) {
     mElement = element;

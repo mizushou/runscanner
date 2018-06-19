@@ -18,6 +18,7 @@ import android.widget.ImageView;
 
 import com.example.shouhei.mlkitdemo.model.Run;
 import com.example.shouhei.mlkitdemo.model.RunList;
+import com.example.shouhei.mlkitdemo.util.ElementWrapper;
 import com.example.shouhei.mlkitdemo.util.PictureUtils;
 import com.example.shouhei.mlkitdemo.util.RightSideElementsCalculator;
 import com.example.shouhei.mlkitdemo.util.RightSideElementsList;
@@ -33,6 +34,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -140,7 +142,41 @@ public class MainActivity extends AppCompatActivity {
 
                             RightSideElementsCalculator calculator =
                                 new RightSideElementsCalculator(elementsList);
-                            calculator.getResultElements();
+                            Log.d(
+                                TAG, "===================[calculation result]===================");
+                            Log.d(TAG, "mean x = " + String.valueOf(calculator.getMeanX()));
+                            Log.d(TAG, "order = " + String.valueOf(calculator.getOrder()));
+                            Log.d(TAG, "variance = " + String.valueOf(calculator.getVariance()));
+                            Log.d(
+                                TAG,
+                                "coefficient alpha = "
+                                    + String.valueOf(Math.round(calculator.getCoefficient() * 100))
+                                    + "%");
+                            //                            List<ElementWrapper> resultElements =
+                            // calculator.getResultElements();
+                            elementsList.sortByY();
+                            Log.d(TAG, "===================[after sort by Y]===================");
+                            int i = 0;
+                            for (ElementWrapper e : elementsList.getElementList()) {
+                              Log.d(
+                                  TAG,
+                                  "Result#"
+                                      + i
+                                      + " : "
+                                      + e.getValue()
+                                      + " | (x,y) = ("
+                                      + e.getX()
+                                      + ","
+                                      + e.getY()
+                                      + ")");
+                              i++;
+                            }
+                            Log.d(TAG, "===================[get values]===================");
+                            Log.d(TAG, "miles : " + elementsList.getMilesValue());
+                            Log.d(TAG, "calories : " + elementsList.getCaloriesValue());
+                            Log.d(TAG, "duration : " + elementsList.getDurationValue());
+                            Log.d(TAG, "avg pace : " + elementsList.getAvgPaceValue());
+                            Log.d(TAG, "avg heart rate : " + elementsList.getAvgHeartRate());
                           }
                         })
                     .addOnFailureListener(
@@ -195,33 +231,6 @@ public class MainActivity extends AppCompatActivity {
             "bitmap image size width : " + bitmap.getWidth() + " height " + bitmap.getHeight());
         mTargetImageView.setImageBitmap(bitmap);
 
-        //        FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(bitmap);
-        //        FirebaseVisionTextDetector detector =
-        // FirebaseVision.getInstance().getVisionTextDetector();
-        //
-        //        mResult =
-        //            detector
-        //                .detectInImage(image)
-        //                .addOnSuccessListener(
-        //                    new OnSuccessListener<FirebaseVisionText>() {
-        //                      @Override
-        //                      public void onSuccess(FirebaseVisionText firebaseVisionText) {
-        //                        // Task completed successfully
-        //                        // ...
-        //                        Log.d(TAG, "Task completed successfully");
-        //                        debugFirebaseVisionText(firebaseVisionText);
-        //                      }
-        //                    })
-        //                .addOnFailureListener(
-        //                    new OnFailureListener() {
-        //                      @Override
-        //                      public void onFailure(@NonNull Exception e) {
-        //                        // Task failed with an exception
-        //                        // ...
-        //                        Log.d(TAG, "Task failed with an exception");
-        //                      }
-        //                    });
-
       } catch (FileNotFoundException e) {
         e.printStackTrace();
       }
@@ -244,9 +253,7 @@ public class MainActivity extends AppCompatActivity {
     int j = 1;
     int k = 1;
     for (FirebaseVisionText.Block block : firebaseVisionText.getBlocks()) {
-      Rect boundingBox = block.getBoundingBox();
       Point[] blockCornerPoints = block.getCornerPoints();
-      String text = block.getText();
 
       Log.d(TAG, "Block#" + i + " [" + block.getText() + "]");
       for (int l = 0; l < blockCornerPoints.length; l++) {
@@ -256,10 +263,11 @@ public class MainActivity extends AppCompatActivity {
                 + i
                 + " Point "
                 + l
-                + " x : "
+                + " (x,y) = ("
                 + blockCornerPoints[l].x
-                + " y : "
-                + blockCornerPoints[l].y);
+                + ","
+                + blockCornerPoints[l].y
+                + ")");
       }
       i++;
       for (FirebaseVisionText.Line line : block.getLines()) {
@@ -272,10 +280,11 @@ public class MainActivity extends AppCompatActivity {
                   + j
                   + " Point "
                   + l
-                  + " x : "
+                  + " (x,y) = ("
                   + lienCornerPoints[l].x
-                  + " y : "
-                  + lienCornerPoints[l].y);
+                  + ","
+                  + lienCornerPoints[l].y
+                  + ")");
         }
         j++;
         for (FirebaseVisionText.Element element : line.getElements()) {
@@ -288,10 +297,11 @@ public class MainActivity extends AppCompatActivity {
                     + k
                     + " Point "
                     + l
-                    + " x : "
+                    + " (x,y) = ("
                     + elementCornerPoints[l].x
-                    + " y : "
-                    + elementCornerPoints[l].y);
+                    + ","
+                    + elementCornerPoints[l].y
+                    + ")");
           }
           k++;
         }

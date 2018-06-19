@@ -11,37 +11,22 @@ public class RightSideElementsCalculator {
 
   private static final String TAG = "RSElementsCalculator";
   //  private static final float PARAMETER = 0.1f;
-  RightSideElementsList mElementsList;
+  private RightSideElementsList mElementsList;
+  private int mMeanX;
+  private int mOrder;
+  private int mVariance;
+  private float mCoefficient;
 
   public RightSideElementsCalculator(RightSideElementsList elementsList) {
     mElementsList = elementsList;
-  }
-
-  public List<ElementWrapper> getResultElements() {
-
-    List<ElementWrapper> elementList = mElementsList.getElementList();
-    Collections.sort(elementList, new SortElementWrapperByYComparator());
-
     try {
-      float coefficient = calcCoefficient();
+      mMeanX = calcMeanX();
+      mOrder = calcOrder();
+      mVariance = calcVariance();
+      mCoefficient = calcCoefficient();
     } catch (NoRightSideElementsException e) {
       Log.e(TAG, e.toString());
     }
-
-    //    if (coefficient >= PARAMETER) {
-    //      // include 'Totals'
-    //      elementList.remove(0);
-    //    }
-
-    int i = 0;
-    for (ElementWrapper e : elementList) {
-      Log.d(
-          TAG,
-          "Result#" + i + " : " + e.getValue() + " | (x,y) = (" + e.getX() + "," + e.getY() + ")");
-      i++;
-    }
-
-    return elementList;
   }
 
   private int calcMeanX() throws NoRightSideElementsException {
@@ -57,7 +42,6 @@ public class RightSideElementsCalculator {
       sum += e.getX();
     }
     int meanX = sum / elementList.size();
-    Log.d(TAG, "meanX : " + String.valueOf(meanX));
     return meanX;
   }
 
@@ -68,17 +52,32 @@ public class RightSideElementsCalculator {
     for (ElementWrapper e : elementList) {
       sum += Math.abs(e.getX() - meanX);
     }
-    int variance = sum / elementList.size();
-    Log.d(TAG, "variance : " + String.valueOf(variance));
-    return variance;
+    return sum / elementList.size();
+  }
+
+  private int calcOrder() throws NoRightSideElementsException {
+    return Math.abs(calcMeanX() - mElementsList.getCenterX());
   }
 
   private float calcCoefficient() throws NoRightSideElementsException {
-    int order = Math.abs(calcMeanX() - mElementsList.getCenterX());
-    Log.d(TAG, "order : " + String.valueOf(order));
-
+    int order = calcOrder();
     float coefficient = (float) calcVariance() / order;
-    Log.d(TAG, "coefficient : " + String.valueOf(Math.round(coefficient * 100)) + "%");
     return coefficient;
+  }
+
+  public int getMeanX() {
+    return mMeanX;
+  }
+
+  public int getOrder() {
+    return mOrder;
+  }
+
+  public int getVariance() {
+    return mVariance;
+  }
+
+  public float getCoefficient() {
+    return mCoefficient;
   }
 }
