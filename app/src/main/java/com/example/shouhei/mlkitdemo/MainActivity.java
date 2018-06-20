@@ -16,8 +16,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.example.shouhei.mlkitdemo.model.Run;
-import com.example.shouhei.mlkitdemo.model.RunList;
+import com.example.shouhei.mlkitdemo.data.Run;
+import com.example.shouhei.mlkitdemo.runs.Runs;
 import com.example.shouhei.mlkitdemo.util.ElementWrapper;
 import com.example.shouhei.mlkitdemo.util.PictureUtils;
 import com.example.shouhei.mlkitdemo.util.RightSideElementsCalculator;
@@ -89,8 +89,8 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "PhotoButton clicked");
 
             Run run = new Run();
-            RunList.get(MainActivity.this).addRun(run);
-            mPhotoFile = RunList.get(MainActivity.this).getPhotoFile(run);
+            Runs.get(MainActivity.this).addRun(run);
+            mPhotoFile = Runs.get(MainActivity.this).getPhotoFile(run);
             Uri uri =
                 FileProvider.getUriForFile(
                     MainActivity.this, "com.example.shouhei.mlkitdemo.fileprovider", mPhotoFile);
