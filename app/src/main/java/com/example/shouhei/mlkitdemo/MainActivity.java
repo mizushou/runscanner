@@ -7,6 +7,7 @@ import android.graphics.Point;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
   private EditText mDurationField;
   private EditText mAvgPaceField;
   private EditText mAvgHeartRateField;
+  private FloatingActionButton mDoneFab;
 
   private File mPhotoFile;
   private Uri mTargetUri;
@@ -203,6 +205,15 @@ public class MainActivity extends AppCompatActivity {
                             Log.d(TAG, "Task failed with an exception");
                           }
                         });
+          }
+        });
+
+    mDoneFab = findViewById(R.id.done_fab);
+    mDoneFab.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+            Log.d(TAG, "Done FAB is clicked");
           }
         });
   }
