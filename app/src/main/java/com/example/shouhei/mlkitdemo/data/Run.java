@@ -1,4 +1,4 @@
-package com.example.shouhei.mlkitdemo.model;
+package com.example.shouhei.mlkitdemo.data;
 
 import java.util.Date;
 import java.util.UUID;
@@ -6,8 +6,8 @@ import java.util.UUID;
 public class Run {
 
   private UUID mId;
-  private float mDistance;
-  private int mCalory;
+  private String mDistance;
+  private String mCalory;
   private String mDuration;
   private String mAvePace;
   private String mAveHeartRate;
@@ -30,19 +30,19 @@ public class Run {
     mId = id;
   }
 
-  public float getDistance() {
+  public String getDistance() {
     return mDistance;
   }
 
-  public void setDistance(float distance) {
+  public void setDistance(String distance) {
     mDistance = distance;
   }
 
-  public int getCalory() {
+  public String getCalory() {
     return mCalory;
   }
 
-  public void setCalory(int calory) {
+  public void setCalory(String calory) {
     mCalory = calory;
   }
 

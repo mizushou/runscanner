@@ -7,6 +7,7 @@ import android.graphics.Point;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,8 +17,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.example.shouhei.mlkitdemo.model.Run;
-import com.example.shouhei.mlkitdemo.model.RunList;
+import com.example.shouhei.mlkitdemo.data.Run;
+import com.example.shouhei.mlkitdemo.runs.Runs;
 import com.example.shouhei.mlkitdemo.util.ElementWrapper;
 import com.example.shouhei.mlkitdemo.util.PictureUtils;
 import com.example.shouhei.mlkitdemo.util.RightSideElementsCalculator;
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
   private EditText mDurationField;
   private EditText mAvgPaceField;
   private EditText mAvgHeartRateField;
+  private FloatingActionButton mDoneFab;
 
   private File mPhotoFile;
   private Uri mTargetUri;
@@ -89,8 +91,8 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "PhotoButton clicked");
 
             Run run = new Run();
-            RunList.get(MainActivity.this).addRun(run);
-            mPhotoFile = RunList.get(MainActivity.this).getPhotoFile(run);
+            Runs.get(MainActivity.this).addRun(run);
+            mPhotoFile = Runs.get(MainActivity.this).getPhotoFile(run);
             Uri uri =
                 FileProvider.getUriForFile(
                     MainActivity.this, "com.example.shouhei.mlkitdemo.fileprovider", mPhotoFile);
@@ -203,6 +205,15 @@ public class MainActivity extends AppCompatActivity {
                             Log.d(TAG, "Task failed with an exception");
                           }
                         });
+          }
+        });
+
+    mDoneFab = findViewById(R.id.done_fab);
+    mDoneFab.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+            Log.d(TAG, "Done FAB is clicked");
           }
         });
   }
