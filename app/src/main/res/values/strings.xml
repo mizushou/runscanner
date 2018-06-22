@@ -8,4 +8,7 @@
     <string name="duration_value_label">Duration</string>
     <string name="avg_pace_value_label">Avg pace</string>
     <string name="avg_heart_rate_value_label">Avg Heart Rate</string>
+    <string name="result_run_distance">Distance : %1$s miles</string>
+    <string name="result_run_duration">Duration  : %1$s</string>
+    <string name="no_run_message">You have no Runs!</string>
 </resources>

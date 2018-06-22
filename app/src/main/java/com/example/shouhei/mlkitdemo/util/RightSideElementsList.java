@@ -63,7 +63,7 @@ public class RightSideElementsList {
     Collections.sort(mElementList, new SortElementWrapperByYComparator());
   }
 
-  public String getMilesValue() {
+  public String getDistanceValue() {
     for (ElementWrapper e : mElementList) {
       if (isValidMilesValue(e.getValue())) {
         return e.getValue();
