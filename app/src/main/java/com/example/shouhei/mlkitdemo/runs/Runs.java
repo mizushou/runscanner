@@ -23,27 +23,28 @@ public class Runs {
     return sRuns;
   }
 
-  public void addRun(Run r) {
-    mRunList.add(r);
-  }
-
   private Runs(Context context) {
     mContext = context.getApplicationContext();
     mRunList = new ArrayList<>();
 
     // TODO remove later
-    for (int i = 0; i < 100; i++) {
-      Run run = new Run();
-      run.setDistance("1.55");
-      run.setCalory("200");
-      run.setDuration("30:00");
-      run.setAvePace("13:00");
-      run.setAveHeartRate("80");
-      mRunList.add(run);
-    }
+    //    for (int i = 0; i < 100; i++) {
+    //      Run run = new Run();
+    //      run.setDistance("1.55");
+    //      run.setCalory("200");
+    //      run.setDuration("30:00");
+    //      run.setAvePace("13:00");
+    //      run.setAveHeartRate("80");
+    //      addRun(run);
+    //    }
+  }
+
+  public void addRun(Run run) {
+    mRunList.add(run);
   }
 
   public List<Run> getRunList() {
+
     return mRunList;
   }
 

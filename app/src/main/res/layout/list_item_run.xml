@@ -12,7 +12,7 @@
         android:text="Run distance" />
 
     <TextView
-        android:id="@+id/run_date"
+        android:id="@+id/run_duration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Run date" />

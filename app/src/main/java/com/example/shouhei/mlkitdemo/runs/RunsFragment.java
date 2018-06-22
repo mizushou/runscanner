@@ -39,6 +39,7 @@ public class RunsFragment extends Fragment {
     View view = inflater.inflate(R.layout.runs_frag, container, false);
     mRunsRecyclerView = view.findViewById(R.id.run_recycler_view);
     mRunsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+    Log.d(TAG, "onCreateView() is called");
 
     // set up add fab
     mAddFab = getActivity().findViewById(R.id.add_fab);
@@ -55,6 +56,13 @@ public class RunsFragment extends Fragment {
     updateUI();
 
     return view;
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    updateUI();
+    Log.d(TAG, "onResume() is called");
   }
 
   private void updateUI() {
@@ -99,7 +107,7 @@ public class RunsFragment extends Fragment {
   private class RunHolder extends RecyclerView.ViewHolder {
 
     private TextView mDistanceTextView;
-    private TextView mDateTextView;
+    private TextView mDurationTextView;
     private Run mRun;
 
     public RunHolder(LayoutInflater inflater, ViewGroup parent) {
@@ -114,13 +122,13 @@ public class RunsFragment extends Fragment {
           });
 
       mDistanceTextView = itemView.findViewById(R.id.run_distance);
-      mDateTextView = itemView.findViewById(R.id.run_date);
+      mDurationTextView = itemView.findViewById(R.id.run_duration);
     }
 
     public void bind(Run run) {
       mRun = run;
-      mDistanceTextView.setText(mRun.getDistance());
-      mDateTextView.setText(mRun.getDate().toString());
+      mDistanceTextView.setText(getString(R.string.result_run_distance, mRun.getDistance()));
+      mDurationTextView.setText(getString(R.string.result_run_duration, mRun.getDuration()));
     }
   }
   // ==============================================================

@@ -11,6 +11,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -25,7 +27,6 @@ import com.example.shouhei.mlkitdemo.util.RightSideElementsCalculator;
 import com.example.shouhei.mlkitdemo.util.RightSideElementsList;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.text.FirebaseVisionText;
@@ -35,6 +36,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -50,11 +52,14 @@ public class MainActivity extends AppCompatActivity {
   private EditText mAvgPaceField;
   private EditText mAvgHeartRateField;
   private FloatingActionButton mDoneFab;
-
   private File mPhotoFile;
   private Uri mTargetUri;
-  private Task<FirebaseVisionText> mResult;
+  //  private Task<FirebaseVisionText> mResult;
+  private Run mResultRun;
+
   private int mTargetImageWidth;
+  private List<Run> mRunList;
+
   private static final int REQUEST_PHOTO = 0;
   private static final int REQUEST_GALLERY = 1;
 
@@ -63,6 +68,9 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     Log.d(TAG, "onCreate(Bundle) called");
     setContentView(R.layout.activity_main);
+
+    mResultRun = new Run();
+    mRunList = Runs.get(this).getRunList();
 
     mGalleryButton = findViewById(R.id.gallery_button);
     mGalleryButton.setOnClickListener(
@@ -107,10 +115,79 @@ public class MainActivity extends AppCompatActivity {
     mTargetImageView = findViewById(R.id.run_photo);
 
     mDistanceField = findViewById(R.id.distance_value);
+    mDistanceField.addTextChangedListener(
+        new TextWatcher() {
+          @Override
+          public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+          @Override
+          public void onTextChanged(CharSequence s, int start, int before, int count) {
+            mResultRun.setDistance(s.toString());
+          }
+
+          @Override
+          public void afterTextChanged(Editable s) {}
+        });
+
     mDurationField = findViewById(R.id.duration_value);
+    mDurationField.addTextChangedListener(
+        new TextWatcher() {
+          @Override
+          public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+          @Override
+          public void onTextChanged(CharSequence s, int start, int before, int count) {
+            mResultRun.setDuration(s.toString());
+          }
+
+          @Override
+          public void afterTextChanged(Editable s) {}
+        });
+
     mCaloriesField = findViewById(R.id.calories_value);
+    mCaloriesField.addTextChangedListener(
+        new TextWatcher() {
+          @Override
+          public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+          @Override
+          public void onTextChanged(CharSequence s, int start, int before, int count) {
+            mResultRun.setCalory(s.toString());
+          }
+
+          @Override
+          public void afterTextChanged(Editable s) {}
+        });
+
     mAvgPaceField = findViewById(R.id.avg_pace_value);
+    mAvgPaceField.addTextChangedListener(
+        new TextWatcher() {
+          @Override
+          public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+          @Override
+          public void onTextChanged(CharSequence s, int start, int before, int count) {
+            mResultRun.setAvePace(s.toString());
+          }
+
+          @Override
+          public void afterTextChanged(Editable s) {}
+        });
+
     mAvgHeartRateField = findViewById(R.id.avg_heart_rate_value);
+    mAvgHeartRateField.addTextChangedListener(
+        new TextWatcher() {
+          @Override
+          public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+          @Override
+          public void onTextChanged(CharSequence s, int start, int before, int count) {
+            mResultRun.setAveHeartRate(s.toString());
+          }
+
+          @Override
+          public void afterTextChanged(Editable s) {}
+        });
 
     mDummyButton = findViewById(R.id.dummy_button);
     mDummyButton.setOnClickListener(
@@ -131,80 +208,78 @@ public class MainActivity extends AppCompatActivity {
             FirebaseVisionTextDetector detector =
                 FirebaseVision.getInstance().getVisionTextDetector();
 
-            mResult =
-                detector
-                    .detectInImage(image)
-                    .addOnSuccessListener(
-                        new OnSuccessListener<FirebaseVisionText>() {
-                          @Override
-                          public void onSuccess(FirebaseVisionText firebaseVisionText) {
-                            // Task completed successfully
-                            Log.d(TAG, "Task completed successfully");
+            detector
+                .detectInImage(image)
+                .addOnSuccessListener(
+                    new OnSuccessListener<FirebaseVisionText>() {
+                      @Override
+                      public void onSuccess(FirebaseVisionText firebaseVisionText) {
+                        // Task completed successfully
+                        Log.d(TAG, "Task completed successfully");
 
-                            RightSideElementsList elementsList =
-                                new RightSideElementsList(mTargetImageWidth);
-                            debugFirebaseVisionText(firebaseVisionText);
-                            for (FirebaseVisionText.Block block : firebaseVisionText.getBlocks()) {
-                              for (FirebaseVisionText.Line line : block.getLines()) {
-                                for (FirebaseVisionText.Element element : line.getElements()) {
-                                  elementsList.add(element);
-                                }
-                              }
+                        RightSideElementsList elementsList =
+                            new RightSideElementsList(mTargetImageWidth);
+                        debugFirebaseVisionText(firebaseVisionText);
+                        for (FirebaseVisionText.Block block : firebaseVisionText.getBlocks()) {
+                          for (FirebaseVisionText.Line line : block.getLines()) {
+                            for (FirebaseVisionText.Element element : line.getElements()) {
+                              elementsList.add(element);
                             }
-
-                            RightSideElementsCalculator calculator =
-                                new RightSideElementsCalculator(elementsList);
-                            Log.d(
-                                TAG, "===================[calculation result]===================");
-                            Log.d(TAG, "mean x = " + String.valueOf(calculator.getMeanX()));
-                            Log.d(TAG, "order = " + String.valueOf(calculator.getOrder()));
-                            Log.d(TAG, "variance = " + String.valueOf(calculator.getVariance()));
-                            Log.d(
-                                TAG,
-                                "coefficient alpha = "
-                                    + String.valueOf(Math.round(calculator.getCoefficient() * 100))
-                                    + "%");
-
-                            elementsList.sortByY();
-
-                            Log.d(TAG, "===================[after sort by Y]===================");
-                            int i = 0;
-                            for (ElementWrapper e : elementsList.getElementList()) {
-                              Log.d(
-                                  TAG,
-                                  "Result#"
-                                      + i
-                                      + " : "
-                                      + e.getValue()
-                                      + " | (x,y) = ("
-                                      + e.getX()
-                                      + ","
-                                      + e.getY()
-                                      + ")");
-                              i++;
-                            }
-                            Log.d(TAG, "===================[get values]===================");
-                            Log.d(TAG, "miles : " + elementsList.getMilesValue());
-                            Log.d(TAG, "calories : " + elementsList.getCaloriesValue());
-                            Log.d(TAG, "duration : " + elementsList.getDurationValue());
-                            Log.d(TAG, "avg pace : " + elementsList.getAvgPaceValue());
-                            Log.d(TAG, "avg heart rate : " + elementsList.getAvgHeartRate());
-
-                            mDistanceField.setText(elementsList.getMilesValue());
-                            mCaloriesField.setText(elementsList.getCaloriesValue());
-                            mDurationField.setText(elementsList.getDurationValue());
-                            mAvgPaceField.setText(elementsList.getAvgPaceValue());
-                            mAvgHeartRateField.setText(elementsList.getAvgHeartRate());
                           }
-                        })
-                    .addOnFailureListener(
-                        new OnFailureListener() {
-                          @Override
-                          public void onFailure(@NonNull Exception e) {
-                            // Task failed with an exception
-                            Log.d(TAG, "Task failed with an exception");
-                          }
-                        });
+                        }
+
+                        RightSideElementsCalculator calculator =
+                            new RightSideElementsCalculator(elementsList);
+                        Log.d(TAG, "===================[calculation result]===================");
+                        Log.d(TAG, "mean x = " + String.valueOf(calculator.getMeanX()));
+                        Log.d(TAG, "order = " + String.valueOf(calculator.getOrder()));
+                        Log.d(TAG, "variance = " + String.valueOf(calculator.getVariance()));
+                        Log.d(
+                            TAG,
+                            "coefficient alpha = "
+                                + String.valueOf(Math.round(calculator.getCoefficient() * 100))
+                                + "%");
+
+                        elementsList.sortByY();
+
+                        Log.d(TAG, "===================[after sort by Y]===================");
+                        int i = 0;
+                        for (ElementWrapper e : elementsList.getElementList()) {
+                          Log.d(
+                              TAG,
+                              "Result#"
+                                  + i
+                                  + " : "
+                                  + e.getValue()
+                                  + " | (x,y) = ("
+                                  + e.getX()
+                                  + ","
+                                  + e.getY()
+                                  + ")");
+                          i++;
+                        }
+                        Log.d(TAG, "===================[get values]===================");
+                        Log.d(TAG, "miles : " + elementsList.getDistanceValue());
+                        Log.d(TAG, "calories : " + elementsList.getCaloriesValue());
+                        Log.d(TAG, "duration : " + elementsList.getDurationValue());
+                        Log.d(TAG, "avg pace : " + elementsList.getAvgPaceValue());
+                        Log.d(TAG, "avg heart rate : " + elementsList.getAvgHeartRate());
+
+                        mDistanceField.setText(elementsList.getDistanceValue());
+                        mCaloriesField.setText(elementsList.getCaloriesValue());
+                        mDurationField.setText(elementsList.getDurationValue());
+                        mAvgPaceField.setText(elementsList.getAvgPaceValue());
+                        mAvgHeartRateField.setText(elementsList.getAvgHeartRate());
+                      }
+                    })
+                .addOnFailureListener(
+                    new OnFailureListener() {
+                      @Override
+                      public void onFailure(@NonNull Exception e) {
+                        // Task failed with an exception
+                        Log.d(TAG, "Task failed with an exception");
+                      }
+                    });
           }
         });
 
@@ -214,6 +289,8 @@ public class MainActivity extends AppCompatActivity {
           @Override
           public void onClick(View v) {
             Log.d(TAG, "Done FAB is clicked");
+            mRunList.add(mResultRun);
+            finish();
           }
         });
   }
