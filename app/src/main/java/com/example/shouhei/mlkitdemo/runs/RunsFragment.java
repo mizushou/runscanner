@@ -16,7 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.shouhei.mlkitdemo.MainActivity;
+import com.example.shouhei.mlkitdemo.runresult.RunResultActivity;
 import com.example.shouhei.mlkitdemo.R;
 import com.example.shouhei.mlkitdemo.data.Run;
 
@@ -54,7 +54,7 @@ public class RunsFragment extends Fragment {
           @Override
           public void onClick(View v) {
             Log.d(TAG, "Add FAB is clicked");
-            Intent intent = new Intent(getActivity(), MainActivity.class);
+            Intent intent = new Intent(getActivity(), RunResultActivity.class);
             startActivity(intent);
           }
         });

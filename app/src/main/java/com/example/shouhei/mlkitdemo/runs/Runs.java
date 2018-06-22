@@ -27,16 +27,16 @@ public class Runs {
     mContext = context.getApplicationContext();
     mRunList = new ArrayList<>();
 
-    // TODO remove later
-    //    for (int i = 0; i < 100; i++) {
-    //      Run run = new Run();
-    //      run.setDistance("1.55");
-    //      run.setCalory("200");
-    //      run.setDuration("30:00");
-    //      run.setAvePace("13:00");
-    //      run.setAveHeartRate("80");
-    //      addRun(run);
-    //    }
+    // TODO remove later.
+    //        for (int i = 0; i < 20; i++) {
+    //          Run run = new Run();
+    //          run.setDistance("9.99");
+    //          run.setCalory("999");
+    //          run.setDuration("99:99");
+    //          run.setAvePace("99:99");
+    //          run.setAveHeartRate("99");
+    //          addRun(run);
+    //        }
   }
 
   public void addRun(Run run) {

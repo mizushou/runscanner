@@ -1,4 +1,4 @@
-package com.example.shouhei.mlkitdemo;
+package com.example.shouhei.mlkitdemo.runresult;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.example.shouhei.mlkitdemo.R;
 import com.example.shouhei.mlkitdemo.data.Run;
 import com.example.shouhei.mlkitdemo.runs.Runs;
 import com.example.shouhei.mlkitdemo.util.ElementWrapper;
@@ -38,9 +39,9 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class RunResultActivity extends AppCompatActivity {
 
-  private static final String TAG = "MainActivity";
+  private static final String TAG = "RunResultActivity";
 
   private Button mGalleryButton;
   private Button mPhotoButton;
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     Log.d(TAG, "onCreate(Bundle) called");
-    setContentView(R.layout.activity_main);
+    setContentView(R.layout.runresult_act);
 
     mResultRun = new Run();
     mRunList = Runs.get(this).getRunList();
@@ -99,11 +100,13 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "PhotoButton clicked");
 
             Run run = new Run();
-            Runs.get(MainActivity.this).addRun(run);
-            mPhotoFile = Runs.get(MainActivity.this).getPhotoFile(run);
+
+            // TODO change where run instance is added into runs. add it after scan.
+            //            Runs.get(RunResultActivity.this).addRun(run);
+            mPhotoFile = Runs.get(RunResultActivity.this).getPhotoFile(run);
             Uri uri =
                 FileProvider.getUriForFile(
-                    MainActivity.this, "com.example.shouhei.mlkitdemo.fileprovider", mPhotoFile);
+                    RunResultActivity.this, "com.example.shouhei.mlkitdemo.fileprovider", mPhotoFile);
 
             captureImage.putExtra(MediaStore.EXTRA_OUTPUT, uri);
             // TODO change to way to grant permission that is compatible to Android5.0-?
@@ -198,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "DummyButton clicked");
             InputStream stream = null;
             try {
-              stream = MainActivity.this.getContentResolver().openInputStream(mTargetUri);
+              stream = RunResultActivity.this.getContentResolver().openInputStream(mTargetUri);
             } catch (FileNotFoundException e) {
               e.printStackTrace();
             }
@@ -301,8 +304,8 @@ public class MainActivity extends AppCompatActivity {
 
       Uri uri =
           FileProvider.getUriForFile(
-              MainActivity.this, "com.example.shouhei.mlkitdemo.fileprovider", mPhotoFile);
-      MainActivity.this.revokeUriPermission(uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+              RunResultActivity.this, "com.example.shouhei.mlkitdemo.fileprovider", mPhotoFile);
+      RunResultActivity.this.revokeUriPermission(uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
       updatePhotoView();
     } else if (requestCode == REQUEST_GALLERY) {
       mTargetUri = data.getData();
@@ -346,7 +349,7 @@ public class MainActivity extends AppCompatActivity {
     if (mPhotoFile == null || !mPhotoFile.exists()) {
       mTargetImageView.setImageDrawable(null);
     } else {
-      Bitmap bitmap = PictureUtils.getScaledBitmap(mPhotoFile.getPath(), MainActivity.this);
+      Bitmap bitmap = PictureUtils.getScaledBitmap(mPhotoFile.getPath(), RunResultActivity.this);
       mTargetImageView.setImageBitmap(bitmap);
     }
   }
