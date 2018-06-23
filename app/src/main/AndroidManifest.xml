@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.shouhei.mlkitdemo">
+    package="com.example.shouhei.runscanner">
 
     <application
         android:allowBackup="true"
@@ -9,14 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".runresult.RunResultActivity">
+        <activity android:name="com.example.shouhei.runscanner.runresult.RunResultActivity">
             <!--<intent-filter>-->
             <!--<action android:name="android.intent.action.MAIN" />-->
 
             <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         </activity>
-        <activity android:name=".runs.RunsActivity">
+        <activity android:name="com.example.shouhei.runscanner.runs.RunsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,7 +26,7 @@
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.example.shouhei.mlkitdemo.fileprovider"
+            android:authorities="com.example.shouhei.runscanner.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

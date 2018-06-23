@@ -1,4 +1,4 @@
-package com.example.shouhei.mlkitdemo.exception;
+package com.example.shouhei.runscanner.exception;
 
 public class NoRightSideElementsException extends Exception {
 

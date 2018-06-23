@@ -1,4 +1,4 @@
-package com.example.shouhei.mlkitdemo.util;
+package com.example.shouhei.runscanner.util;
 
 import java.util.Comparator;
 

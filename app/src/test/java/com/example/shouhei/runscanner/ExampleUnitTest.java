@@ -1,4 +1,4 @@
-package com.example.shouhei.mlkitdemo;
+package com.example.shouhei.runscanner;
 
 import org.junit.Test;
 

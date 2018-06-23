@@ -1,7 +1,6 @@
-package com.example.shouhei.mlkitdemo.util;
+package com.example.shouhei.runscanner.util;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;

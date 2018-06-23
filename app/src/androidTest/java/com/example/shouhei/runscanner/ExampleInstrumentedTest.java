@@ -1,4 +1,4 @@
-package com.example.shouhei.mlkitdemo;
+package com.example.shouhei.runscanner;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.shouhei.mlkitdemo", appContext.getPackageName());
+        assertEquals("com.example.shouhei.runscanner", appContext.getPackageName());
     }
 }

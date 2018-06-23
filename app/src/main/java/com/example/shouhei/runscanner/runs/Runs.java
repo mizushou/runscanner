@@ -1,8 +1,8 @@
-package com.example.shouhei.mlkitdemo.runs;
+package com.example.shouhei.runscanner.runs;
 
 import android.content.Context;
 
-import com.example.shouhei.mlkitdemo.data.Run;
+import com.example.shouhei.runscanner.data.Run;
 
 import java.io.File;
 import java.util.ArrayList;

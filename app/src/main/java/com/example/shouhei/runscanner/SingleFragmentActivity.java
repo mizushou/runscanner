@@ -1,4 +1,4 @@
-package com.example.shouhei.mlkitdemo;
+package com.example.shouhei.runscanner;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

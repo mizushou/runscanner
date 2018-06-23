@@ -1,10 +1,9 @@
-package com.example.shouhei.mlkitdemo.util;
+package com.example.shouhei.runscanner.util;
 
 import android.util.Log;
 
-import com.example.shouhei.mlkitdemo.exception.NoRightSideElementsException;
+import com.example.shouhei.runscanner.exception.NoRightSideElementsException;
 
-import java.util.Collections;
 import java.util.List;
 
 public class RightSideElementsCalculator {

@@ -1,4 +1,4 @@
-package com.example.shouhei.mlkitdemo.data;
+package com.example.shouhei.runscanner.data;
 
 import java.util.Date;
 import java.util.UUID;

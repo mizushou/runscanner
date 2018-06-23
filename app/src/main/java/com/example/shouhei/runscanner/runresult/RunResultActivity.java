@@ -1,4 +1,4 @@
-package com.example.shouhei.mlkitdemo.runresult;
+package com.example.shouhei.runscanner.runresult;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -19,13 +19,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.example.shouhei.mlkitdemo.R;
-import com.example.shouhei.mlkitdemo.data.Run;
-import com.example.shouhei.mlkitdemo.runs.Runs;
-import com.example.shouhei.mlkitdemo.util.ElementWrapper;
-import com.example.shouhei.mlkitdemo.util.PictureUtils;
-import com.example.shouhei.mlkitdemo.util.RightSideElementsCalculator;
-import com.example.shouhei.mlkitdemo.util.RightSideElementsList;
+import com.example.shouhei.runscanner.R;
+import com.example.shouhei.runscanner.data.Run;
+import com.example.shouhei.runscanner.runs.Runs;
+import com.example.shouhei.runscanner.util.ElementWrapper;
+import com.example.shouhei.runscanner.util.PictureUtils;
+import com.example.shouhei.runscanner.util.RightSideElementsCalculator;
+import com.example.shouhei.runscanner.util.RightSideElementsList;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.ml.vision.FirebaseVision;
@@ -106,7 +106,7 @@ public class RunResultActivity extends AppCompatActivity {
             mPhotoFile = Runs.get(RunResultActivity.this).getPhotoFile(run);
             Uri uri =
                 FileProvider.getUriForFile(
-                    RunResultActivity.this, "com.example.shouhei.mlkitdemo.fileprovider", mPhotoFile);
+                    RunResultActivity.this, "com.example.shouhei.runscanner.fileprovider", mPhotoFile);
 
             captureImage.putExtra(MediaStore.EXTRA_OUTPUT, uri);
             // TODO change to way to grant permission that is compatible to Android5.0-?
@@ -304,7 +304,7 @@ public class RunResultActivity extends AppCompatActivity {
 
       Uri uri =
           FileProvider.getUriForFile(
-              RunResultActivity.this, "com.example.shouhei.mlkitdemo.fileprovider", mPhotoFile);
+              RunResultActivity.this, "com.example.shouhei.runscanner.fileprovider", mPhotoFile);
       RunResultActivity.this.revokeUriPermission(uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
       updatePhotoView();
     } else if (requestCode == REQUEST_GALLERY) {

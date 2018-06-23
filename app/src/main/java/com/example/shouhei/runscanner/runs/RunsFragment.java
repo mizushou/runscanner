@@ -1,4 +1,4 @@
-package com.example.shouhei.mlkitdemo.runs;
+package com.example.shouhei.runscanner.runs;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,9 +16,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.shouhei.mlkitdemo.runresult.RunResultActivity;
-import com.example.shouhei.mlkitdemo.R;
-import com.example.shouhei.mlkitdemo.data.Run;
+import com.example.shouhei.runscanner.runresult.RunResultActivity;
+import com.example.shouhei.runscanner.R;
+import com.example.shouhei.runscanner.data.Run;
 
 import java.util.List;
 
