@@ -48,7 +48,7 @@ public class RunsFragment extends Fragment {
 
     // set up add fab
     // TODO move fab from single_frag_container_act.xml to runs_frag.xml
-    mAddFab = getActivity().findViewById(R.id.add_fab);
+    mAddFab = root.findViewById(R.id.add_fab);
     mAddFab.setOnClickListener(
         new View.OnClickListener() {
           @Override
