@@ -9,27 +9,35 @@ import java.util.List;
 public class RightSideElementsCalculator {
 
   private static final String TAG = "RSElementsCalculator";
-  //  private static final float PARAMETER = 0.1f;
-  private RightSideElementsList mElementsList;
+
+  private RightSideElementsList mRightSideElementsList;
   private int mMeanX;
-  private int mOrder;
-  private int mVariance;
-  private float mCoefficient;
+  private int mMeanY;
+  private int mVarianceX;
+  private int mVarianceY;
+  private int mOrderX;
+  private int mOrderY;
+  private float mCoefficientX;
+  private float mCoefficientY;
 
   public RightSideElementsCalculator(RightSideElementsList elementsList) {
-    mElementsList = elementsList;
+    mRightSideElementsList = elementsList;
     try {
       mMeanX = calcMeanX();
-      mOrder = calcOrder();
-      mVariance = calcVariance();
-      mCoefficient = calcCoefficient();
+      mMeanY = calcMeanY();
+      mVarianceX = calcVarianceX();
+      mVarianceY = calcVarianceY();
+      mOrderX = calcOrderX();
+      mOrderY = calcOrderY();
+      mCoefficientX = calcCoefficientX();
+      mCoefficientY = calcCoefficientY();
     } catch (NoRightSideElementsException e) {
       Log.e(TAG, e.toString());
     }
   }
 
   private int calcMeanX() throws NoRightSideElementsException {
-    List<ElementWrapper> elementList = mElementsList.getElementList();
+    List<ElementWrapper> elementList = mRightSideElementsList.getElementList();
 
     if (elementList.size() == 0) {
       throw new NoRightSideElementsException(
@@ -40,43 +48,95 @@ public class RightSideElementsCalculator {
     for (ElementWrapper e : elementList) {
       sum += e.getX();
     }
-    int meanX = sum / elementList.size();
-    return meanX;
+    return sum / elementList.size();
   }
 
-  private int calcVariance() throws NoRightSideElementsException {
-    int meanX = calcMeanX();
-    List<ElementWrapper> elementList = mElementsList.getElementList();
+  private int calcMeanY() throws NoRightSideElementsException {
+    List<ElementWrapper> elementList = mRightSideElementsList.getElementList();
+
+    if (elementList.size() == 0) {
+      throw new NoRightSideElementsException(
+          "Number of right side elements is zero. Maybe the picture is a little to the left... ");
+    }
+
     int sum = 0;
     for (ElementWrapper e : elementList) {
-      sum += Math.abs(e.getX() - meanX);
+      sum += e.getY();
     }
     return sum / elementList.size();
   }
 
-  private int calcOrder() throws NoRightSideElementsException {
-    return Math.abs(calcMeanX() - mElementsList.getCenterX());
+  private int calcVarianceX() {
+    List<ElementWrapper> elementList = mRightSideElementsList.getElementList();
+    int sum = 0;
+    for (ElementWrapper e : elementList) {
+      //      sum += Math.abs(e.getX() - getMeanX());
+      sum += Math.pow(e.getX() - getMeanX(), 2);
+    }
+    return sum / elementList.size();
   }
 
-  private float calcCoefficient() throws NoRightSideElementsException {
-    int order = calcOrder();
-    float coefficient = (float) calcVariance() / order;
-    return coefficient;
+  private int calcVarianceY() {
+    List<ElementWrapper> elementList = mRightSideElementsList.getElementList();
+    int sum = 0;
+    for (ElementWrapper e : elementList) {
+      //      sum += Math.abs(e.getY() - getMeanY());
+      sum += Math.pow(e.getY() - getMeanY(), 2);
+    }
+    return sum / elementList.size();
+  }
+
+  private int calcOrderX() throws NoRightSideElementsException {
+    return Math.abs(calcMeanX() - mRightSideElementsList.getTargetImageWidth());
+  }
+
+  private int calcOrderY() throws NoRightSideElementsException {
+    return Math.abs(calcMeanY() - mRightSideElementsList.getTargetImageHeight());
+  }
+
+  private float calcCoefficientX() {
+
+    return (float) (getVarianceX() / Math.pow(getOrderX(), 2));
+  }
+
+  private float calcCoefficientY() {
+
+    return (float) (getVarianceY() / Math.pow(getOrderY(), 2));
   }
 
   public int getMeanX() {
     return mMeanX;
   }
 
-  public int getOrder() {
-    return mOrder;
+  public int getOrderX() {
+    return mOrderX;
   }
 
-  public int getVariance() {
-    return mVariance;
+  public int getVarianceX() {
+    return mVarianceX;
   }
 
-  public float getCoefficient() {
-    return mCoefficient;
+  public float getCoefficientX() {
+    return mCoefficientX;
+  }
+
+  public int getMeanY() {
+    return mMeanY;
+  }
+
+  public int getVarianceY() {
+    return mVarianceY;
+  }
+
+  public int getOrderY() {
+    return mOrderY;
+  }
+
+  public float getCoefficientY() {
+    return mCoefficientY;
+  }
+
+  public RightSideElementsList getRightSideElementsList() {
+    return mRightSideElementsList;
   }
 }

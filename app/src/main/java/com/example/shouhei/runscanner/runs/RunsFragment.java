@@ -40,15 +40,16 @@ public class RunsFragment extends Fragment {
       @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
 
-    // set up RecyclerView
     View root = inflater.inflate(R.layout.runs_frag, container, false);
+
+    // set up RecyclerView
     mRunsRecyclerView = root.findViewById(R.id.run_recycler_view);
     mRunsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     Log.d(TAG, "onCreateView() is called");
 
     // set up add fab
     // TODO move fab from single_frag_container_act.xml to runs_frag.xml
-    mAddFab = getActivity().findViewById(R.id.add_fab);
+    mAddFab = root.findViewById(R.id.add_fab);
     mAddFab.setOnClickListener(
         new View.OnClickListener() {
           @Override
