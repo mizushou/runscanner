@@ -24,6 +24,7 @@ import com.example.shouhei.runscanner.data.Run;
 import com.example.shouhei.runscanner.runs.Runs;
 import com.example.shouhei.runscanner.util.ElementWrapper;
 import com.example.shouhei.runscanner.util.PictureUtils;
+import com.example.shouhei.runscanner.util.RightSideElementFilter;
 import com.example.shouhei.runscanner.util.RightSideElementsCalculator;
 import com.example.shouhei.runscanner.util.RightSideElementsList;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -37,6 +38,8 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class RunResultActivity extends AppCompatActivity {
@@ -59,6 +62,7 @@ public class RunResultActivity extends AppCompatActivity {
   private Run mResultRun;
 
   private int mTargetImageWidth;
+  private int mTargetImageHeight;
   private List<Run> mRunList;
 
   private static final int REQUEST_PHOTO = 0;
@@ -106,7 +110,9 @@ public class RunResultActivity extends AppCompatActivity {
             mPhotoFile = Runs.get(RunResultActivity.this).getPhotoFile(run);
             Uri uri =
                 FileProvider.getUriForFile(
-                    RunResultActivity.this, "com.example.shouhei.runscanner.fileprovider", mPhotoFile);
+                    RunResultActivity.this,
+                    "com.example.shouhei.runscanner.fileprovider",
+                    mPhotoFile);
 
             captureImage.putExtra(MediaStore.EXTRA_OUTPUT, uri);
             // TODO change to way to grant permission that is compatible to Android5.0-?
@@ -221,7 +227,7 @@ public class RunResultActivity extends AppCompatActivity {
                         Log.d(TAG, "Task completed successfully");
 
                         RightSideElementsList elementsList =
-                            new RightSideElementsList(mTargetImageWidth);
+                            new RightSideElementsList(mTargetImageWidth, mTargetImageHeight);
                         debugFirebaseVisionText(firebaseVisionText);
                         for (FirebaseVisionText.Block block : firebaseVisionText.getBlocks()) {
                           for (FirebaseVisionText.Line line : block.getLines()) {
@@ -230,20 +236,27 @@ public class RunResultActivity extends AppCompatActivity {
                             }
                           }
                         }
-
                         RightSideElementsCalculator calculator =
                             new RightSideElementsCalculator(elementsList);
                         Log.d(TAG, "===================[calculation result]===================");
                         Log.d(TAG, "mean x = " + String.valueOf(calculator.getMeanX()));
-                        Log.d(TAG, "order = " + String.valueOf(calculator.getOrder()));
-                        Log.d(TAG, "variance = " + String.valueOf(calculator.getVariance()));
+                        Log.d(TAG, "order x = " + String.valueOf(calculator.getOrderX()));
+                        Log.d(TAG, "variance x = " + String.valueOf(calculator.getVarianceX()));
+                        BigDecimal coefficientX =
+                            new BigDecimal(calculator.getCoefficientX() * 100);
+                        coefficientX = coefficientX.setScale(4, BigDecimal.ROUND_HALF_UP);
+                        Log.d(TAG, "coefficient x = " + coefficientX.toString() + "%");
+                        Log.d(TAG, "mean y = " + String.valueOf(calculator.getMeanY()));
+                        Log.d(TAG, "order y = " + String.valueOf(calculator.getOrderY()));
+                        Log.d(TAG, "variance y = " + String.valueOf(calculator.getVarianceY()));
                         Log.d(
                             TAG,
-                            "coefficient alpha = "
-                                + String.valueOf(Math.round(calculator.getCoefficient() * 100))
+                            "coefficient y = "
+                                + String.valueOf(Math.round(calculator.getCoefficientY() * 100))
                                 + "%");
 
                         elementsList.sortByY();
+                        new RightSideElementFilter(calculator).filter();
 
                         Log.d(TAG, "===================[after sort by Y]===================");
                         int i = 0;
@@ -332,6 +345,7 @@ public class RunResultActivity extends AppCompatActivity {
         InputStream stream = this.getContentResolver().openInputStream(mTargetUri);
         Bitmap bitmap = BitmapFactory.decodeStream(new BufferedInputStream(stream));
         mTargetImageWidth = bitmap.getWidth();
+        mTargetImageHeight = bitmap.getHeight();
         Log.d(
             TAG,
             "bitmap image size width : " + bitmap.getWidth() + " height " + bitmap.getHeight());
