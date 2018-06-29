@@ -40,8 +40,9 @@ public class RunsFragment extends Fragment {
       @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
 
-    // set up RecyclerView
     View root = inflater.inflate(R.layout.runs_frag, container, false);
+
+    // set up RecyclerView
     mRunsRecyclerView = root.findViewById(R.id.run_recycler_view);
     mRunsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     Log.d(TAG, "onCreateView() is called");
