@@ -5,76 +5,82 @@ import java.util.UUID;
 
 public class Run {
 
-  private UUID mId;
-  private String mDistance;
-  private String mCalory;
-  private String mDuration;
-  private String mAvePace;
-  private String mAveHeartRate;
-  private Date mDate;
+    private UUID mId;
+    private String mDistance;
+    private String mCalorie;
+    private String mDuration;
+    private String mAvePace;
+    private String mAveHeartRate;
+    private Date mDate;
 
-  public Run() {
-    mId = UUID.randomUUID();
-    mDate = new Date();
-  }
+    public Run() {
+        mId = UUID.randomUUID();
+        mDate = new Date();
+    }
 
-  public String getPhotoFilename() {
-    return "IMG_" + getId().toString() + ".jpg";
-  }
+    // For referring from existing uuid.
+    public Run(UUID uuid) {
+        mId = uuid;
+        mDate = new Date();
+    }
 
-  public UUID getId() {
-    return mId;
-  }
+    public String getPhotoFilename() {
+        return "IMG_" + getId().toString() + ".jpg";
+    }
 
-  public void setId(UUID id) {
-    mId = id;
-  }
+    public UUID getId() {
+        return mId;
+    }
 
-  public String getDistance() {
-    return mDistance;
-  }
+    public void setId(UUID id) {
+        mId = id;
+    }
 
-  public void setDistance(String distance) {
-    mDistance = distance;
-  }
+    public String getDistance() {
+        return mDistance;
+    }
 
-  public String getCalory() {
-    return mCalory;
-  }
+    public void setDistance(String distance) {
+        mDistance = distance;
+    }
 
-  public void setCalory(String calory) {
-    mCalory = calory;
-  }
+    public String getCalorie() {
+        return mCalorie;
+    }
 
-  public String getDuration() {
-    return mDuration;
-  }
+    public void setCalorie(String calorie) {
+        mCalorie = calorie;
+    }
 
-  public void setDuration(String duration) {
-    mDuration = duration;
-  }
+    public String getDuration() {
+        return mDuration;
+    }
 
-  public String getAvePace() {
-    return mAvePace;
-  }
+    public void setDuration(String duration) {
+        mDuration = duration;
+    }
 
-  public void setAvePace(String avePace) {
-    mAvePace = avePace;
-  }
+    public String getAvePace() {
+        return mAvePace;
+    }
 
-  public String getAveHeartRate() {
-    return mAveHeartRate;
-  }
+    public void setAvePace(String avePace) {
+        mAvePace = avePace;
+    }
 
-  public void setAveHeartRate(String aveHeartRate) {
-    mAveHeartRate = aveHeartRate;
-  }
+    public String getAveHeartRate() {
+        return mAveHeartRate;
+    }
 
-  public Date getDate() {
-    return mDate;
-  }
+    public void setAveHeartRate(String aveHeartRate) {
+        mAveHeartRate = aveHeartRate;
+    }
 
-  public void setDate(Date date) {
-    mDate = date;
-  }
+    public Date getDate() {
+        return mDate;
+    }
+
+    public void setDate(Date date) {
+        mDate = date;
+    }
 }
