@@ -8,19 +8,19 @@ import android.support.v7.app.AppCompatActivity;
 
 public abstract class SingleFragmentActivity extends AppCompatActivity {
 
-  protected abstract Fragment createFragment();
+    protected abstract Fragment createFragment();
 
-  @Override
-  protected void onCreate(@Nullable Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.single_frag_container_act);
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.single_frag_container_act);
 
-    FragmentManager fm = getSupportFragmentManager();
-    Fragment fragment = fm.findFragmentById(R.id.single_frag_container);
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment fragment = fm.findFragmentById(R.id.single_frag_container);
 
-    if (fragment == null) {
-      fragment = createFragment();
-      fm.beginTransaction().add(R.id.single_frag_container, fragment).commit();
+        if (fragment == null) {
+            fragment = createFragment();
+            fm.beginTransaction().add(R.id.single_frag_container, fragment).commit();
+        }
     }
-  }
 }
