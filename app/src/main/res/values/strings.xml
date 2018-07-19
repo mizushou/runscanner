@@ -11,4 +11,8 @@
     <string name="result_run_distance">Distance : %1$s miles</string>
     <string name="result_run_duration">Duration  : %1$s</string>
     <string name="no_run_message">You have no Runs!</string>
+    <string name="statistics_title">Stats</string>
+    <string name="user_title">User</string>
+    <string name="share_title">Share</string>
+    <string name="runlist_title">Run List</string>
 </resources>

@@ -5,11 +5,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -32,6 +35,7 @@ public class RunsFragment extends Fragment {
     private View mNoRunView;
     private ImageView mNoRunIcon;
     private TextView mNoRunText;
+    private DrawerLayout mDrawerLayout;
 
     @Nullable
     @Override
@@ -42,12 +46,12 @@ public class RunsFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.runs_frag, container, false);
 
-        // set up RecyclerView
+        // set up the RecyclerView
         mRunsRecyclerView = root.findViewById(R.id.run_recycler_view);
         mRunsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         Log.d(TAG, "onCreateView() is called");
 
-        // set up add fab
+        // set up add the fab
         // TODO move fab from single_frag_container_act.xml to runs_frag.xml
         mAddFab = root.findViewById(R.id.add_fab);
         mAddFab.setOnClickListener(
@@ -60,13 +64,21 @@ public class RunsFragment extends Fragment {
                     }
                 });
 
-        // set up no runs view
+        // set up no the runs view
         mNoRunView = root.findViewById(R.id.no_run);
         mNoRunIcon = root.findViewById(R.id.no_run_icon);
         mNoRunText = root.findViewById(R.id.no_run_text);
 
-        updateUI();
+        // set up the navigation drawer
+        mDrawerLayout = getActivity().findViewById(R.id.drawer_layout);
+        mDrawerLayout.setStatusBarBackground(R.color.colorAccent);
 
+        NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
+        if (navigationView != null) {
+            setupDrawerContent(navigationView);
+        }
+
+        updateUI();
         return root;
     }
 
@@ -75,6 +87,44 @@ public class RunsFragment extends Fragment {
         super.onResume();
         updateUI();
         Log.d(TAG, "onResume() is called");
+    }
+
+    private void setupDrawerContent(NavigationView navigationView) {
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.runlist_navigation_menu_item:
+                                Toast.makeText(
+                                                getActivity(),
+                                                "Run List clicked!",
+                                                Toast.LENGTH_SHORT)
+                                        .show();
+                                break;
+                            case R.id.statistics_navigation_menu_item:
+                                Toast.makeText(getActivity(), "stats clicked!", Toast.LENGTH_SHORT)
+                                        .show();
+                                break;
+                            case R.id.user_navigation_menu_item:
+                                Toast.makeText(getActivity(), "user clicked!", Toast.LENGTH_SHORT)
+                                        .show();
+
+                                break;
+                            case R.id.share_navigation_menu_item:
+                                Toast.makeText(getActivity(), "share clicked!", Toast.LENGTH_SHORT)
+                                        .show();
+
+                                break;
+                            default:
+                                break;
+                        }
+                        // close the navigation drawer when an item is selected.
+                        item.setChecked(true);
+                        mDrawerLayout.closeDrawers();
+                        return true;
+                    }
+                });
     }
 
     private void updateUI() {

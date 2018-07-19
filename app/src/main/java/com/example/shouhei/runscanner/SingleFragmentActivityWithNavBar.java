@@ -1,0 +1,26 @@
+package com.example.shouhei.runscanner;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
+
+public abstract class SingleFragmentActivityWithNavBar extends AppCompatActivity {
+
+    protected abstract Fragment createFragment();
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.single_frag_container_act_with_nav_bar);
+
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment fragment = fm.findFragmentById(R.id.single_frag_container_with_nav_bar);
+
+        if (fragment == null) {
+            fragment = createFragment();
+            fm.beginTransaction().add(R.id.single_frag_container_with_nav_bar, fragment).commit();
+        }
+    }
+}

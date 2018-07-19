@@ -3,9 +3,9 @@ package com.example.shouhei.runscanner.runs;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 
-import com.example.shouhei.runscanner.SingleFragmentActivity;
+import com.example.shouhei.runscanner.SingleFragmentActivityWithNavBar;
 
-public class RunsActivity extends SingleFragmentActivity {
+public class RunsActivity extends SingleFragmentActivityWithNavBar {
 
     private static final String TAG = "RunsActivity";
 
