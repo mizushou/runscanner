@@ -36,8 +36,6 @@ public class RunsFragment extends Fragment {
     private View mNoRunView;
     private ImageView mNoRunIcon;
     private TextView mNoRunText;
-    private Toolbar mToolbar;
-    private DrawerLayout mDrawerLayout;
 
     @Nullable
     @Override
@@ -45,18 +43,6 @@ public class RunsFragment extends Fragment {
             @NonNull LayoutInflater inflater,
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
-
-//        // set up the tool bar
-//        mToolbar = getActivity().findViewById(R.id.toolbar);
-//
-//        // set up the navigation drawer
-//        mDrawerLayout = getActivity().findViewById(R.id.drawer_layout);
-//        mDrawerLayout.setStatusBarBackground(R.color.colorAccent);
-//
-//        NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
-//        if (navigationView != null) {
-//            setupDrawerContent(navigationView);
-//        }
 
         View root = inflater.inflate(R.layout.runs_frag, container, false);
 
@@ -91,44 +77,6 @@ public class RunsFragment extends Fragment {
         super.onResume();
         updateUI();
         Log.d(TAG, "onResume() is called");
-    }
-
-    private void setupDrawerContent(NavigationView navigationView) {
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.runlist_navigation_menu_item:
-                                Toast.makeText(
-                                                getActivity(),
-                                                "Run List clicked!",
-                                                Toast.LENGTH_SHORT)
-                                        .show();
-                                break;
-                            case R.id.statistics_navigation_menu_item:
-                                Toast.makeText(getActivity(), "stats clicked!", Toast.LENGTH_SHORT)
-                                        .show();
-                                break;
-                            case R.id.user_navigation_menu_item:
-                                Toast.makeText(getActivity(), "user clicked!", Toast.LENGTH_SHORT)
-                                        .show();
-
-                                break;
-                            case R.id.share_navigation_menu_item:
-                                Toast.makeText(getActivity(), "share clicked!", Toast.LENGTH_SHORT)
-                                        .show();
-
-                                break;
-                            default:
-                                break;
-                        }
-                        // close the navigation drawer when an item is selected.
-                        item.setChecked(true);
-                        mDrawerLayout.closeDrawers();
-                        return true;
-                    }
-                });
     }
 
     private void updateUI() {

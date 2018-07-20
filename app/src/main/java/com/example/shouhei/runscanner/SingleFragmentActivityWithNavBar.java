@@ -30,17 +30,22 @@ public abstract class SingleFragmentActivityWithNavBar extends AppCompatActivity
         // --------------Set up the tool bar as the app bar--------------
         // set up the tool bar
         mToolbar = findViewById(R.id.toolbar);
-        setupActionBar(mToolbar);
+        if (mToolbar != null) {
+            setupActionBar(mToolbar);
+        }
 
         // set up the navigation drawer
         mDrawerLayout = findViewById(R.id.drawer_layout);
-        mDrawerLayout.setStatusBarBackground(R.color.colorPrimaryDark);
+        if (mDrawerLayout != null) {
+            mDrawerLayout.setStatusBarBackground(R.color.colorPrimaryDark);
+        }
 
         // set up the navigation view
         NavigationView navigationView = findViewById(R.id.nav_view);
         if (navigationView != null) {
             setupDrawerContent(navigationView);
         }
+
         // -------------------------------------------------------------
 
         FragmentManager fm = getSupportFragmentManager();
