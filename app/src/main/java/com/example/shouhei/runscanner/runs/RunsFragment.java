@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.example.shouhei.runscanner.runresult.RunResultActivity;
 import com.example.shouhei.runscanner.R;
@@ -35,6 +36,7 @@ public class RunsFragment extends Fragment {
     private View mNoRunView;
     private ImageView mNoRunIcon;
     private TextView mNoRunText;
+    private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
 
     @Nullable
@@ -44,6 +46,18 @@ public class RunsFragment extends Fragment {
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
 
+//        // set up the tool bar
+//        mToolbar = getActivity().findViewById(R.id.toolbar);
+//
+//        // set up the navigation drawer
+//        mDrawerLayout = getActivity().findViewById(R.id.drawer_layout);
+//        mDrawerLayout.setStatusBarBackground(R.color.colorAccent);
+//
+//        NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
+//        if (navigationView != null) {
+//            setupDrawerContent(navigationView);
+//        }
+
         View root = inflater.inflate(R.layout.runs_frag, container, false);
 
         // set up the RecyclerView
@@ -52,7 +66,6 @@ public class RunsFragment extends Fragment {
         Log.d(TAG, "onCreateView() is called");
 
         // set up add the fab
-        // TODO move fab from single_frag_container_act.xml to runs_frag.xml
         mAddFab = root.findViewById(R.id.add_fab);
         mAddFab.setOnClickListener(
                 new View.OnClickListener() {
@@ -68,15 +81,6 @@ public class RunsFragment extends Fragment {
         mNoRunView = root.findViewById(R.id.no_run);
         mNoRunIcon = root.findViewById(R.id.no_run_icon);
         mNoRunText = root.findViewById(R.id.no_run_text);
-
-        // set up the navigation drawer
-        mDrawerLayout = getActivity().findViewById(R.id.drawer_layout);
-        mDrawerLayout.setStatusBarBackground(R.color.colorAccent);
-
-        NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
-        if (navigationView != null) {
-            setupDrawerContent(navigationView);
-        }
 
         updateUI();
         return root;
