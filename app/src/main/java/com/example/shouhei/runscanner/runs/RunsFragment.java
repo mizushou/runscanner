@@ -5,16 +5,20 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.example.shouhei.runscanner.runresult.RunResultActivity;
 import com.example.shouhei.runscanner.R;
@@ -42,13 +46,12 @@ public class RunsFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.runs_frag, container, false);
 
-        // set up RecyclerView
+        // set up the RecyclerView
         mRunsRecyclerView = root.findViewById(R.id.run_recycler_view);
         mRunsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         Log.d(TAG, "onCreateView() is called");
 
-        // set up add fab
-        // TODO move fab from single_frag_container_act.xml to runs_frag.xml
+        // set up add the fab
         mAddFab = root.findViewById(R.id.add_fab);
         mAddFab.setOnClickListener(
                 new View.OnClickListener() {
@@ -60,13 +63,12 @@ public class RunsFragment extends Fragment {
                     }
                 });
 
-        // set up no runs view
+        // set up no the runs view
         mNoRunView = root.findViewById(R.id.no_run);
         mNoRunIcon = root.findViewById(R.id.no_run_icon);
         mNoRunText = root.findViewById(R.id.no_run_text);
 
         updateUI();
-
         return root;
     }
 
