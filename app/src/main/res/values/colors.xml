@@ -10,4 +10,5 @@
     <color name="onBackground">#FFFFFF</color>
     <color name="onSurface">#FFFFFF</color>
     <color name="statusBar">#263238</color>
+    <color name="highlight">#E8F5E9</color>
 </resources>

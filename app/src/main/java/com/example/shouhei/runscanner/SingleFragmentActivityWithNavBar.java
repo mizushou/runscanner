@@ -36,9 +36,6 @@ public abstract class SingleFragmentActivityWithNavBar extends AppCompatActivity
 
         // set up the navigation drawer
         mDrawerLayout = findViewById(R.id.drawer_layout);
-        //        if (mDrawerLayout != null) {
-        //            mDrawerLayout.setStatusBarBackground(R.color.colorPrimaryDark);
-        //        }
 
         // set up the navigation view
         NavigationView navigationView = findViewById(R.id.nav_view);

@@ -39,7 +39,10 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:background="@color/surface"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header"
+        app:itemTextColor="@color/onBackground"
+        app:itemIconTint="@color/onBackground"
         app:menu="@menu/drawer" />
 </android.support.v4.widget.DrawerLayout>
