@@ -3,9 +3,13 @@
     <!-- Base application theme. -->
     <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/background</item>
+        <item name="colorPrimaryDark">@color/statusBar</item>
+        <item name="colorAccent">@color/primary</item>
+        <item name="colorControlNormal">@color/onBackground</item>
+        <item name="android:background">@color/background</item>
+        <item name="android:textColor">@color/onBackground</item>
+        <item name="android:fontFamily">@font/roboto_condensed_regular</item>
     </style>
 
     <style name="AppTheme" parent="AppTheme.Base"></style>

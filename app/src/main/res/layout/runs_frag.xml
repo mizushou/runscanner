@@ -55,8 +55,7 @@
             android:layout_gravity="right|bottom"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
-            android:src="@drawable/ic_add"
-            android:tint="#ffffff" />
+            android:src="@drawable/ic_add" />
     </android.support.design.widget.CoordinatorLayout>
 </FrameLayout>
 

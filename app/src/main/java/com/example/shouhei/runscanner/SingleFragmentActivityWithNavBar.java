@@ -36,9 +36,9 @@ public abstract class SingleFragmentActivityWithNavBar extends AppCompatActivity
 
         // set up the navigation drawer
         mDrawerLayout = findViewById(R.id.drawer_layout);
-        if (mDrawerLayout != null) {
-            mDrawerLayout.setStatusBarBackground(R.color.colorPrimaryDark);
-        }
+        //        if (mDrawerLayout != null) {
+        //            mDrawerLayout.setStatusBarBackground(R.color.colorPrimaryDark);
+        //        }
 
         // set up the navigation view
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -60,8 +60,10 @@ public abstract class SingleFragmentActivityWithNavBar extends AppCompatActivity
     private void setupActionBar(Toolbar toolbar) {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        if (actionBar != null) {
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     private void setupDrawerContent(NavigationView navigationView) {

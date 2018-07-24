@@ -57,7 +57,6 @@ public class RunsFragment extends Fragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Log.d(TAG, "Add FAB is clicked");
                         Intent intent = new Intent(getActivity(), RunResultActivity.class);
                         startActivity(intent);
                     }
