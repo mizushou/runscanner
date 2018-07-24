@@ -135,7 +135,7 @@ public class RunsFragment extends Fragment {
         private Run mRun;
 
         public RunHolder(LayoutInflater inflater, ViewGroup parent) {
-            super(inflater.inflate(R.layout.run_item, parent, false));
+            super(inflater.inflate(R.layout.run_card, parent, false));
             itemView.setOnClickListener(
                     new View.OnClickListener() {
                         @Override
@@ -154,8 +154,8 @@ public class RunsFragment extends Fragment {
 
         public void bind(Run run) {
             mRun = run;
-            mDistanceTextView.setText(getString(R.string.result_run_distance, mRun.getDistance()));
-            mDurationTextView.setText(getString(R.string.result_run_duration, mRun.getDuration()));
+//            mDistanceTextView.setText(getString(R.string.result_run_distance, mRun.getDistance()));
+//            mDurationTextView.setText(getString(R.string.result_run_duration, mRun.getDuration()));
         }
     }
     // ==============================================================

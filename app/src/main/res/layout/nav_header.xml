@@ -1,24 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout2"
     android:layout_width="match_parent"
     android:layout_height="192dp"
     android:background="@color/background"
-    android:gravity="bottom"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:gravity="bottom">
 
     <ImageView
+        android:id="@+id/imageView"
         android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="41dp"
         android:background="@drawable/round_imageview"
-        android:src="@drawable/ic_user" />
+        android:src="@drawable/ic_user"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
         android:padding="16dp"
         android:text="User Name"
-        android:textColor="@color/onBackground" />
+        android:textColor="@color/onBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

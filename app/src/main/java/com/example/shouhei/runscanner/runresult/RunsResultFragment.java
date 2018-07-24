@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.text.Editable;
@@ -22,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TableLayout;
 
 import com.example.shouhei.runscanner.R;
 import com.example.shouhei.runscanner.data.Run;
@@ -43,7 +45,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.math.BigDecimal;
-import java.util.List;
 
 public class RunsResultFragment extends Fragment {
 
@@ -59,6 +60,7 @@ public class RunsResultFragment extends Fragment {
     private EditText mAvgPaceField;
     private EditText mAvgHeartRateField;
     private FloatingActionButton mDoneFab;
+    private TabLayout mTabs;
 
     private File mPhotoFile;
     private Uri mTargetUri;
@@ -80,23 +82,43 @@ public class RunsResultFragment extends Fragment {
 
         mResultRun = new Run();
 
+        // set up the tabs
+        //        mTabs = getActivity().findViewById(R.id.tabs);
+        //        mTabs.addTab(mTabs.newTab().setIcon(R.drawable.ic_photo_library));
+        //        mTabs.addTab(mTabs.newTab().setIcon(R.drawable.ic_camera));
+        //        mTabs.addOnTabSelectedListener(
+        //                new TabLayout.OnTabSelectedListener() {
+        //                    @Override
+        //                    public void onTabSelected(TabLayout.Tab tab) {
+        //                        switch (tab.getPosition()) {
+        //                            case 0:
+        //                                Log.d(TAG, "Gallery tab selected");
+        //                        }
+        //                    }
+        //
+        //                    @Override
+        //                    public void onTabUnselected(TabLayout.Tab tab) {}
+        //
+        //                    @Override
+        //                    public void onTabReselected(TabLayout.Tab tab) {}
+        //                });
+
+        // set up the Gallery button
         mGalleryButton = root.findViewById(R.id.gallery_button);
         mGalleryButton.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Log.d(TAG, "GalleryButton clicked");
-                        //            Intent pickupImage = new Intent(Intent.ACTION_PICK);
                         Intent pickupImage = new Intent(Intent.ACTION_GET_CONTENT);
                         pickupImage.setType("image/*");
                         startActivityForResult(pickupImage, REQUEST_GALLERY);
                     }
                 });
 
+        // set up the Photo button
         mPhotoButton = root.findViewById(R.id.photo_button);
         final Intent captureImage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-        // Verify that the intent will resolve to an activity
         boolean canTakePhoto =
                 captureImage.resolveActivity(getActivity().getPackageManager()) != null;
         mPhotoButton.setEnabled(canTakePhoto);
