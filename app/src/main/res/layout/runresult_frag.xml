@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="320dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:background="@color/surface"
@@ -28,7 +28,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider3"
+            app:layout_constraintTop_toBottomOf="@+id/button_divider_vertical"
             tools:layout_conversion_absoluteHeight="320dp"
             tools:layout_conversion_absoluteWidth="320dp" />
 
@@ -188,26 +188,26 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <View
-            android:id="@+id/divider2"
+            android:id="@+id/button_divider_horizon"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:background="@color/primary"
+            android:background="@color/onSurfaceIcon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/gallery_button" />
 
         <View
-            android:id="@+id/divider3"
+            android:id="@+id/button_divider_vertical"
             android:layout_width="1dp"
             android:layout_height="30dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:background="@color/primary"
-            app:layout_constraintBottom_toBottomOf="@+id/divider2"
+            android:background="@color/onSurfaceIcon"
+            app:layout_constraintBottom_toBottomOf="@+id/button_divider_horizon"
             app:layout_constraintEnd_toEndOf="@+id/photo_button"
             app:layout_constraintStart_toStartOf="@+id/gallery_button"
             app:layout_constraintTop_toTopOf="parent" />
