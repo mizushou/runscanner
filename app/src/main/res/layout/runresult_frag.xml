@@ -36,19 +36,6 @@
                 tools:layout_conversion_absoluteHeight="320dp"
                 tools:layout_conversion_absoluteWidth="320dp" />
 
-            <Button
-                android:id="@+id/dummy_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="@string/scan_button"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:layout_conversion_absoluteHeight="48dp"
-                tools:layout_conversion_absoluteWidth="98dp" />
-
-
             <TextView
                 android:id="@+id/distance_label"
                 style="@style/text_label"
@@ -343,7 +330,20 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:src="@drawable/ic_done"
-            android:tint="#ffffff" />
+            android:tint="#ffffff"
+            android:visibility="visible" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/scan_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/ic_scan"
+            android:tint="#ffffff"
+            android:visibility="visible" />
+
     </FrameLayout>
 </android.support.design.widget.CoordinatorLayout>
 

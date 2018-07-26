@@ -154,8 +154,10 @@ public class RunsFragment extends Fragment {
 
         public void bind(Run run) {
             mRun = run;
-//            mDistanceTextView.setText(getString(R.string.result_run_distance, mRun.getDistance()));
-//            mDurationTextView.setText(getString(R.string.result_run_duration, mRun.getDuration()));
+            //            mDistanceTextView.setText(getString(R.string.result_run_distance,
+            // mRun.getDistance()));
+            //            mDurationTextView.setText(getString(R.string.result_run_duration,
+            // mRun.getDuration()));
         }
     }
     // ==============================================================

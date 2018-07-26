@@ -11,7 +11,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.text.Editable;
@@ -23,7 +22,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TableLayout;
 
 import com.example.shouhei.runscanner.R;
 import com.example.shouhei.runscanner.data.Run;
@@ -59,14 +57,15 @@ public class RunsResultFragment extends Fragment {
     private EditText mDurationField;
     private EditText mAvgPaceField;
     private EditText mAvgHeartRateField;
+    private FloatingActionButton mScanFab;
     private FloatingActionButton mDoneFab;
-    private TabLayout mTabs;
 
     private File mPhotoFile;
     private Uri mTargetUri;
     private Run mResultRun;
     private int mTargetImageWidth;
     private int mTargetImageHeight;
+    private boolean mIsScanned;
 
     private static final int REQUEST_PHOTO = 0;
     private static final int REQUEST_GALLERY = 1;
@@ -78,30 +77,11 @@ public class RunsResultFragment extends Fragment {
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
 
+        Log.d(TAG, "onCreateView is called.");
+
         View root = inflater.inflate(R.layout.runresult_frag, container, false);
 
         mResultRun = new Run();
-
-        // set up the tabs
-        //        mTabs = getActivity().findViewById(R.id.tabs);
-        //        mTabs.addTab(mTabs.newTab().setIcon(R.drawable.ic_photo_library));
-        //        mTabs.addTab(mTabs.newTab().setIcon(R.drawable.ic_camera));
-        //        mTabs.addOnTabSelectedListener(
-        //                new TabLayout.OnTabSelectedListener() {
-        //                    @Override
-        //                    public void onTabSelected(TabLayout.Tab tab) {
-        //                        switch (tab.getPosition()) {
-        //                            case 0:
-        //                                Log.d(TAG, "Gallery tab selected");
-        //                        }
-        //                    }
-        //
-        //                    @Override
-        //                    public void onTabUnselected(TabLayout.Tab tab) {}
-        //
-        //                    @Override
-        //                    public void onTabReselected(TabLayout.Tab tab) {}
-        //                });
 
         // set up the Gallery button
         mGalleryButton = root.findViewById(R.id.gallery_button);
@@ -110,6 +90,7 @@ public class RunsResultFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         Log.d(TAG, "GalleryButton clicked");
+
                         Intent pickupImage = new Intent(Intent.ACTION_GET_CONTENT);
                         pickupImage.setType("image/*");
                         startActivityForResult(pickupImage, REQUEST_GALLERY);
@@ -229,8 +210,8 @@ public class RunsResultFragment extends Fragment {
                     public void afterTextChanged(Editable s) {}
                 });
 
-        mDummyButton = root.findViewById(R.id.dummy_button);
-        mDummyButton.setOnClickListener(
+        mScanFab = root.findViewById(R.id.scan_fab);
+        mScanFab.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -385,6 +366,9 @@ public class RunsResultFragment extends Fragment {
                                                         elementsList.getAvgPaceValue());
                                                 mAvgHeartRateField.setText(
                                                         elementsList.getAvgHeartRate());
+
+                                                mIsScanned = true;
+                                                setFab();
                                             }
                                         })
                                 .addOnFailureListener(
@@ -418,7 +402,25 @@ public class RunsResultFragment extends Fragment {
                     }
                 });
 
+        mIsScanned = false;
+        setFab();
         return root;
+    }
+
+    @Override
+    public void onStart() {
+        Log.d(TAG, "onStart() is called.");
+        super.onStart();
+
+        // reset state
+        mIsScanned = false;
+        setFab();
+    }
+
+    @Override
+    public void onResume() {
+        Log.d(TAG, "onResume() is called.");
+        super.onResume();
     }
 
     @Override
@@ -447,12 +449,6 @@ public class RunsResultFragment extends Fragment {
                     "Authority : "
                             + mTargetUri
                                     .getAuthority()); // com.google.android.apps.photos.contentprovider
-            //      Bitmap bitmap = null;
-            //      try {
-            //        bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
-            //      } catch (IOException e) {
-            //        e.printStackTrace();
-            //      }
 
             try {
                 InputStream stream = getActivity().getContentResolver().openInputStream(mTargetUri);
@@ -481,6 +477,18 @@ public class RunsResultFragment extends Fragment {
         } else {
             Bitmap bitmap = PictureUtils.getScaledBitmap(mPhotoFile.getPath(), getActivity());
             mTargetImageView.setImageBitmap(bitmap);
+        }
+    }
+
+    private void setFab() {
+        if (!mIsScanned) {
+            // before scan
+            mScanFab.setVisibility(View.VISIBLE);
+            mDoneFab.setVisibility(View.INVISIBLE);
+        } else {
+            // after scan
+            mScanFab.setVisibility(View.INVISIBLE);
+            mDoneFab.setVisibility(View.VISIBLE);
         }
     }
 
