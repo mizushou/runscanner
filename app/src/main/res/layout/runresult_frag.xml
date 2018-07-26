@@ -19,10 +19,12 @@
             android:layout_width="match_parent"
             android:layout_height="320dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:background="@color/surface"
             android:scaleType="centerCrop"
+            app:layout_constraintBottom_toTopOf="@+id/guideline_horizon_1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -44,103 +46,120 @@
 
 
         <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/distance_label"
+            style="@style/text_label"
+            android:layout_marginStart="32dp"
             android:text="@string/distance_value_label"
+            app:layout_constraintBaseline_toBaselineOf="@+id/distance_value"
+            app:layout_constraintStart_toStartOf="@+id/guideline_vertical_left"
             tools:layout_conversion_absoluteHeight="19dp"
-            tools:layout_conversion_absoluteWidth="48dp"
-            tools:layout_editor_absoluteX="139dp"
-            tools:layout_editor_absoluteY="430dp" />
+            tools:layout_conversion_absoluteWidth="48dp" />
 
         <EditText
             android:id="@+id/distance_value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/edit_text"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_mid"
+            app:layout_constraintTop_toTopOf="@+id/guideline_horizon_1"
             tools:layout_conversion_absoluteHeight="45dp"
             tools:layout_conversion_absoluteWidth="21dp"
-            tools:layout_editor_absoluteX="187dp"
-            tools:layout_editor_absoluteY="416dp" />
+            tools:layout_editor_absoluteY="393dp" />
 
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/calorie_label"
+            style="@style/text_label"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
             android:text="@string/calories_value_label"
+            app:layout_constraintBaseline_toBaselineOf="@+id/calories_value"
+            app:layout_constraintStart_toStartOf="@+id/guideline_vertical_left"
             tools:layout_conversion_absoluteHeight="19dp"
-            tools:layout_conversion_absoluteWidth="45dp"
-            tools:layout_editor_absoluteX="207dp"
-            tools:layout_editor_absoluteY="430dp" />
+            tools:layout_conversion_absoluteWidth="45dp" />
 
         <EditText
             android:id="@+id/calories_value"
-            android:layout_width="wrap_content"
+            style="@style/edit_text"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_mid"
+            app:layout_constraintTop_toTopOf="@+id/guideline_horizon_2"
             tools:layout_conversion_absoluteHeight="45dp"
-            tools:layout_conversion_absoluteWidth="21dp"
-            tools:layout_editor_absoluteX="252dp"
-            tools:layout_editor_absoluteY="416dp" />
+            tools:layout_conversion_absoluteWidth="21dp" />
 
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/duration_label"
+            style="@style/text_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
             android:text="@string/duration_value_label"
+            app:layout_constraintBaseline_toBaselineOf="@+id/duration_value"
+            app:layout_constraintStart_toStartOf="@+id/guideline_vertical_left"
             tools:layout_conversion_absoluteHeight="19dp"
-            tools:layout_conversion_absoluteWidth="47dp"
-            tools:layout_editor_absoluteX="136dp"
-            tools:layout_editor_absoluteY="475dp" />
+            tools:layout_conversion_absoluteWidth="47dp" />
 
         <EditText
             android:id="@+id/duration_value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/edit_text"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_mid"
+            app:layout_constraintTop_toTopOf="@+id/guideline_horizon_3"
             tools:layout_conversion_absoluteHeight="45dp"
-            tools:layout_conversion_absoluteWidth="21dp"
-            tools:layout_editor_absoluteX="183dp"
-            tools:layout_editor_absoluteY="461dp" />
+            tools:layout_conversion_absoluteWidth="21dp" />
 
 
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/avg_pace_label"
+            style="@style/text_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
             android:text="@string/avg_pace_value_label"
+            app:layout_constraintBaseline_toBaselineOf="@+id/avg_pace_value"
+            app:layout_constraintStart_toStartOf="@+id/guideline_vertical_left"
             tools:layout_conversion_absoluteHeight="19dp"
-            tools:layout_conversion_absoluteWidth="51dp"
-            tools:layout_editor_absoluteX="204dp"
-            tools:layout_editor_absoluteY="475dp" />
+            tools:layout_conversion_absoluteWidth="51dp" />
 
         <EditText
             android:id="@+id/avg_pace_value"
-            android:layout_width="wrap_content"
+            style="@style/edit_text"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_mid"
+            app:layout_constraintTop_toTopOf="@+id/guideline_horizon_4"
             tools:layout_conversion_absoluteHeight="45dp"
-            tools:layout_conversion_absoluteWidth="21dp"
-            tools:layout_editor_absoluteX="254dp"
-            tools:layout_editor_absoluteY="461dp" />
+            tools:layout_conversion_absoluteWidth="21dp" />
 
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/avg_heart_label"
+            style="@style/text_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
             android:text="@string/avg_heart_rate_value_label"
+            app:layout_constraintBaseline_toBaselineOf="@+id/avg_heart_rate_value"
+            app:layout_constraintStart_toStartOf="@+id/guideline_vertical_left"
             tools:layout_conversion_absoluteHeight="19dp"
-            tools:layout_conversion_absoluteWidth="82dp"
-            tools:layout_editor_absoluteX="155dp"
-            tools:layout_editor_absoluteY="520dp" />
+            tools:layout_conversion_absoluteWidth="82dp" />
 
         <EditText
             android:id="@+id/avg_heart_rate_value"
-            android:layout_width="wrap_content"
+            style="@style/edit_text"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_mid"
+            app:layout_constraintTop_toTopOf="@+id/guideline_horizon_5"
             tools:layout_conversion_absoluteHeight="45dp"
-            tools:layout_conversion_absoluteWidth="21dp"
-            tools:layout_editor_absoluteX="236dp"
-            tools:layout_editor_absoluteY="506dp" />
+            tools:layout_conversion_absoluteWidth="21dp" />
 
         <Button
             android:id="@+id/gallery_button"
@@ -194,12 +213,79 @@
             app:layout_constraintStart_toStartOf="@+id/gallery_button"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline_vertical_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="8dp"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline_vertical_mid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_begin="403dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline_vertical_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="204dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline_horizon_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="385dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline_horizon_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="445dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline_horizon_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="505dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline_horizon_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="565dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline_horizon_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="625dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline_horizon_6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="661dp" />
+
 
     </android.support.constraint.ConstraintLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/done_fab"
-        android:layout_width="wrap_content"
+        android:layout_width="63dp"
         android:layout_height="wrap_content"
         android:layout_gravity="right|bottom"
         android:layout_marginRight="16dp"
