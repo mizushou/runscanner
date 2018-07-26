@@ -279,6 +279,55 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="610dp" />
 
+        <View
+            android:id="@+id/distance_divider"
+            android:layout_width="3dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/distanceColor"
+            app:layout_constraintStart_toStartOf="@+id/guideline_vertical_left"
+            app:layout_constraintTop_toTopOf="@+id/guideline_horizon_1" />
+
+        <View
+            android:id="@+id/calories_divider"
+            android:layout_width="3dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/caloriesColor"
+            app:layout_constraintStart_toStartOf="@+id/guideline_vertical_left"
+            app:layout_constraintTop_toTopOf="@+id/guideline_horizon_2" />
+
+        <View
+            android:id="@+id/duration_divider"
+            android:layout_width="3dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/durationColor"
+            app:layout_constraintStart_toStartOf="@+id/guideline_vertical_left"
+            app:layout_constraintTop_toTopOf="@+id/guideline_horizon_3" />
+
+        <View
+            android:id="@+id/avg_pace_divider"
+            android:layout_width="3dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/AvePaceColor"
+            app:layout_constraintStart_toStartOf="@+id/guideline_vertical_left"
+            app:layout_constraintTop_toTopOf="@+id/guideline_horizon_4" />
+
+        <View
+            android:id="@+id/avg_heart_rate_divider"
+            android:layout_width="3dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/AveHeartRateColor"
+            app:layout_constraintStart_toStartOf="@+id/guideline_vertical_left"
+            app:layout_constraintTop_toTopOf="@+id/guideline_horizon_5" />
 
     </android.support.constraint.ConstraintLayout>
 
