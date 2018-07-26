@@ -42,25 +42,25 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
         }
 
         // set up the tabs
-        mTabs = findViewById(R.id.tabs);
-        mTabs.addTab(mTabs.newTab().setIcon(R.drawable.ic_photo_library));
-        mTabs.addTab(mTabs.newTab().setIcon(R.drawable.ic_camera));
-        mTabs.addOnTabSelectedListener(
-                new TabLayout.OnTabSelectedListener() {
-                    @Override
-                    public void onTabSelected(TabLayout.Tab tab) {
-                        if (tab.getText().equals("Gallery")) {
-                            Toast.makeText(getApplicationContext(), "hai", Toast.LENGTH_SHORT)
-                                    .show();
-                        }
-                    }
-
-                    @Override
-                    public void onTabUnselected(TabLayout.Tab tab) {}
-
-                    @Override
-                    public void onTabReselected(TabLayout.Tab tab) {}
-                });
+//        mTabs = findViewById(R.id.tabs);
+//        mTabs.addTab(mTabs.newTab().setIcon(R.drawable.ic_photo_library));
+//        mTabs.addTab(mTabs.newTab().setIcon(R.drawable.ic_camera));
+//        mTabs.addOnTabSelectedListener(
+//                new TabLayout.OnTabSelectedListener() {
+//                    @Override
+//                    public void onTabSelected(TabLayout.Tab tab) {
+//                        if (tab.getText().equals("Gallery")) {
+//                            Toast.makeText(getApplicationContext(), "hai", Toast.LENGTH_SHORT)
+//                                    .show();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onTabUnselected(TabLayout.Tab tab) {}
+//
+//                    @Override
+//                    public void onTabReselected(TabLayout.Tab tab) {}
+//                });
 
         // -------------------------------------------------------------
 
