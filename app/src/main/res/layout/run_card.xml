@@ -21,50 +21,272 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="194dp"
+            android:layout_marginTop="72dp"
             android:background="@color/surface"
             android:scaleType="centerCrop"
-            app:srcCompat="@drawable/sample1"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="44dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/sample1" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            tools:layout_editor_absoluteX="57dp"
-            tools:layout_editor_absoluteY="16dp" />
-
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_no_run"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="2dp" />
+            android:layout_marginStart="8dp"
+            android:text="2018 Jul 26"
+            android:textColor="@color/onSurface"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/imageView4"
+            app:layout_constraintTop_toTopOf="@+id/horizontal_guideline_top" />
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="252dp" />
+            android:layout_marginStart="8dp"
+            android:text="Fri. 5:50PM"
+            android:textColor="@color/onSurface"
+            app:layout_constraintStart_toEndOf="@+id/imageView4"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="278dp" />
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:layout_constraintStart_toStartOf="@+id/vertical_guideline1"
+            app:layout_constraintTop_toTopOf="@+id/horizontal_guideline_top"
+            app:srcCompat="@drawable/ic_run" />
+
+        <Button
+            android:id="@+id/button"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:background="@color/surface"
+            android:text="Edit"
+            android:textAllCaps="true"
+            android:textColor="@color/onSurface"
+            app:layout_constraintBottom_toTopOf="@+id/horizontal_guideline_bottom"
+            app:layout_constraintStart_toStartOf="@+id/vertical_guideline1" />
 
         <android.support.constraint.Guideline
-            android:id="@+id/guideline"
+            android:id="@+id/horizontal_guideline_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="16dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/horizontal_guideline_mid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_end="48dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/horizontal_guideline_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_end="8dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/vertical_guideline1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.04" />
+            app:layout_constraintGuide_begin="16dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/vertical_guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="85dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/vertical_guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="154dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/vertical_guideline4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="223dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/vertical_guideline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="292dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/vertical_guideline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="18dp" />
+
+        <TextView
+            android:id="@+id/textView3"
+            style="@style/text_value_card"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="11.97"
+            app:layout_constraintBottom_toTopOf="@+id/horizontal_guideline_mid"
+            app:layout_constraintEnd_toStartOf="@+id/vertical_guideline2"
+            app:layout_constraintStart_toStartOf="@+id/vertical_guideline1" />
+
+        <TextView
+            android:id="@+id/textView5"
+            style="@style/text_value_card"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="31:38"
+            app:layout_constraintBottom_toTopOf="@+id/horizontal_guideline_mid"
+            app:layout_constraintEnd_toStartOf="@+id/vertical_guideline3"
+            app:layout_constraintStart_toStartOf="@+id/vertical_guideline2" />
+
+        <TextView
+            android:id="@+id/textView6"
+            style="@style/text_value_card"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="224"
+            app:layout_constraintBottom_toTopOf="@+id/horizontal_guideline_mid"
+            app:layout_constraintEnd_toStartOf="@+id/vertical_guideline4"
+            app:layout_constraintStart_toStartOf="@+id/vertical_guideline3" />
+
+        <TextView
+            android:id="@+id/textView7"
+            style="@style/text_value_card"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="16:05"
+            app:layout_constraintBottom_toTopOf="@+id/horizontal_guideline_mid"
+            app:layout_constraintEnd_toStartOf="@+id/vertical_guideline5"
+            app:layout_constraintStart_toStartOf="@+id/vertical_guideline4" />
+
+        <TextView
+            android:id="@+id/textView8"
+            style="@style/text_value_card"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="158"
+            app:layout_constraintBottom_toTopOf="@+id/horizontal_guideline_mid"
+            app:layout_constraintEnd_toStartOf="@+id/vertical_guideline6"
+            app:layout_constraintStart_toStartOf="@+id/vertical_guideline5" />
+
+        <TextView
+            android:id="@+id/textView9"
+            style="@style/text_label_card"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="40dp"
+            android:text="Distance"
+            app:layout_constraintBottom_toTopOf="@+id/horizontal_guideline_mid"
+            app:layout_constraintEnd_toStartOf="@+id/vertical_guideline2"
+            app:layout_constraintStart_toStartOf="@+id/vertical_guideline1" />
+
+        <TextView
+            android:id="@+id/textView10"
+            style="@style/text_label_card"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="40dp"
+            android:text="Duration"
+            android:textAlignment="viewStart"
+            app:layout_constraintBottom_toTopOf="@+id/horizontal_guideline_mid"
+            app:layout_constraintEnd_toStartOf="@+id/vertical_guideline3"
+            app:layout_constraintStart_toStartOf="@+id/vertical_guideline2" />
+
+        <TextView
+            android:id="@+id/textView11"
+            style="@style/text_label_card"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="40dp"
+            android:text="Calories"
+            android:textAlignment="viewStart"
+            app:layout_constraintBottom_toTopOf="@+id/horizontal_guideline_mid"
+            app:layout_constraintEnd_toStartOf="@+id/vertical_guideline4"
+            app:layout_constraintStart_toStartOf="@+id/vertical_guideline3" />
+
+        <TextView
+            android:id="@+id/textView13"
+            style="@style/text_label_card"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="40dp"
+            android:text="Avg pace"
+            android:textAlignment="viewStart"
+            app:layout_constraintBottom_toTopOf="@+id/horizontal_guideline_mid"
+            app:layout_constraintEnd_toStartOf="@+id/vertical_guideline5"
+            app:layout_constraintStart_toStartOf="@+id/vertical_guideline4" />
+
+        <TextView
+            android:id="@+id/textView14"
+            style="@style/text_label_card"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="40dp"
+            android:text="Avg Heart Rate"
+            android:textAlignment="viewStart"
+            app:layout_constraintBottom_toTopOf="@+id/horizontal_guideline_mid"
+            app:layout_constraintEnd_toStartOf="@+id/vertical_guideline6"
+            app:layout_constraintStart_toStartOf="@+id/vertical_guideline5" />
+
+
+        <View
+            android:id="@+id/distance_divider_card"
+            android:layout_width="3dp"
+            android:layout_height="45dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/distanceColor"
+            app:layout_constraintBottom_toTopOf="@+id/horizontal_guideline_mid"
+            app:layout_constraintStart_toStartOf="@+id/vertical_guideline1" />
+
+        <View
+            android:id="@+id/duration_divider_card"
+            android:layout_width="3dp"
+            android:layout_height="45dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/durationColor"
+            app:layout_constraintBottom_toTopOf="@+id/horizontal_guideline_mid"
+            app:layout_constraintStart_toStartOf="@+id/vertical_guideline2" />
+
+        <View
+            android:id="@+id/calories_divider_card"
+            android:layout_width="3dp"
+            android:layout_height="45dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/caloriesColor"
+            app:layout_constraintBottom_toTopOf="@+id/horizontal_guideline_mid"
+            app:layout_constraintStart_toStartOf="@+id/vertical_guideline3" />
+
+        <View
+            android:id="@+id/avg_pace__divider_card"
+            android:layout_width="3dp"
+            android:layout_height="45dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/AvePaceColor"
+            app:layout_constraintBottom_toTopOf="@+id/horizontal_guideline_mid"
+            app:layout_constraintStart_toStartOf="@+id/vertical_guideline4" />
+
+        <View
+            android:id="@+id/avg_heart__divider_card"
+            android:layout_width="3dp"
+            android:layout_height="45dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/AveHeartRateColor"
+            app:layout_constraintBottom_toTopOf="@+id/horizontal_guideline_mid"
+            app:layout_constraintStart_toStartOf="@+id/vertical_guideline5" />
 
     </android.support.constraint.ConstraintLayout>
 
