@@ -153,12 +153,12 @@
 
             <Button
                 android:id="@+id/gallery_button"
+                style="@style/text_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="?android:attr/selectableItemBackground"
                 android:buttonStyle="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:text="@string/gallery_button"
-                android:textColor="@color/onBackground"
                 app:layout_constraintEnd_toStartOf="@+id/photo_button"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_chainStyle="spread"
@@ -167,12 +167,12 @@
 
             <Button
                 android:id="@+id/photo_button"
+                style="@style/text_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="?android:attr/selectableItemBackground"
                 android:buttonStyle="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:text="@string/photo_button"
-                android:textColor="@color/onBackground"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/gallery_button"
@@ -327,8 +327,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:src="@drawable/ic_done"
             android:tint="#ffffff"
             android:visibility="visible" />
@@ -338,8 +338,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:src="@drawable/ic_scan"
             android:tint="#ffffff"
             android:visibility="visible" />

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RunScanner</string>
+    <string name="app_name">RUNSCANNER</string>
     <string name="gallery_button">Gallery</string>
     <string name="photo_button">Photo</string>
     <string name="scan_button">Go to Scan!</string>
