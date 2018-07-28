@@ -134,51 +134,46 @@
             app:layout_constraintGuide_end="18dp" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/distance_value_card"
             style="@style/text_value_card"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:text="11.97"
             app:layout_constraintBottom_toTopOf="@+id/horizontal_guideline_mid"
             app:layout_constraintEnd_toStartOf="@+id/vertical_guideline2"
             app:layout_constraintStart_toStartOf="@+id/vertical_guideline1" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/duration_value_card"
             style="@style/text_value_card"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:text="31:38"
             app:layout_constraintBottom_toTopOf="@+id/horizontal_guideline_mid"
             app:layout_constraintEnd_toStartOf="@+id/vertical_guideline3"
             app:layout_constraintStart_toStartOf="@+id/vertical_guideline2" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/calories_value_card"
             style="@style/text_value_card"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:text="224"
             app:layout_constraintBottom_toTopOf="@+id/horizontal_guideline_mid"
             app:layout_constraintEnd_toStartOf="@+id/vertical_guideline4"
             app:layout_constraintStart_toStartOf="@+id/vertical_guideline3" />
 
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/avgPace_value_card"
             style="@style/text_value_card"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:text="16:05"
             app:layout_constraintBottom_toTopOf="@+id/horizontal_guideline_mid"
             app:layout_constraintEnd_toStartOf="@+id/vertical_guideline5"
             app:layout_constraintStart_toStartOf="@+id/vertical_guideline4" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/avgHeartRate_value_card"
             style="@style/text_value_card"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:text="158"
             app:layout_constraintBottom_toTopOf="@+id/horizontal_guideline_mid"
             app:layout_constraintEnd_toStartOf="@+id/vertical_guideline6"
             app:layout_constraintStart_toStartOf="@+id/vertical_guideline5" />

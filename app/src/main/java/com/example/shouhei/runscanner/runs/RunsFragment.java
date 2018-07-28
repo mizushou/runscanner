@@ -132,6 +132,9 @@ public class RunsFragment extends Fragment {
 
         private TextView mDistanceTextView;
         private TextView mDurationTextView;
+        private TextView mCaloriesTextView;
+        private TextView mAvgPaceTextView;
+        private TextView mAvgHeartRateTextView;
         private Run mRun;
 
         public RunHolder(LayoutInflater inflater, ViewGroup parent) {
@@ -148,16 +151,20 @@ public class RunsFragment extends Fragment {
                         }
                     });
 
-            mDistanceTextView = itemView.findViewById(R.id.run_distance);
-            mDurationTextView = itemView.findViewById(R.id.run_duration);
+            mDistanceTextView = itemView.findViewById(R.id.distance_value_card);
+            mDurationTextView = itemView.findViewById(R.id.duration_value_card);
+            mCaloriesTextView = itemView.findViewById(R.id.calories_value_card);
+            mAvgPaceTextView = itemView.findViewById(R.id.avgPace_value_card);
+            mAvgHeartRateTextView = itemView.findViewById(R.id.avgHeartRate_value_card);
         }
 
         public void bind(Run run) {
             mRun = run;
-            //            mDistanceTextView.setText(getString(R.string.result_run_distance,
-            // mRun.getDistance()));
-            //            mDurationTextView.setText(getString(R.string.result_run_duration,
-            // mRun.getDuration()));
+            mDistanceTextView.setText(mRun.getDistance());
+            mDurationTextView.setText(mRun.getDuration());
+            mCaloriesTextView.setText(mRun.getCalorie());
+            mAvgPaceTextView.setText(mRun.getAvePace());
+            mAvgHeartRateTextView.setText(mRun.getAveHeartRate());
         }
     }
     // ==============================================================
