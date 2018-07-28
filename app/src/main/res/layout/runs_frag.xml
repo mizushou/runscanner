@@ -41,20 +41,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- This is just only anchor of FAB. -->
-        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/anchorFrame"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </FrameLayout>
-
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/add_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right|bottom"
-            android:layout_marginRight="8dp"
+            android:layout_gravity="end|bottom"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:src="@drawable/ic_add" />
     </android.support.design.widget.CoordinatorLayout>

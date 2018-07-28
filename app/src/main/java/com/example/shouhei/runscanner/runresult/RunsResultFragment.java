@@ -389,6 +389,13 @@ public class RunsResultFragment extends Fragment {
                     public void onClick(View v) {
                         Snackbar snackbar =
                                 Snackbar.make(v, "Your run is added", Snackbar.LENGTH_LONG);
+                        // TODO Implement 'UNDO' function.
+                        snackbar.setAction(
+                                "UNDO",
+                                new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {}
+                                });
                         snackbar.show();
                         snackbar.addCallback(
                                 new Snackbar.Callback() {
