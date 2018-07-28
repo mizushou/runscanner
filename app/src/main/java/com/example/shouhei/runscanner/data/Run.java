@@ -1,6 +1,5 @@
 package com.example.shouhei.runscanner.data;
 
-import java.util.Date;
 import java.util.UUID;
 
 public class Run {
@@ -11,17 +10,17 @@ public class Run {
     private String mDuration;
     private String mAvePace;
     private String mAveHeartRate;
-    private Date mDate;
+    private long mDate;
 
     public Run() {
         mId = UUID.randomUUID();
-        mDate = new Date();
+        mDate = System.currentTimeMillis();
     }
 
     // For referring from existing uuid.
     public Run(UUID uuid) {
         mId = uuid;
-        mDate = new Date();
+        mDate = System.currentTimeMillis();
     }
 
     public String getPhotoFilename() {
@@ -76,11 +75,11 @@ public class Run {
         mAveHeartRate = aveHeartRate;
     }
 
-    public Date getDate() {
+    public long getDate() {
         return mDate;
     }
 
-    public void setDate(Date date) {
+    public void setDate(long date) {
         mDate = date;
     }
 }

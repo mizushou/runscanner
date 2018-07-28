@@ -87,7 +87,7 @@ public class Runs {
     private static ContentValues getContentValues(Run run) {
         ContentValues values = new ContentValues();
         values.put(RunTable.Cols.UUID, run.getId().toString());
-        values.put(RunTable.Cols.AVERAGE_PACE, run.getDate().toString());
+        values.put(RunTable.Cols.DATE, run.getDate());
         values.put(RunTable.Cols.DISTANCE, run.getDistance());
         values.put(RunTable.Cols.CALORIE, run.getCalorie());
         values.put(RunTable.Cols.DURATION, run.getDuration());

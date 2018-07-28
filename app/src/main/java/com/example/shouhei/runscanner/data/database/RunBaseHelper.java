@@ -34,6 +34,7 @@ public class RunBaseHelper extends SQLiteOpenHelper {
                         + RunTable.Cols.AVERAGE_HEART_RATE
                         + ","
                         + RunTable.Cols.DATE
+                        + " integer"
                         + " )");
     }
 

@@ -1,6 +1,8 @@
 package com.example.shouhei.runscanner.runresult;
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
@@ -11,7 +13,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -367,6 +371,11 @@ public class RunsResultFragment extends Fragment {
                                                 mAvgHeartRateField.setText(
                                                         elementsList.getAvgHeartRate());
 
+                                                // set taken date
+                                                mResultRun.setDate(
+                                                        getImageTakenDate(
+                                                                getContext(), mTargetUri));
+
                                                 mIsScanned = true;
                                                 setFab();
                                             }
@@ -497,6 +506,17 @@ public class RunsResultFragment extends Fragment {
             mScanFab.setVisibility(View.INVISIBLE);
             mDoneFab.setVisibility(View.VISIBLE);
         }
+    }
+
+    private long getImageTakenDate(Context context, Uri uri) {
+        if (uri.getScheme().equals("content")) {
+            String[] projection = {MediaStore.Images.ImageColumns.DATE_TAKEN};
+            Cursor c = context.getContentResolver().query(uri, projection, null, null, null);
+            if (c.moveToFirst()) {
+                return c.getLong(0);
+            }
+        }
+        return System.currentTimeMillis();
     }
 
     private void debugFirebaseVisionText(FirebaseVisionText firebaseVisionText) {
