@@ -57,7 +57,6 @@ public class RunsFragment extends Fragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Log.d(TAG, "Add FAB is clicked");
                         Intent intent = new Intent(getActivity(), RunResultActivity.class);
                         startActivity(intent);
                     }
@@ -136,7 +135,7 @@ public class RunsFragment extends Fragment {
         private Run mRun;
 
         public RunHolder(LayoutInflater inflater, ViewGroup parent) {
-            super(inflater.inflate(R.layout.run_item, parent, false));
+            super(inflater.inflate(R.layout.run_card, parent, false));
             itemView.setOnClickListener(
                     new View.OnClickListener() {
                         @Override
@@ -155,8 +154,10 @@ public class RunsFragment extends Fragment {
 
         public void bind(Run run) {
             mRun = run;
-            mDistanceTextView.setText(getString(R.string.result_run_distance, mRun.getDistance()));
-            mDurationTextView.setText(getString(R.string.result_run_duration, mRun.getDuration()));
+            //            mDistanceTextView.setText(getString(R.string.result_run_distance,
+            // mRun.getDistance()));
+            //            mDurationTextView.setText(getString(R.string.result_run_duration,
+            // mRun.getDuration()));
         }
     }
     // ==============================================================

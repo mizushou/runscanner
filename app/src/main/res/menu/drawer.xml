@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item
-        android:id="@+id/runlist_navigation_menu_item"
-        android:icon="@drawable/ic_runlist"
-        android:title="@string/runlist_title" />
-
-    <item
-        android:id="@+id/statistics_navigation_menu_item"
-        android:icon="@drawable/ic_stats"
-        android:title="@string/statistics_title" />
-    <item
-        android:id="@+id/user_navigation_menu_item"
-        android:icon="@drawable/ic_user"
-        android:title="@string/user_title" />
-    <item
-        android:id="@+id/share_navigation_menu_item"
-        android:icon="@drawable/ic_share"
-        android:title="@string/share_title" />
-
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/runlist_navigation_menu_item"
+            android:icon="@drawable/ic_runlist"
+            android:title="@string/runlist_title"
+            app:theme="@style/text_nav"/>
+        <item
+            android:id="@+id/statistics_navigation_menu_item"
+            android:icon="@drawable/ic_stats"
+            android:title="@string/statistics_title" />
+        <item
+            android:id="@+id/user_navigation_menu_item"
+            android:icon="@drawable/ic_user"
+            android:title="@string/user_title" />
+        <item
+            android:id="@+id/share_navigation_menu_item"
+            android:icon="@drawable/ic_share"
+            android:title="@string/share_title" />
+    </group>
 </menu>

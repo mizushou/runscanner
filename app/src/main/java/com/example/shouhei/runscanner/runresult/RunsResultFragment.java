@@ -10,6 +10,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.text.Editable;
@@ -42,7 +43,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.math.BigDecimal;
-import java.util.List;
 
 public class RunsResultFragment extends Fragment {
 
@@ -57,6 +57,7 @@ public class RunsResultFragment extends Fragment {
     private EditText mDurationField;
     private EditText mAvgPaceField;
     private EditText mAvgHeartRateField;
+    private FloatingActionButton mScanFab;
     private FloatingActionButton mDoneFab;
 
     private File mPhotoFile;
@@ -64,6 +65,7 @@ public class RunsResultFragment extends Fragment {
     private Run mResultRun;
     private int mTargetImageWidth;
     private int mTargetImageHeight;
+    private boolean mIsScanned;
 
     private static final int REQUEST_PHOTO = 0;
     private static final int REQUEST_GALLERY = 1;
@@ -75,27 +77,29 @@ public class RunsResultFragment extends Fragment {
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
 
+        Log.d(TAG, "onCreateView is called.");
+
         View root = inflater.inflate(R.layout.runresult_frag, container, false);
 
         mResultRun = new Run();
 
+        // set up the Gallery button
         mGalleryButton = root.findViewById(R.id.gallery_button);
         mGalleryButton.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Log.d(TAG, "GalleryButton clicked");
-                        //            Intent pickupImage = new Intent(Intent.ACTION_PICK);
+
                         Intent pickupImage = new Intent(Intent.ACTION_GET_CONTENT);
                         pickupImage.setType("image/*");
                         startActivityForResult(pickupImage, REQUEST_GALLERY);
                     }
                 });
 
+        // set up the Photo button
         mPhotoButton = root.findViewById(R.id.photo_button);
         final Intent captureImage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-        // Verify that the intent will resolve to an activity
         boolean canTakePhoto =
                 captureImage.resolveActivity(getActivity().getPackageManager()) != null;
         mPhotoButton.setEnabled(canTakePhoto);
@@ -206,8 +210,8 @@ public class RunsResultFragment extends Fragment {
                     public void afterTextChanged(Editable s) {}
                 });
 
-        mDummyButton = root.findViewById(R.id.dummy_button);
-        mDummyButton.setOnClickListener(
+        mScanFab = root.findViewById(R.id.scan_fab);
+        mScanFab.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -362,6 +366,9 @@ public class RunsResultFragment extends Fragment {
                                                         elementsList.getAvgPaceValue());
                                                 mAvgHeartRateField.setText(
                                                         elementsList.getAvgHeartRate());
+
+                                                mIsScanned = true;
+                                                setFab();
                                             }
                                         })
                                 .addOnFailureListener(
@@ -380,13 +387,47 @@ public class RunsResultFragment extends Fragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Log.d(TAG, "Done FAB is clicked");
-                        Runs.get(getActivity()).addRun(mResultRun);
-                        getActivity().finish();
+                        Snackbar snackbar =
+                                Snackbar.make(v, "Your run is added", Snackbar.LENGTH_LONG);
+                        // TODO Implement 'UNDO' function.
+                        snackbar.setAction(
+                                "UNDO",
+                                new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {}
+                                });
+                        snackbar.show();
+                        snackbar.addCallback(
+                                new Snackbar.Callback() {
+                                    @Override
+                                    public void onDismissed(
+                                            Snackbar transientBottomBar, int event) {
+                                        Runs.get(getActivity()).addRun(mResultRun);
+                                        getActivity().finish();
+                                    }
+                                });
                     }
                 });
 
+        mIsScanned = false;
+        setFab();
         return root;
+    }
+
+    @Override
+    public void onStart() {
+        Log.d(TAG, "onStart() is called.");
+        super.onStart();
+
+        // reset state
+        mIsScanned = false;
+        setFab();
+    }
+
+    @Override
+    public void onResume() {
+        Log.d(TAG, "onResume() is called.");
+        super.onResume();
     }
 
     @Override
@@ -415,12 +456,6 @@ public class RunsResultFragment extends Fragment {
                     "Authority : "
                             + mTargetUri
                                     .getAuthority()); // com.google.android.apps.photos.contentprovider
-            //      Bitmap bitmap = null;
-            //      try {
-            //        bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
-            //      } catch (IOException e) {
-            //        e.printStackTrace();
-            //      }
 
             try {
                 InputStream stream = getActivity().getContentResolver().openInputStream(mTargetUri);
@@ -449,6 +484,18 @@ public class RunsResultFragment extends Fragment {
         } else {
             Bitmap bitmap = PictureUtils.getScaledBitmap(mPhotoFile.getPath(), getActivity());
             mTargetImageView.setImageBitmap(bitmap);
+        }
+    }
+
+    private void setFab() {
+        if (!mIsScanned) {
+            // before scan
+            mScanFab.setVisibility(View.VISIBLE);
+            mDoneFab.setVisibility(View.INVISIBLE);
+        } else {
+            // after scan
+            mScanFab.setVisibility(View.INVISIBLE);
+            mDoneFab.setVisibility(View.VISIBLE);
         }
     }
 
