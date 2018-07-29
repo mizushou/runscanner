@@ -161,9 +161,9 @@ public class RunsFragment extends Fragment {
         public void bind(Run run) {
             mRun = run;
             mDistanceTextView.setText(mRun.getDistance());
-            mDurationTextView.setText(mRun.getDuration());
+            mDurationTextView.setText(String.valueOf(mRun.getDuration()));
             mCaloriesTextView.setText(mRun.getCalorie());
-            mAvgPaceTextView.setText(mRun.getAvePace());
+            mAvgPaceTextView.setText(String.valueOf(mRun.getAvePace()));
             mAvgHeartRateTextView.setText(mRun.getAveHeartRate());
         }
     }

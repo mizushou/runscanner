@@ -7,8 +7,8 @@ public class Run {
     private UUID mId;
     private String mDistance;
     private String mCalorie;
-    private String mDuration;
-    private String mAvePace;
+    private int mDuration;
+    private int mAvePace;
     private String mAveHeartRate;
     private long mDate;
 
@@ -51,19 +51,19 @@ public class Run {
         mCalorie = calorie;
     }
 
-    public String getDuration() {
+    public int getDuration() {
         return mDuration;
     }
 
-    public void setDuration(String duration) {
+    public void setDuration(int duration) {
         mDuration = duration;
     }
 
-    public String getAvePace() {
+    public int getAvePace() {
         return mAvePace;
     }
 
-    public void setAvePace(String avePace) {
+    public void setAvePace(int avePace) {
         mAvePace = avePace;
     }
 

@@ -35,6 +35,7 @@ import com.example.shouhei.runscanner.util.PictureUtils;
 import com.example.shouhei.runscanner.util.RightSideElementFilter;
 import com.example.shouhei.runscanner.util.RightSideElementsCalculator;
 import com.example.shouhei.runscanner.util.RightSideElementsList;
+import com.example.shouhei.runscanner.util.TimeHelper;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.ml.vision.FirebaseVision;
@@ -159,7 +160,9 @@ public class RunsResultFragment extends Fragment {
 
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        mResultRun.setDuration(s.toString());
+                        int durationAsSecond =
+                                TimeHelper.convertSexagesimalStrToSecond(s.toString());
+                        mResultRun.setDuration(durationAsSecond);
                     }
 
                     @Override
@@ -191,7 +194,9 @@ public class RunsResultFragment extends Fragment {
 
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        mResultRun.setAvePace(s.toString());
+                        int avgPaceAsSecond =
+                                TimeHelper.convertSexagesimalStrToSecond(s.toString());
+                        mResultRun.setAvePace(avgPaceAsSecond);
                     }
 
                     @Override
