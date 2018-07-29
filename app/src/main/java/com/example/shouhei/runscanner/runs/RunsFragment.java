@@ -162,9 +162,9 @@ public class RunsFragment extends Fragment {
             mRun = run;
             mDistanceTextView.setText(mRun.getDistance());
             mDurationTextView.setText(String.valueOf(mRun.getDuration()));
-            mCaloriesTextView.setText(mRun.getCalorie());
+            mCaloriesTextView.setText(String.valueOf(mRun.getCalorie()));
             mAvgPaceTextView.setText(String.valueOf(mRun.getAvePace()));
-            mAvgHeartRateTextView.setText(mRun.getAveHeartRate());
+            mAvgHeartRateTextView.setText(String.valueOf(mRun.getAveHeartRate()));
         }
     }
     // ==============================================================

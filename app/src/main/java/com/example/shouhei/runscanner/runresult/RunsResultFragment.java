@@ -178,7 +178,7 @@ public class RunsResultFragment extends Fragment {
 
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        mResultRun.setCalorie(s.toString());
+                        mResultRun.setCalorie(Integer.valueOf(s.toString()));
                     }
 
                     @Override
@@ -212,7 +212,7 @@ public class RunsResultFragment extends Fragment {
 
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        mResultRun.setAveHeartRate(s.toString());
+                        mResultRun.setAveHeartRate(Integer.valueOf(s.toString()));
                     }
 
                     @Override

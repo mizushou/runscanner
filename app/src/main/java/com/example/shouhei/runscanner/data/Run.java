@@ -6,10 +6,10 @@ public class Run {
 
     private UUID mId;
     private String mDistance;
-    private String mCalorie;
+    private int mCalorie;
     private int mDuration;
     private int mAvePace;
-    private String mAveHeartRate;
+    private int mAveHeartRate;
     private long mDate;
 
     public Run() {
@@ -43,14 +43,6 @@ public class Run {
         mDistance = distance;
     }
 
-    public String getCalorie() {
-        return mCalorie;
-    }
-
-    public void setCalorie(String calorie) {
-        mCalorie = calorie;
-    }
-
     public int getDuration() {
         return mDuration;
     }
@@ -67,19 +59,27 @@ public class Run {
         mAvePace = avePace;
     }
 
-    public String getAveHeartRate() {
-        return mAveHeartRate;
-    }
-
-    public void setAveHeartRate(String aveHeartRate) {
-        mAveHeartRate = aveHeartRate;
-    }
-
     public long getDate() {
         return mDate;
     }
 
     public void setDate(long date) {
         mDate = date;
+    }
+
+    public int getCalorie() {
+        return mCalorie;
+    }
+
+    public void setCalorie(int calorie) {
+        mCalorie = calorie;
+    }
+
+    public int getAveHeartRate() {
+        return mAveHeartRate;
+    }
+
+    public void setAveHeartRate(int aveHeartRate) {
+        mAveHeartRate = aveHeartRate;
     }
 }
