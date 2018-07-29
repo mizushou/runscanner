@@ -5,7 +5,7 @@ import java.util.UUID;
 public class Run {
 
     private UUID mId;
-    private String mDistance;
+    private float mDistance;
     private int mCalorie;
     private int mDuration;
     private int mAvePace;
@@ -24,42 +24,50 @@ public class Run {
     }
 
     public String getPhotoFilename() {
+
         return "IMG_" + getId().toString() + ".jpg";
     }
 
     public UUID getId() {
+
         return mId;
     }
 
     public void setId(UUID id) {
+
         mId = id;
     }
 
-    public String getDistance() {
+    public float getDistance() {
         return mDistance;
     }
 
-    public void setDistance(String distance) {
+    public void setDistance(float distance) {
         mDistance = distance;
     }
 
     public int getDuration() {
+
         return mDuration;
     }
 
     public void setDuration(int duration) {
+
         mDuration = duration;
     }
 
     public int getAvePace() {
+
         return mAvePace;
     }
 
     public void setAvePace(int avePace) {
+
         mAvePace = avePace;
     }
 
     public long getDate() {
+
         return mDate;
     }
 
@@ -80,6 +88,7 @@ public class Run {
     }
 
     public void setAveHeartRate(int aveHeartRate) {
+
         mAveHeartRate = aveHeartRate;
     }
 }

@@ -24,7 +24,7 @@ public class RunBaseHelper extends SQLiteOpenHelper {
                         + RunTable.Cols.UUID
                         + ","
                         + RunTable.Cols.DISTANCE
-                        + " integer"
+                        + " real"
                         + ","
                         + RunTable.Cols.CALORIE
                         + " integer"

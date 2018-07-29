@@ -52,7 +52,7 @@ public class RunsFragment extends Fragment {
         Log.d(TAG, "onCreateView() is called");
 
         // set up add the fab
-        mAddFab = root.findViewById(R.id.add_fab);
+        mAddFab = getActivity().findViewById(R.id.add_fab);
         mAddFab.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -160,7 +160,7 @@ public class RunsFragment extends Fragment {
 
         public void bind(Run run) {
             mRun = run;
-            mDistanceTextView.setText(mRun.getDistance());
+            mDistanceTextView.setText(String.valueOf(mRun.getDistance()));
             mDurationTextView.setText(String.valueOf(mRun.getDuration()));
             mCaloriesTextView.setText(String.valueOf(mRun.getCalorie()));
             mAvgPaceTextView.setText(String.valueOf(mRun.getAvePace()));

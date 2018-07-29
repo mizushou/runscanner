@@ -15,20 +15,20 @@ public class TimeHelper {
         switch (n) {
             case 2:
                 // mm:ss
-                mm = Integer.valueOf(delFirstZelo(arr[0]));
-                ss = Integer.valueOf(delFirstZelo(arr[1]));
+                mm = Integer.valueOf(delFirstZero(arr[0]));
+                ss = Integer.valueOf(delFirstZero(arr[1]));
                 return mm * 60 + ss;
             case 3:
                 // hh:mm:ss
-                hh = Integer.valueOf(delFirstZelo(arr[0]));
-                mm = Integer.valueOf(delFirstZelo(arr[1]));
-                ss = Integer.valueOf(delFirstZelo(arr[2]));
+                hh = Integer.valueOf(delFirstZero(arr[0]));
+                mm = Integer.valueOf(delFirstZero(arr[1]));
+                ss = Integer.valueOf(delFirstZero(arr[2]));
                 return hh * 3600 + mm * 60 + ss;
         }
         return 0;
     }
 
-    public static String delFirstZelo(String s) {
+    static String delFirstZero(String s) {
         String regex = "^0[1-9]";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(s);

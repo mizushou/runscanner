@@ -13,9 +13,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -30,6 +28,7 @@ import android.widget.ImageView;
 import com.example.shouhei.runscanner.R;
 import com.example.shouhei.runscanner.data.Run;
 import com.example.shouhei.runscanner.runs.Runs;
+import com.example.shouhei.runscanner.util.DistanceHelper;
 import com.example.shouhei.runscanner.util.ElementWrapper;
 import com.example.shouhei.runscanner.util.PictureUtils;
 import com.example.shouhei.runscanner.util.RightSideElementFilter;
@@ -144,7 +143,7 @@ public class RunsResultFragment extends Fragment {
 
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        mResultRun.setDistance(s.toString());
+                        mResultRun.setDistance(DistanceHelper.convertMileStrToMeter(s.toString()));
                     }
 
                     @Override
