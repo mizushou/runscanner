@@ -23,6 +23,7 @@ import android.widget.Toolbar;
 import com.example.shouhei.runscanner.runresult.RunResultActivity;
 import com.example.shouhei.runscanner.R;
 import com.example.shouhei.runscanner.data.Run;
+import com.example.shouhei.runscanner.util.DateHelper;
 import com.example.shouhei.runscanner.util.DistanceHelper;
 import com.example.shouhei.runscanner.util.TimeHelper;
 
@@ -127,11 +128,12 @@ public class RunsFragment extends Fragment {
             return mRunList.size();
         }
     }
-    // ==============================================================
-
+    // =============================================================
     // ====================Inner class#2 [Holder]====================
     private class RunHolder extends RecyclerView.ViewHolder {
 
+        private TextView mCardTitleTextView;
+        private TextView mCardSubTitleTextView;
         private TextView mDistanceTextView;
         private TextView mDurationTextView;
         private TextView mCaloriesTextView;
@@ -153,6 +155,8 @@ public class RunsFragment extends Fragment {
                         }
                     });
 
+            mCardTitleTextView = itemView.findViewById(R.id.cardTitle);
+            mCardSubTitleTextView = itemView.findViewById(R.id.cardSubTitle);
             mDistanceTextView = itemView.findViewById(R.id.distance_value_card);
             mDurationTextView = itemView.findViewById(R.id.duration_value_card);
             mCaloriesTextView = itemView.findViewById(R.id.calories_value_card);
@@ -162,6 +166,8 @@ public class RunsFragment extends Fragment {
 
         public void bind(Run run) {
             mRun = run;
+            mCardTitleTextView.setText(DateHelper.getDateTitleStringOnCard(mRun.getDate()));
+            mCardSubTitleTextView.setText(DateHelper.getDateSubTitleStringOnCard(mRun.getDate()));
             mDistanceTextView.setText(
                     String.valueOf(DistanceHelper.convertMeterToMile(mRun.getDistance())));
             mDurationTextView.setText(TimeHelper.convertSecondToSexagesimal(mRun.getDuration()));
