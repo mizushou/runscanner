@@ -23,6 +23,8 @@ import android.widget.Toolbar;
 import com.example.shouhei.runscanner.runresult.RunResultActivity;
 import com.example.shouhei.runscanner.R;
 import com.example.shouhei.runscanner.data.Run;
+import com.example.shouhei.runscanner.util.DistanceHelper;
+import com.example.shouhei.runscanner.util.TimeHelper;
 
 import java.util.List;
 
@@ -160,10 +162,11 @@ public class RunsFragment extends Fragment {
 
         public void bind(Run run) {
             mRun = run;
-            mDistanceTextView.setText(String.valueOf(mRun.getDistance()));
-            mDurationTextView.setText(String.valueOf(mRun.getDuration()));
+            mDistanceTextView.setText(
+                    String.valueOf(DistanceHelper.convertMeterToMile(mRun.getDistance())));
+            mDurationTextView.setText(TimeHelper.convertSecondToSexagesimal(mRun.getDuration()));
             mCaloriesTextView.setText(String.valueOf(mRun.getCalorie()));
-            mAvgPaceTextView.setText(String.valueOf(mRun.getAvePace()));
+            mAvgPaceTextView.setText(TimeHelper.convertSecondToSexagesimal(mRun.getAvePace()));
             mAvgHeartRateTextView.setText(String.valueOf(mRun.getAveHeartRate()));
         }
     }

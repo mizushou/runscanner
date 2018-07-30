@@ -28,12 +28,46 @@ public class TimeHelper {
         return 0;
     }
 
-    static String delFirstZero(String s) {
+    private static String delFirstZero(String s) {
         String regex = "^0[1-9]";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(s);
         if (matcher.matches()) {
             return s.substring(1);
+        }
+        return s;
+    }
+
+    public static String convertSecondToSexagesimal(int targetSecond) {
+        StringBuilder hhmmss = new StringBuilder();
+        int hour = targetSecond / 3600;
+        int minute = targetSecond / 60;
+        int second = targetSecond % 60;
+        if (hour >= 1) {
+            // hh:mm:ss
+            // Fill zero except the highest digit
+            hhmmss.append(hour)
+                    .append(":")
+                    .append(addZero(String.valueOf(minute)))
+                    .append(":")
+                    .append(addZero(String.valueOf(second)));
+        } else if (minute >= 1) {
+            // mm:ss
+            // Fill zero except the highest digit
+            hhmmss.append(minute).append(":").append(addZero(String.valueOf(second)));
+        } else {
+            // ss
+            hhmmss.append("00:").append(addZero(String.valueOf(second)));
+        }
+        return hhmmss.toString();
+    }
+
+    private static String addZero(String s) {
+        String regex = "^[0-9]$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(s);
+        if (matcher.matches()) {
+            return "0" + s;
         }
         return s;
     }

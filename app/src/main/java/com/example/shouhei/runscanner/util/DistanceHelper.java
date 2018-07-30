@@ -5,8 +5,14 @@ public class DistanceHelper {
     static final float METERPERMILE = 1609.344f;
 
     public static float convertMileStrToMeter(String mileStr) {
-        float mileFloat = Float.valueOf(mileStr);
-        return mileFloat * METERPERMILE;
+        try {
+            float mileFloat = Float.valueOf(mileStr);
+            return mileFloat * METERPERMILE;
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            // TODO consider later...
+            return 0f;
+        }
     }
 
     public static float convertMeterToMile(float meter) {
