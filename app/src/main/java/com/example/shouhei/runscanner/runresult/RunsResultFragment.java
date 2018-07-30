@@ -47,6 +47,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class RunsResultFragment extends Fragment {
 
@@ -142,12 +144,17 @@ public class RunsResultFragment extends Fragment {
                             CharSequence s, int start, int count, int after) {}
 
                     @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        mResultRun.setDistance(DistanceHelper.convertMileStrToMeter(s.toString()));
-                    }
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
                     @Override
-                    public void afterTextChanged(Editable s) {}
+                    public void afterTextChanged(Editable s) {
+                        if (isValidRealString(s.toString())) {
+                            mResultRun.setDistance(
+                                    DistanceHelper.convertMileStrToMeter(s.toString()));
+                        } else {
+                            mDistanceField.setError("error");
+                        }
+                    }
                 });
 
         mDurationField = root.findViewById(R.id.duration_value);
@@ -158,14 +165,18 @@ public class RunsResultFragment extends Fragment {
                             CharSequence s, int start, int count, int after) {}
 
                     @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        int durationAsSecond =
-                                TimeHelper.convertSexagesimalStrToSecond(s.toString());
-                        mResultRun.setDuration(durationAsSecond);
-                    }
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
                     @Override
-                    public void afterTextChanged(Editable s) {}
+                    public void afterTextChanged(Editable s) {
+                        if (isValidIso8601String(s.toString())) {
+                            int durationAsSecond =
+                                    TimeHelper.convertIso8601StrToSecond(s.toString());
+                            mResultRun.setDuration(durationAsSecond);
+                        } else {
+                            mDurationField.setError("error");
+                        }
+                    }
                 });
 
         mCaloriesField = root.findViewById(R.id.calories_value);
@@ -176,12 +187,16 @@ public class RunsResultFragment extends Fragment {
                             CharSequence s, int start, int count, int after) {}
 
                     @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        mResultRun.setCalorie(Integer.valueOf(s.toString()));
-                    }
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
                     @Override
-                    public void afterTextChanged(Editable s) {}
+                    public void afterTextChanged(Editable s) {
+                        if (isValidIntegerString(s.toString())) {
+                            mResultRun.setCalorie(Integer.valueOf(s.toString()));
+                        } else {
+                            mCaloriesField.setError("error");
+                        }
+                    }
                 });
 
         mAvgPaceField = root.findViewById(R.id.avg_pace_value);
@@ -192,14 +207,18 @@ public class RunsResultFragment extends Fragment {
                             CharSequence s, int start, int count, int after) {}
 
                     @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        int avgPaceAsSecond =
-                                TimeHelper.convertSexagesimalStrToSecond(s.toString());
-                        mResultRun.setAvePace(avgPaceAsSecond);
-                    }
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
                     @Override
-                    public void afterTextChanged(Editable s) {}
+                    public void afterTextChanged(Editable s) {
+                        if (isValidIso8601String(s.toString())) {
+                            int avgPaceAsSecond =
+                                    TimeHelper.convertIso8601StrToSecond(s.toString());
+                            mResultRun.setDuration(avgPaceAsSecond);
+                        } else {
+                            mDurationField.setError("error");
+                        }
+                    }
                 });
 
         mAvgHeartRateField = root.findViewById(R.id.avg_heart_rate_value);
@@ -210,12 +229,16 @@ public class RunsResultFragment extends Fragment {
                             CharSequence s, int start, int count, int after) {}
 
                     @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        mResultRun.setAveHeartRate(Integer.valueOf(s.toString()));
-                    }
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
                     @Override
-                    public void afterTextChanged(Editable s) {}
+                    public void afterTextChanged(Editable s) {
+                        if (isValidIntegerString(s.toString())) {
+                            mResultRun.setAveHeartRate(Integer.valueOf(s.toString()));
+                        } else {
+                            mAvgHeartRateField.setError("error");
+                        }
+                    }
                 });
 
         mScanFab = root.findViewById(R.id.scan_fab);
@@ -521,6 +544,27 @@ public class RunsResultFragment extends Fragment {
             }
         }
         return System.currentTimeMillis();
+    }
+
+    private boolean isValidRealString(String s) {
+        String regex = "^\\d+.\\d{2}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(s);
+        return matcher.matches();
+    }
+
+    private boolean isValidIso8601String(String s) {
+        String regex = "^[\\d{2}:]*\\d{2}:\\d{2}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(s);
+        return matcher.matches();
+    }
+
+    private boolean isValidIntegerString(String s) {
+        String regex = "^[0-9]+$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(s);
+        return matcher.matches();
     }
 
     private void debugFirebaseVisionText(FirebaseVisionText firebaseVisionText) {

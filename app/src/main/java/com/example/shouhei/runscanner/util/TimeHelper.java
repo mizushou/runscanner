@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 public class TimeHelper {
 
-    public static int convertSexagesimalStrToSecond(String sexagesimalStr) {
+    public static int convertIso8601StrToSecond(String sexagesimalStr) {
 
         String[] arr = sexagesimalStr.split(":");
         int n = arr.length;
@@ -38,7 +38,7 @@ public class TimeHelper {
         return s;
     }
 
-    public static String convertSecondToSexagesimal(int targetSecond) {
+    public static String convertSecondToIso8601(int targetSecond) {
         StringBuilder hhmmss = new StringBuilder();
         int hour = targetSecond / 3600;
         int minute = targetSecond / 60;
