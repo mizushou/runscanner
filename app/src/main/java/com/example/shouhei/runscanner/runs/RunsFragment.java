@@ -21,8 +21,10 @@ import com.example.shouhei.runscanner.R;
 import com.example.shouhei.runscanner.data.Run;
 import com.example.shouhei.runscanner.util.DateHelper;
 import com.example.shouhei.runscanner.util.DistanceHelper;
+import com.example.shouhei.runscanner.util.SortRunByDateComparator;
 import com.example.shouhei.runscanner.util.TimeHelper;
 
+import java.util.Collections;
 import java.util.List;
 
 public class RunsFragment extends Fragment {
@@ -81,6 +83,8 @@ public class RunsFragment extends Fragment {
         Runs runs = Runs.get(getActivity());
         // get latest run's data from DB.
         List<Run> runList = runs.getRuns();
+
+        Collections.sort(runList, new SortRunByDateComparator());
 
         if (mAdapter == null) {
             mAdapter = new RunAdapter(runList);

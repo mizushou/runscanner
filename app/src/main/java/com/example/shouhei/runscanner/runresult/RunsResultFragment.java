@@ -214,7 +214,7 @@ public class RunsResultFragment extends Fragment {
                         if (isValidIso8601String(s.toString())) {
                             int avgPaceAsSecond =
                                     TimeHelper.convertIso8601StrToSecond(s.toString());
-                            mResultRun.setDuration(avgPaceAsSecond);
+                            mResultRun.setAvePace(avgPaceAsSecond);
                         } else {
                             mDurationField.setError("error");
                         }
