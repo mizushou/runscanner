@@ -27,6 +27,7 @@ import android.widget.ImageView;
 
 import com.example.shouhei.runscanner.R;
 import com.example.shouhei.runscanner.data.Run;
+import com.example.shouhei.runscanner.data.database.RunDbSchema;
 import com.example.shouhei.runscanner.runs.Runs;
 import com.example.shouhei.runscanner.util.DistanceHelper;
 import com.example.shouhei.runscanner.util.ElementWrapper;
@@ -216,7 +217,7 @@ public class RunsResultFragment extends Fragment {
                                     TimeHelper.convertIso8601StrToSecond(s.toString());
                             mResultRun.setAvePace(avgPaceAsSecond);
                         } else {
-                            mDurationField.setError("error");
+                            mAvgPaceField.setError("error");
                         }
                     }
                 });
@@ -547,7 +548,7 @@ public class RunsResultFragment extends Fragment {
     }
 
     private boolean isValidRealString(String s) {
-        String regex = "^\\d+.\\d{2}$";
+        String regex = "^\\d+\\.\\d{2}$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(s);
         return matcher.matches();

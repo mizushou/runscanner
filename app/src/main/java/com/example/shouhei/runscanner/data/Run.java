@@ -5,7 +5,7 @@ import java.util.UUID;
 public class Run {
 
     private UUID mId;
-    private float mDistance;
+    private double mDistance;
     private int mCalorie;
     private int mDuration;
     private int mAvePace;
@@ -38,11 +38,13 @@ public class Run {
         mId = id;
     }
 
-    public float getDistance() {
+    public double getDistance() {
+
         return mDistance;
     }
 
-    public void setDistance(float distance) {
+    public void setDistance(double distance) {
+
         mDistance = distance;
     }
 
@@ -72,18 +74,22 @@ public class Run {
     }
 
     public void setDate(long date) {
+        
         mDate = date;
     }
 
     public int getCalorie() {
+        
         return mCalorie;
     }
 
     public void setCalorie(int calorie) {
+        
         mCalorie = calorie;
     }
 
     public int getAveHeartRate() {
+        
         return mAveHeartRate;
     }
 

@@ -169,7 +169,8 @@ public class RunsFragment extends Fragment {
             mCardTitleTextView.setText(DateHelper.getDateTitleStringOnCard(mRun.getDate()));
             mCardSubTitleTextView.setText(DateHelper.getDateSubTitleStringOnCard(mRun.getDate()));
             mDistanceTextView.setText(
-                    String.valueOf(DistanceHelper.convertMeterToMile(mRun.getDistance())));
+                    DistanceHelper.formatMile(
+                            DistanceHelper.convertMeterToMile(mRun.getDistance())));
             mDurationTextView.setText(TimeHelper.convertSecondToIso8601(mRun.getDuration()));
             mCaloriesTextView.setText(String.valueOf(mRun.getCalorie()));
             mAvgPaceTextView.setText(TimeHelper.convertSecondToIso8601(mRun.getAvePace()));

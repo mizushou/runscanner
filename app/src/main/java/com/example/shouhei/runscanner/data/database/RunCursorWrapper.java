@@ -20,7 +20,7 @@ public class RunCursorWrapper extends CursorWrapper {
 
         String uuidString = getString(getColumnIndex(RunTable.Cols.UUID));
         long date = getLong(getColumnIndex(RunTable.Cols.DATE));
-        float distance = getFloat(getColumnIndex(RunTable.Cols.DISTANCE));
+        double distance = getDouble(getColumnIndex(RunTable.Cols.DISTANCE));
         int calorie = getInt(getColumnIndex(RunTable.Cols.CALORIE));
         int duration = getInt(getColumnIndex(RunTable.Cols.DURATION));
         int avePace = getInt(getColumnIndex(RunTable.Cols.AVERAGE_PACE));
