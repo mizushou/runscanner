@@ -29,6 +29,7 @@ import com.example.shouhei.runscanner.R;
 import com.example.shouhei.runscanner.data.Run;
 import com.example.shouhei.runscanner.data.database.RunDbSchema;
 import com.example.shouhei.runscanner.runs.Runs;
+import com.example.shouhei.runscanner.util.DateHelper;
 import com.example.shouhei.runscanner.util.DistanceHelper;
 import com.example.shouhei.runscanner.util.ElementWrapper;
 import com.example.shouhei.runscanner.util.PictureUtils;
