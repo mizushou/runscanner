@@ -50,8 +50,6 @@ public class DateHelper {
         calendar.setTime(firstDayOfTheMonth);
         calendar.add(Calendar.MONTH, 1);
 
-        testDate2(calendar.getTimeInMillis());
-
         return calendar.getTimeInMillis();
     }
 
@@ -93,6 +91,32 @@ public class DateHelper {
         if (ampm == 1) {
             calendar.add(Calendar.AM_PM, -ampm);
         }
+
+        return calendar.getTimeInMillis();
+    }
+
+    public static long getFirstDayOfTheYear() {
+        Date firstDayOfTheYear = new Date(getFirstDayOfTheMonth());
+
+        // TODO consider timezone later...
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault(), Locale.CANADA);
+        calendar.setTime(firstDayOfTheYear);
+
+        int month = calendar.get(Calendar.MONTH);
+        calendar.add(Calendar.MONTH, -month);
+
+        return calendar.getTimeInMillis();
+    }
+
+    public static long getLastDayOfTheYear() {
+        Date firstDayOfTheYear = new Date(getFirstDayOfTheYear());
+
+        // TODO consider timezone later...
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault(), Locale.CANADA);
+        calendar.setTime(firstDayOfTheYear);
+
+        int year = calendar.get(Calendar.YEAR);
+        calendar.add(Calendar.YEAR, 1);
 
         return calendar.getTimeInMillis();
     }
