@@ -74,26 +74,38 @@ public class DateHelper {
         return calendar.getTimeInMillis();
     }
 
-    public static long getLastDayOfTheWeek() {
-        Date currentDate = new Date(System.currentTimeMillis());
+    public static long getFirstDayOfTheNextWeek() {
+        Date firstDayOfTheNextWeek = new Date(getFirstDayOfTheWeek());
 
         // TODO consider timezone later...
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault(), Locale.CANADA);
-        calendar.setTime(currentDate);
+        calendar.setTime(firstDayOfTheNextWeek);
 
-        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-        int hour = calendar.get(Calendar.HOUR);
-        int minute = calendar.get(Calendar.MINUTE);
-        int ampm = calendar.get(Calendar.AM_PM);
-        calendar.add(Calendar.DAY_OF_MONTH, -dayOfWeek + 7);
-        calendar.add(Calendar.HOUR, -hour);
-        calendar.add(Calendar.MINUTE, -minute);
-        if (ampm == 1) {
-            calendar.add(Calendar.AM_PM, -ampm);
-        }
+        calendar.add(Calendar.DAY_OF_MONTH, 7);
 
         return calendar.getTimeInMillis();
     }
+
+    //    public static long getLastDayOfTheWeek() {
+    //        Date currentDate = new Date(System.currentTimeMillis());
+    //
+    //        // TODO consider timezone later...
+    //        Calendar calendar = Calendar.getInstance(TimeZone.getDefault(), Locale.CANADA);
+    //        calendar.setTime(currentDate);
+    //
+    //        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+    //        int hour = calendar.get(Calendar.HOUR);
+    //        int minute = calendar.get(Calendar.MINUTE);
+    //        int ampm = calendar.get(Calendar.AM_PM);
+    //        calendar.add(Calendar.DAY_OF_MONTH, -dayOfWeek + 7);
+    //        calendar.add(Calendar.HOUR, -hour);
+    //        calendar.add(Calendar.MINUTE, -minute);
+    //        if (ampm == 1) {
+    //            calendar.add(Calendar.AM_PM, -ampm);
+    //        }
+    //
+    //        return calendar.getTimeInMillis();
+    //    }
 
     public static long getFirstDayOfTheYear() {
         Date firstDayOfTheYear = new Date(getFirstDayOfTheMonth());
@@ -108,7 +120,7 @@ public class DateHelper {
         return calendar.getTimeInMillis();
     }
 
-    public static long getLastDayOfTheYear() {
+    public static long getFirstDayOfTheNextYear() {
         Date firstDayOfTheYear = new Date(getFirstDayOfTheYear());
 
         // TODO consider timezone later...

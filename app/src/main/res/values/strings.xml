@@ -15,4 +15,7 @@
     <string name="user_title">User</string>
     <string name="share_title">Share</string>
     <string name="runlist_title">Run List</string>
+    <string name="menu_item_this_week">this week</string>
+    <string name="menu_item_this_month">this month</string>
+    <string name="menu_item_this_year">this year</string>
 </resources>

@@ -40,9 +40,11 @@ public class TimeHelper {
 
     public static String convertSecondToIso8601(int targetSecond) {
         StringBuilder hhmmss = new StringBuilder();
+
         int hour = targetSecond / 3600;
-        int minute = targetSecond / 60;
-        int second = targetSecond % 60;
+        int tmp = targetSecond - (hour * 3600);
+        int minute = tmp / 60;
+        int second = tmp - (minute * 60);
         if (hour >= 1) {
             // hh:mm:ss
             // Fill zero except the highest digit
