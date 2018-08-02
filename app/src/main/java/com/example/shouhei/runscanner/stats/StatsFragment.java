@@ -3,7 +3,6 @@ package com.example.shouhei.runscanner.stats;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.shouhei.runscanner.R;
-import com.example.shouhei.runscanner.data.database.RunDbSchema;
 import com.example.shouhei.runscanner.runs.Runs;
 import com.example.shouhei.runscanner.util.DateHelper;
 import com.example.shouhei.runscanner.util.DistanceHelper;
@@ -54,15 +52,12 @@ public class StatsFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_this_week:
-                Log.d(TAG, "settings is selected");
                 updateUIThisWeek();
                 return true;
             case R.id.menu_item_this_month:
-                Log.d(TAG, "settings2 is selected");
                 updateUIThisMonth();
                 return true;
             case R.id.menu_item_this_year:
-                Log.d(TAG, "settings3 is selected");
                 updateUIThisYear();
                 return true;
             default:
@@ -87,6 +82,7 @@ public class StatsFragment extends Fragment {
         double distance =
                 runs.getTotalDouble(RunTable.Cols.DISTANCE, firstDayTheWeek, firstDayTheNextWeek);
         Log.d(TAG, "distance : " + String.valueOf(distance));
+        Log.d(TAG, "distance : " + DistanceHelper.convertMeterToMile(distance));
 
         // calorie
         int calorie = runs.getTotalInt(RunTable.Cols.CALORIE, firstDayTheWeek, firstDayTheNextWeek);
@@ -96,17 +92,20 @@ public class StatsFragment extends Fragment {
         int duration =
                 runs.getTotalInt(RunTable.Cols.DURATION, firstDayTheWeek, firstDayTheNextWeek);
         Log.d(TAG, "duration : " + String.valueOf(duration));
+        Log.d(TAG, "duration : " + TimeHelper.convertSecondToIso8601(duration));
 
         // avg pace
         int avgPace =
                 runs.getTotalInt(RunTable.Cols.AVERAGE_PACE, firstDayTheWeek, firstDayTheNextWeek);
         Log.d(TAG, "avg pace : " + String.valueOf(avgPace));
+        Log.d(TAG, "avg pace : " + getAvgPacePerRun(runCounts, avgPace));
 
         // avg heart rate
         int avgHeartRate =
                 runs.getTotalInt(
                         RunTable.Cols.AVERAGE_HEART_RATE, firstDayTheWeek, firstDayTheNextWeek);
         Log.d(TAG, "avg heart rate : " + String.valueOf(avgHeartRate));
+        Log.d(TAG, "avg heart rate : " + getAvgHeartRate(runCounts, avgHeartRate));
     }
 
     private void updateUIThisMonth() {
@@ -126,6 +125,7 @@ public class StatsFragment extends Fragment {
         double distance =
                 runs.getTotalDouble(RunTable.Cols.DISTANCE, firstDayTheMonth, firstDayTheNextMonth);
         Log.d(TAG, "distance : " + String.valueOf(distance));
+        Log.d(TAG, "distance : " + DistanceHelper.convertMeterToMile(distance));
 
         // calorie
         int calorie =
@@ -136,18 +136,21 @@ public class StatsFragment extends Fragment {
         int duration =
                 runs.getTotalInt(RunTable.Cols.DURATION, firstDayTheMonth, firstDayTheNextMonth);
         Log.d(TAG, "duration : " + String.valueOf(duration));
+        Log.d(TAG, "duration : " + TimeHelper.convertSecondToIso8601(duration));
 
         // avg pace
         int avgPace =
                 runs.getTotalInt(
                         RunTable.Cols.AVERAGE_PACE, firstDayTheMonth, firstDayTheNextMonth);
         Log.d(TAG, "avg pace : " + String.valueOf(avgPace));
+        Log.d(TAG, "avg pace : " + getAvgPacePerRun(runCounts, avgPace));
 
         // avg heart rate
         int avgHeartRate =
                 runs.getTotalInt(
                         RunTable.Cols.AVERAGE_HEART_RATE, firstDayTheMonth, firstDayTheNextMonth);
         Log.d(TAG, "avg heart rate : " + String.valueOf(avgHeartRate));
+        Log.d(TAG, "avg heart rate : " + getAvgHeartRate(runCounts, avgHeartRate));
     }
 
     private void updateUIThisYear() {
