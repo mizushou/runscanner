@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.shouhei.runscanner.R;
 import com.example.shouhei.runscanner.runs.Runs;
@@ -23,6 +24,12 @@ import static com.example.shouhei.runscanner.data.database.RunDbSchema.*;
 public class StatsFragment extends Fragment {
 
     private static final String TAG = "StatsFragment";
+
+    private TextView mDistanceValueTextView;
+    private TextView mCalorieValueTextView;
+    private TextView mDurationValueTextView;
+    private TextView mAvgPaceValueTextView;
+    private TextView mAvgHeartRateValueTextView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,6 +46,13 @@ public class StatsFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.stats_frag, container, false);
 
+        mDistanceValueTextView = root.findViewById(R.id.distance_value);
+        mCalorieValueTextView = root.findViewById(R.id.calorie_value);
+        mDurationValueTextView = root.findViewById(R.id.duration_value);
+        mAvgPaceValueTextView = root.findViewById(R.id.avg_pace_value);
+        mAvgHeartRateValueTextView = root.findViewById(R.id.avg_heart_rate_value);
+
+        updateUIThisMonth();
         return root;
     }
 
@@ -83,22 +97,27 @@ public class StatsFragment extends Fragment {
                 runs.getTotalDouble(RunTable.Cols.DISTANCE, firstDayTheWeek, firstDayTheNextWeek);
         Log.d(TAG, "distance : " + String.valueOf(distance));
         Log.d(TAG, "distance : " + DistanceHelper.convertMeterToMile(distance));
+        mDistanceValueTextView.setText(
+                DistanceHelper.formatMile(DistanceHelper.convertMeterToMile(distance)));
 
         // calorie
         int calorie = runs.getTotalInt(RunTable.Cols.CALORIE, firstDayTheWeek, firstDayTheNextWeek);
         Log.d(TAG, "calorie : " + String.valueOf(calorie));
+        mCalorieValueTextView.setText(String.valueOf(calorie));
 
         // duration
         int duration =
                 runs.getTotalInt(RunTable.Cols.DURATION, firstDayTheWeek, firstDayTheNextWeek);
         Log.d(TAG, "duration : " + String.valueOf(duration));
         Log.d(TAG, "duration : " + TimeHelper.convertSecondToIso8601(duration));
+        mDurationValueTextView.setText(TimeHelper.convertSecondToIso8601(duration));
 
         // avg pace
         int avgPace =
                 runs.getTotalInt(RunTable.Cols.AVERAGE_PACE, firstDayTheWeek, firstDayTheNextWeek);
         Log.d(TAG, "avg pace : " + String.valueOf(avgPace));
         Log.d(TAG, "avg pace : " + getAvgPacePerRun(runCounts, avgPace));
+        mAvgPaceValueTextView.setText(getAvgPacePerRun(runCounts, avgPace));
 
         // avg heart rate
         int avgHeartRate =
@@ -106,6 +125,7 @@ public class StatsFragment extends Fragment {
                         RunTable.Cols.AVERAGE_HEART_RATE, firstDayTheWeek, firstDayTheNextWeek);
         Log.d(TAG, "avg heart rate : " + String.valueOf(avgHeartRate));
         Log.d(TAG, "avg heart rate : " + getAvgHeartRate(runCounts, avgHeartRate));
+        mAvgHeartRateValueTextView.setText(getAvgHeartRate(runCounts, avgHeartRate));
     }
 
     private void updateUIThisMonth() {
@@ -126,17 +146,21 @@ public class StatsFragment extends Fragment {
                 runs.getTotalDouble(RunTable.Cols.DISTANCE, firstDayTheMonth, firstDayTheNextMonth);
         Log.d(TAG, "distance : " + String.valueOf(distance));
         Log.d(TAG, "distance : " + DistanceHelper.convertMeterToMile(distance));
+        mDistanceValueTextView.setText(
+                DistanceHelper.formatMile(DistanceHelper.convertMeterToMile(distance)));
 
         // calorie
         int calorie =
                 runs.getTotalInt(RunTable.Cols.CALORIE, firstDayTheMonth, firstDayTheNextMonth);
         Log.d(TAG, "calorie : " + String.valueOf(calorie));
+        mCalorieValueTextView.setText(String.valueOf(calorie));
 
         // duration
         int duration =
                 runs.getTotalInt(RunTable.Cols.DURATION, firstDayTheMonth, firstDayTheNextMonth);
         Log.d(TAG, "duration : " + String.valueOf(duration));
         Log.d(TAG, "duration : " + TimeHelper.convertSecondToIso8601(duration));
+        mDurationValueTextView.setText(TimeHelper.convertSecondToIso8601(duration));
 
         // avg pace
         int avgPace =
@@ -144,6 +168,7 @@ public class StatsFragment extends Fragment {
                         RunTable.Cols.AVERAGE_PACE, firstDayTheMonth, firstDayTheNextMonth);
         Log.d(TAG, "avg pace : " + String.valueOf(avgPace));
         Log.d(TAG, "avg pace : " + getAvgPacePerRun(runCounts, avgPace));
+        mAvgPaceValueTextView.setText(getAvgPacePerRun(runCounts, avgPace));
 
         // avg heart rate
         int avgHeartRate =
@@ -151,6 +176,7 @@ public class StatsFragment extends Fragment {
                         RunTable.Cols.AVERAGE_HEART_RATE, firstDayTheMonth, firstDayTheNextMonth);
         Log.d(TAG, "avg heart rate : " + String.valueOf(avgHeartRate));
         Log.d(TAG, "avg heart rate : " + getAvgHeartRate(runCounts, avgHeartRate));
+        mAvgHeartRateValueTextView.setText(getAvgHeartRate(runCounts, avgHeartRate));
     }
 
     private void updateUIThisYear() {
@@ -171,22 +197,27 @@ public class StatsFragment extends Fragment {
                 runs.getTotalDouble(RunTable.Cols.DISTANCE, firstDayTheYear, firstDayTheNextYear);
         Log.d(TAG, "distance : " + String.valueOf(distance));
         Log.d(TAG, "distance : " + DistanceHelper.convertMeterToMile(distance));
+        mDistanceValueTextView.setText(
+                DistanceHelper.formatMile(DistanceHelper.convertMeterToMile(distance)));
 
         // calorie
         int calorie = runs.getTotalInt(RunTable.Cols.CALORIE, firstDayTheYear, firstDayTheNextYear);
         Log.d(TAG, "calorie : " + String.valueOf(calorie));
+        mCalorieValueTextView.setText(String.valueOf(calorie));
 
         // duration
         int duration =
                 runs.getTotalInt(RunTable.Cols.DURATION, firstDayTheYear, firstDayTheNextYear);
         Log.d(TAG, "duration : " + String.valueOf(duration));
         Log.d(TAG, "duration : " + TimeHelper.convertSecondToIso8601(duration));
+        mDurationValueTextView.setText(TimeHelper.convertSecondToIso8601(duration));
 
         // avg pace
         int avgPace =
                 runs.getTotalInt(RunTable.Cols.AVERAGE_PACE, firstDayTheYear, firstDayTheNextYear);
         Log.d(TAG, "avg pace : " + String.valueOf(avgPace));
         Log.d(TAG, "avg pace : " + getAvgPacePerRun(runCounts, avgPace));
+        mAvgPaceValueTextView.setText(getAvgPacePerRun(runCounts, avgPace));
 
         // avg heart rate
         int avgHeartRate =
@@ -194,6 +225,7 @@ public class StatsFragment extends Fragment {
                         RunTable.Cols.AVERAGE_HEART_RATE, firstDayTheYear, firstDayTheNextYear);
         Log.d(TAG, "avg heart rate : " + String.valueOf(avgHeartRate));
         Log.d(TAG, "avg heart rate : " + getAvgHeartRate(runCounts, avgHeartRate));
+        mAvgHeartRateValueTextView.setText(getAvgHeartRate(runCounts, avgHeartRate));
     }
 
     private String getAvgPacePerRun(long runCounts, int avgPace) {
