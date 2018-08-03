@@ -25,6 +25,8 @@ public class StatsFragment extends Fragment {
 
     private static final String TAG = "StatsFragment";
 
+    private TextView mTitleTextView;
+    private TextView mRunCountTextView;
     private TextView mDistanceValueTextView;
     private TextView mCalorieValueTextView;
     private TextView mDurationValueTextView;
@@ -46,6 +48,8 @@ public class StatsFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.stats_frag, container, false);
 
+        mTitleTextView = root.findViewById(R.id.stats_title);
+        mRunCountTextView = root.findViewById(R.id.run_count);
         mDistanceValueTextView = root.findViewById(R.id.distance_value);
         mCalorieValueTextView = root.findViewById(R.id.calorie_value);
         mDurationValueTextView = root.findViewById(R.id.duration_value);
@@ -88,9 +92,13 @@ public class StatsFragment extends Fragment {
         DateHelper.testDate2(firstDayTheWeek);
         DateHelper.testDate2(firstDayTheNextWeek);
 
+        // title
+        mTitleTextView.setText(DateHelper.getDateTitleStringOfTheWeekOnStats());
+
         // counts of run
         long runCounts = runs.getRowCount(firstDayTheWeek, firstDayTheNextWeek);
         Log.d(TAG, "counts : " + String.valueOf(runCounts));
+        mRunCountTextView.setText(String.valueOf(runCounts));
 
         // distance
         double distance =
@@ -137,9 +145,13 @@ public class StatsFragment extends Fragment {
         DateHelper.testDate2(firstDayTheMonth);
         DateHelper.testDate2(firstDayTheNextMonth);
 
+        // title
+        mTitleTextView.setText(DateHelper.getDateTitleStringOfTheMonthOnStats());
+
         // counts of run
         long runCounts = runs.getRowCount(firstDayTheMonth, firstDayTheNextMonth);
         Log.d(TAG, "counts : " + String.valueOf(runCounts));
+        mRunCountTextView.setText(String.valueOf(runCounts));
 
         // distance
         double distance =
@@ -188,9 +200,13 @@ public class StatsFragment extends Fragment {
         DateHelper.testDate2(firstDayTheYear);
         DateHelper.testDate2(firstDayTheNextYear);
 
+        // title
+        mTitleTextView.setText(DateHelper.getDateTitleStringOfTheYearOnStats());
+
         // counts of run
         long runCounts = runs.getRowCount(firstDayTheYear, firstDayTheNextYear);
         Log.d(TAG, "counts : " + String.valueOf(runCounts));
+        mRunCountTextView.setText(String.valueOf(runCounts));
 
         // distance
         double distance =

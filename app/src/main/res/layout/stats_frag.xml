@@ -263,4 +263,42 @@
         app:layout_constraintBaseline_toBaselineOf="@id/avg_heart_rate_value"
         app:layout_constraintStart_toEndOf="@id/avg_heart_rate_value" />
 
+    <TextView
+        android:id="@+id/stats_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:text=""
+        app:layout_constraintBaseline_toBaselineOf="@+id/run_count"
+        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_left" />
+
+    <ImageView
+        android:id="@+id/run_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_mid"
+        app:layout_constraintTop_toTopOf="@+id/guideline_horizon_top"
+        app:srcCompat="@drawable/ic_run" />
+
+    <ImageView
+        android:id="@+id/time_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toEndOf="@+id/run_image"
+        app:layout_constraintTop_toTopOf="@+id/guideline_horizon_top"
+        app:srcCompat="@drawable/ic_times" />
+
+    <TextView
+        android:id="@+id/run_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:text=""
+        app:layout_constraintStart_toEndOf="@+id/time_image"
+        app:layout_constraintTop_toTopOf="@+id/guideline_horizon_top" />
+
 </android.support.constraint.ConstraintLayout>

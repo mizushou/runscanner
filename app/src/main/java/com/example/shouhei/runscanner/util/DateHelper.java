@@ -18,6 +18,26 @@ public class DateHelper {
         return (String) DateFormat.format("EEE, HH:mma", date);
     }
 
+    public static String getDateTitleStringOfTheYearOnStats() {
+        long firstDayOfTheMonth = getFirstDayOfTheMonth();
+        return (String) DateFormat.format("yyyy", firstDayOfTheMonth);
+    }
+
+    public static String getDateTitleStringOfTheMonthOnStats() {
+        long firstDayOfTheMonth = getFirstDayOfTheMonth();
+        return (String) DateFormat.format("yyyy. MMM", firstDayOfTheMonth);
+    }
+
+    public static String getDateTitleStringOfTheWeekOnStats() {
+        long firstDayOfTheWeek = getFirstDayOfTheWeek();
+        String startWeek = (String) DateFormat.format("yyyy. MMM.dd - ", firstDayOfTheWeek);
+
+        long lastDayOfTheWeek = getLastDayOfTheWeek();
+        String endWeek = (String) DateFormat.format("MMM.dd", lastDayOfTheWeek);
+
+        return startWeek + endWeek;
+    }
+
     public static long getFirstDayOfTheMonth() {
         Date currentDate = new Date(System.currentTimeMillis());
 
@@ -86,26 +106,26 @@ public class DateHelper {
         return calendar.getTimeInMillis();
     }
 
-    //    public static long getLastDayOfTheWeek() {
-    //        Date currentDate = new Date(System.currentTimeMillis());
-    //
-    //        // TODO consider timezone later...
-    //        Calendar calendar = Calendar.getInstance(TimeZone.getDefault(), Locale.CANADA);
-    //        calendar.setTime(currentDate);
-    //
-    //        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-    //        int hour = calendar.get(Calendar.HOUR);
-    //        int minute = calendar.get(Calendar.MINUTE);
-    //        int ampm = calendar.get(Calendar.AM_PM);
-    //        calendar.add(Calendar.DAY_OF_MONTH, -dayOfWeek + 7);
-    //        calendar.add(Calendar.HOUR, -hour);
-    //        calendar.add(Calendar.MINUTE, -minute);
-    //        if (ampm == 1) {
-    //            calendar.add(Calendar.AM_PM, -ampm);
-    //        }
-    //
-    //        return calendar.getTimeInMillis();
-    //    }
+    public static long getLastDayOfTheWeek() {
+        Date currentDate = new Date(System.currentTimeMillis());
+
+        // TODO consider timezone later...
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault(), Locale.CANADA);
+        calendar.setTime(currentDate);
+
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+        int hour = calendar.get(Calendar.HOUR);
+        int minute = calendar.get(Calendar.MINUTE);
+        int ampm = calendar.get(Calendar.AM_PM);
+        calendar.add(Calendar.DAY_OF_MONTH, -dayOfWeek + 7);
+        calendar.add(Calendar.HOUR, -hour);
+        calendar.add(Calendar.MINUTE, -minute);
+        if (ampm == 1) {
+            calendar.add(Calendar.AM_PM, -ampm);
+        }
+
+        return calendar.getTimeInMillis();
+    }
 
     public static long getFirstDayOfTheYear() {
         Date firstDayOfTheYear = new Date(getFirstDayOfTheMonth());
