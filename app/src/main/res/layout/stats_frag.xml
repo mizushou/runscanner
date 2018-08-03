@@ -247,37 +247,83 @@
     <TextView
         android:id="@+id/stats_title"
         style="@style/text_title_stats"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
         android:text=""
-        app:layout_constraintBaseline_toBaselineOf="@+id/run_count"
-        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_left" />
+        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_left"
+        app:layout_constraintTop_toTopOf="@+id/guideline_horizon_top" />
 
     <ImageView
         android:id="@+id/run_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_mid"
-        app:layout_constraintTop_toTopOf="@+id/guideline_horizon_top"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_left"
+        app:layout_constraintTop_toBottomOf="@+id/stats_title"
         app:srcCompat="@drawable/ic_run" />
 
     <ImageView
         android:id="@+id/time_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/run_image"
         app:layout_constraintStart_toEndOf="@+id/run_image"
-        app:layout_constraintTop_toTopOf="@+id/guideline_horizon_top"
+        app:layout_constraintTop_toTopOf="@+id/run_image"
         app:srcCompat="@drawable/ic_times" />
 
     <TextView
         android:id="@+id/run_count"
         style="@style/text_count_stats"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="6dp"
         android:text=""
+        app:layout_constraintBottom_toBottomOf="@+id/time_image"
         app:layout_constraintStart_toEndOf="@+id/time_image"
-        app:layout_constraintTop_toTopOf="@+id/guideline_horizon_top" />
+        app:layout_constraintTop_toTopOf="@+id/time_image" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/onSurfaceIcon"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_horizon_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/onSurfaceIcon"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_horizon_2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/divider3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/onSurfaceIcon"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_horizon_3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/divider4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/onSurfaceIcon"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_horizon_4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/divider5"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/onSurfaceIcon"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_horizon_5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

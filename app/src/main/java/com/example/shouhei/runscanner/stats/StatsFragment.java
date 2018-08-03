@@ -56,7 +56,8 @@ public class StatsFragment extends Fragment {
         mAvgPaceValueTextView = root.findViewById(R.id.avg_pace_value);
         mAvgHeartRateValueTextView = root.findViewById(R.id.avg_heart_rate_value);
 
-        updateUIThisMonth();
+        // default
+        updateUIThisWeek();
         return root;
     }
 
