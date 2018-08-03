@@ -81,9 +81,9 @@
     <View
         android:id="@+id/distance_divider"
         android:layout_width="3dp"
-        android:layout_height="30dp"
+        android:layout_height="45dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:background="@color/distanceColor"
         app:layout_constraintStart_toStartOf="@+id/guideline_vertical_left"
         app:layout_constraintTop_toTopOf="@+id/guideline_horizon_1" />
@@ -132,8 +132,9 @@
         android:id="@+id/distance_label"
         style="@style/text_label_stats"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:text="@string/distance_value_label"
+        android:textSize="30sp"
         app:layout_constraintStart_toEndOf="@+id/distance_divider"
         app:layout_constraintTop_toTopOf="@+id/guideline_horizon_1"
         tools:layout_conversion_absoluteHeight="19dp"
@@ -144,8 +145,10 @@
         style="@style/text_value_stats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBaseline_toBaselineOf="@id/distance_label"
-        app:layout_constraintStart_toStartOf="@id/guideline_vertical_mid" />
+        android:textSize="30sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/distance_label"
+        app:layout_constraintStart_toStartOf="@id/guideline_vertical_mid"
+        tools:layout_editor_absoluteY="154dp" />
 
     <TextView
         android:id="@+id/distance_unit_mile"
@@ -154,7 +157,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="miles"
-        app:layout_constraintBaseline_toBaselineOf="@id/distance_value"
+        android:textSize="20sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/distance_label"
         app:layout_constraintStart_toEndOf="@id/distance_value" />
 
     <TextView
