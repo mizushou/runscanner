@@ -40,7 +40,11 @@
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
             android:value="text" />
 
-        <activity android:name=".stats.StatsActivity"></activity>
+        <activity android:name=".stats.StatsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".runs.RunsActivity" />
+        </activity>
     </application>
 
 </manifest>

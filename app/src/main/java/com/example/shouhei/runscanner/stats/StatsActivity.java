@@ -7,10 +7,11 @@ import android.util.Log;
 
 import com.example.shouhei.runscanner.R;
 import com.example.shouhei.runscanner.SingleFragmentActivity;
+import com.example.shouhei.runscanner.SingleFragmentActivityForStats;
 import com.example.shouhei.runscanner.SingleFragmentActivityWithNavBar;
 import com.example.shouhei.runscanner.runs.RunsFragment;
 
-public class StatsActivity extends SingleFragmentActivity {
+public class StatsActivity extends SingleFragmentActivityForStats {
 
     private static final String TAG = "StatsActivity";
 
