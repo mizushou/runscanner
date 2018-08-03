@@ -12,7 +12,7 @@ public class RunDbSchema {
             public static final String CALORIE = "calorie";
             public static final String DURATION = "duration";
             public static final String AVERAGE_PACE = "average_pace";
-            public static final String AVERAGE_HEART_RATE = "averate_heart_rate";
+            public static final String AVERAGE_HEART_RATE = "average_heart_rate";
             public static final String DATE = "date";
         }
     }

@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".stats.StatsActivity">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_vertical_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="8dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_vertical_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="8dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_vertical_mid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_begin="205dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_horizon_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="6dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_horizon_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="129dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_horizon_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="239dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_horizon_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="349dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_horizon_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="459dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_horizon_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="569dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_horizon_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="6dp" />
+
+    <View
+        android:id="@+id/distance_divider"
+        android:layout_width="3dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:background="@color/distanceColor"
+        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_left"
+        app:layout_constraintTop_toTopOf="@+id/guideline_horizon_1" />
+
+    <View
+        android:id="@+id/calories_divider"
+        android:layout_width="3dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:background="@color/caloriesColor"
+        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_left"
+        app:layout_constraintTop_toTopOf="@+id/guideline_horizon_2" />
+
+    <View
+        android:id="@+id/duration_divider"
+        android:layout_width="3dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:background="@color/durationColor"
+        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_left"
+        app:layout_constraintTop_toTopOf="@+id/guideline_horizon_3" />
+
+    <View
+        android:id="@+id/avg_pace_divider"
+        android:layout_width="3dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:background="@color/AvePaceColor"
+        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_left"
+        app:layout_constraintTop_toTopOf="@+id/guideline_horizon_4" />
+
+    <View
+        android:id="@+id/avg_heart_rate_divider"
+        android:layout_width="3dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:background="@color/AveHeartRateColor"
+        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_left"
+        app:layout_constraintTop_toTopOf="@+id/guideline_horizon_5" />
+
+    <TextView
+        android:id="@+id/distance_label"
+        style="@style/text_label_stats"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/distance_value_label"
+        app:layout_constraintStart_toEndOf="@+id/distance_divider"
+        app:layout_constraintTop_toTopOf="@+id/guideline_horizon_1"
+        tools:layout_conversion_absoluteHeight="19dp"
+        tools:layout_conversion_absoluteWidth="48dp" />
+
+    <TextView
+        android:id="@+id/distance_value"
+        style="@style/text_value_stats"
+        android:layout_marginStart="40dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/distance_label"
+        app:layout_constraintStart_toStartOf="@id/guideline_vertical_mid" />
+
+    <TextView
+        android:id="@+id/distance_unit_mile"
+        style="@style/text_unit_stats"
+        android:layout_marginStart="8dp"
+        android:text="miles"
+        app:layout_constraintBaseline_toBaselineOf="@+id/distance_label"
+        app:layout_constraintStart_toEndOf="@id/distance_value" />
+
+    <TextView
+        android:id="@+id/calorie_label"
+        style="@style/text_label_stats"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/calories_value_label"
+        app:layout_constraintStart_toEndOf="@+id/calories_divider"
+        app:layout_constraintTop_toTopOf="@+id/guideline_horizon_2"
+        tools:layout_conversion_absoluteHeight="19dp"
+        tools:layout_conversion_absoluteWidth="45dp" />
+
+    <TextView
+        android:id="@+id/calorie_value"
+        style="@style/text_value_stats"
+        android:layout_marginStart="40dp"
+        app:layout_constraintBaseline_toBaselineOf="@id/calorie_label"
+        app:layout_constraintStart_toStartOf="@id/guideline_vertical_mid" />
+
+    <TextView
+        android:id="@+id/calorie_unit_mile"
+        style="@style/text_unit_stats"
+        android:layout_marginStart="8dp"
+        android:text="kcal"
+        app:layout_constraintBaseline_toBaselineOf="@+id/calorie_label"
+        app:layout_constraintStart_toEndOf="@id/calorie_value" />
+
+
+    <TextView
+        android:id="@+id/duration_label"
+        style="@style/text_label_stats"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/duration_value_label"
+        app:layout_constraintStart_toEndOf="@+id/duration_divider"
+        app:layout_constraintTop_toTopOf="@+id/guideline_horizon_3"
+        tools:layout_conversion_absoluteHeight="19dp"
+        tools:layout_conversion_absoluteWidth="47dp" />
+
+    <TextView
+        android:id="@+id/duration_value"
+        style="@style/text_value_stats"
+        android:layout_marginStart="40dp"
+        app:layout_constraintBaseline_toBaselineOf="@id/duration_label"
+        app:layout_constraintStart_toStartOf="@id/guideline_vertical_mid" />
+
+    <TextView
+        android:id="@+id/avg_pace_label"
+        style="@style/text_label_stats"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/avg_pace_value_label"
+        app:layout_constraintStart_toEndOf="@+id/avg_pace_divider"
+        app:layout_constraintTop_toTopOf="@+id/guideline_horizon_4"
+        tools:layout_conversion_absoluteHeight="19dp"
+        tools:layout_conversion_absoluteWidth="51dp" />
+
+    <TextView
+        android:id="@+id/avg_pace_value"
+        style="@style/text_value_stats"
+        android:layout_marginStart="40dp"
+        app:layout_constraintBaseline_toBaselineOf="@id/avg_pace_label"
+        app:layout_constraintStart_toStartOf="@id/guideline_vertical_mid" />
+
+    <TextView
+        android:id="@+id/avg_heart_label"
+        style="@style/text_label_stats"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/avg_heart_rate_value_label"
+        app:layout_constraintStart_toEndOf="@+id/avg_heart_rate_divider"
+        app:layout_constraintTop_toTopOf="@+id/guideline_horizon_5"
+        tools:layout_conversion_absoluteHeight="19dp"
+        tools:layout_conversion_absoluteWidth="82dp" />
+
+    <TextView
+        android:id="@+id/avg_heart_rate_value"
+        style="@style/text_value_stats"
+        android:layout_marginStart="40dp"
+        app:layout_constraintBaseline_toBaselineOf="@id/avg_heart_label"
+        app:layout_constraintStart_toStartOf="@id/guideline_vertical_mid" />
+
+    <TextView
+        android:id="@+id/avg_heart_rate_unit_mile"
+        style="@style/text_unit_stats"
+        android:layout_marginStart="8dp"
+        android:text="bpm"
+        app:layout_constraintBaseline_toBaselineOf="@+id/avg_heart_label"
+        app:layout_constraintStart_toEndOf="@id/avg_heart_rate_value" />
+
+    <TextView
+        android:id="@+id/stats_title"
+        style="@style/text_title_stats"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:text=""
+        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_left"
+        app:layout_constraintTop_toTopOf="@+id/guideline_horizon_top" />
+
+    <ImageView
+        android:id="@+id/run_image"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_left"
+        app:layout_constraintTop_toBottomOf="@+id/stats_title"
+        app:srcCompat="@drawable/ic_run" />
+
+    <ImageView
+        android:id="@+id/time_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/run_image"
+        app:layout_constraintStart_toEndOf="@+id/run_image"
+        app:layout_constraintTop_toTopOf="@+id/run_image"
+        app:srcCompat="@drawable/ic_times" />
+
+    <TextView
+        android:id="@+id/run_count"
+        style="@style/text_count_stats"
+        android:layout_marginStart="6dp"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="@+id/time_image"
+        app:layout_constraintStart_toEndOf="@+id/time_image"
+        app:layout_constraintTop_toTopOf="@+id/time_image" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/onSurfaceIcon"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_horizon_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/onSurfaceIcon"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_horizon_2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/divider3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/onSurfaceIcon"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_horizon_3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/divider4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/onSurfaceIcon"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_horizon_4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/divider5"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/onSurfaceIcon"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_horizon_5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

@@ -35,7 +35,7 @@
 
         <TextView
             android:id="@+id/distance_label"
-            style="@style/text_label"
+            style="@style/text_label_runresult"
             android:layout_marginStart="40dp"
             android:text="@string/distance_value_label"
             app:layout_constraintBaseline_toBaselineOf="@+id/distance_value"
@@ -45,7 +45,7 @@
 
         <EditText
             android:id="@+id/distance_value"
-            style="@style/edit_text"
+            style="@style/edit_text_runresult"
             android:layout_marginEnd="40dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_mid"
             app:layout_constraintTop_toTopOf="@+id/guideline_horizon_1"
@@ -55,7 +55,7 @@
 
         <TextView
             android:id="@+id/calorie_label"
-            style="@style/text_label"
+            style="@style/text_label_runresult"
             android:layout_width="wrap_content"
             android:layout_marginStart="40dp"
             android:text="@string/calories_value_label"
@@ -66,7 +66,7 @@
 
         <EditText
             android:id="@+id/calories_value"
-            style="@style/edit_text"
+            style="@style/edit_text_runresult"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="40dp"
@@ -78,7 +78,7 @@
 
         <TextView
             android:id="@+id/duration_label"
-            style="@style/text_label"
+            style="@style/text_label_runresult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
@@ -90,7 +90,7 @@
 
         <EditText
             android:id="@+id/duration_value"
-            style="@style/edit_text"
+            style="@style/edit_text_runresult"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="40dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_mid"
@@ -101,7 +101,7 @@
 
         <TextView
             android:id="@+id/avg_pace_label"
-            style="@style/text_label"
+            style="@style/text_label_runresult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
@@ -113,7 +113,7 @@
 
         <EditText
             android:id="@+id/avg_pace_value"
-            style="@style/edit_text"
+            style="@style/edit_text_runresult"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="40dp"
@@ -126,7 +126,7 @@
 
         <TextView
             android:id="@+id/avg_heart_label"
-            style="@style/text_label"
+            style="@style/text_label_runresult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
@@ -138,7 +138,7 @@
 
         <EditText
             android:id="@+id/avg_heart_rate_value"
-            style="@style/edit_text"
+            style="@style/edit_text_runresult"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="40dp"

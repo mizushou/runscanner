@@ -5,25 +5,26 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.example.shouhei.runscanner.runresult.RunResultActivity;
 import com.example.shouhei.runscanner.R;
 import com.example.shouhei.runscanner.data.Run;
+import com.example.shouhei.runscanner.util.DateHelper;
+import com.example.shouhei.runscanner.util.DistanceHelper;
+import com.example.shouhei.runscanner.util.SortRunByDateComparator;
+import com.example.shouhei.runscanner.util.TimeHelper;
 
+import java.util.Collections;
 import java.util.List;
 
 public class RunsFragment extends Fragment {
@@ -52,7 +53,7 @@ public class RunsFragment extends Fragment {
         Log.d(TAG, "onCreateView() is called");
 
         // set up add the fab
-        mAddFab = root.findViewById(R.id.add_fab);
+        mAddFab = getActivity().findViewById(R.id.add_fab);
         mAddFab.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -82,6 +83,8 @@ public class RunsFragment extends Fragment {
         Runs runs = Runs.get(getActivity());
         // get latest run's data from DB.
         List<Run> runList = runs.getRuns();
+
+        Collections.sort(runList, new SortRunByDateComparator());
 
         if (mAdapter == null) {
             mAdapter = new RunAdapter(runList);
@@ -125,13 +128,17 @@ public class RunsFragment extends Fragment {
             return mRunList.size();
         }
     }
-    // ==============================================================
-
+    // =============================================================
     // ====================Inner class#2 [Holder]====================
     private class RunHolder extends RecyclerView.ViewHolder {
 
+        private TextView mCardTitleTextView;
+        private TextView mCardSubTitleTextView;
         private TextView mDistanceTextView;
         private TextView mDurationTextView;
+        private TextView mCaloriesTextView;
+        private TextView mAvgPaceTextView;
+        private TextView mAvgHeartRateTextView;
         private Run mRun;
 
         public RunHolder(LayoutInflater inflater, ViewGroup parent) {
@@ -148,16 +155,26 @@ public class RunsFragment extends Fragment {
                         }
                     });
 
-            mDistanceTextView = itemView.findViewById(R.id.run_distance);
-            mDurationTextView = itemView.findViewById(R.id.run_duration);
+            mCardTitleTextView = itemView.findViewById(R.id.cardTitle);
+            mCardSubTitleTextView = itemView.findViewById(R.id.cardSubTitle);
+            mDistanceTextView = itemView.findViewById(R.id.distance_value_card);
+            mDurationTextView = itemView.findViewById(R.id.duration_value_card);
+            mCaloriesTextView = itemView.findViewById(R.id.calories_value_card);
+            mAvgPaceTextView = itemView.findViewById(R.id.avgPace_value_card);
+            mAvgHeartRateTextView = itemView.findViewById(R.id.avgHeartRate_value_card);
         }
 
         public void bind(Run run) {
             mRun = run;
-            //            mDistanceTextView.setText(getString(R.string.result_run_distance,
-            // mRun.getDistance()));
-            //            mDurationTextView.setText(getString(R.string.result_run_duration,
-            // mRun.getDuration()));
+            mCardTitleTextView.setText(DateHelper.getDateTitleStringOnCard(mRun.getDate()));
+            mCardSubTitleTextView.setText(DateHelper.getDateSubTitleStringOnCard(mRun.getDate()));
+            mDistanceTextView.setText(
+                    DistanceHelper.formatMile(
+                            DistanceHelper.convertMeterToMile(mRun.getDistance())));
+            mDurationTextView.setText(TimeHelper.convertSecondToIso8601(mRun.getDuration()));
+            mCaloriesTextView.setText(String.valueOf(mRun.getCalorie()));
+            mAvgPaceTextView.setText(TimeHelper.convertSecondToIso8601(mRun.getAvePace()));
+            mAvgHeartRateTextView.setText(String.valueOf(mRun.getAveHeartRate()));
         }
     }
     // ==============================================================

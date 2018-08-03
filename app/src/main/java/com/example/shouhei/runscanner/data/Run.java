@@ -1,86 +1,100 @@
 package com.example.shouhei.runscanner.data;
 
-import java.util.Date;
 import java.util.UUID;
 
 public class Run {
 
     private UUID mId;
-    private String mDistance;
-    private String mCalorie;
-    private String mDuration;
-    private String mAvePace;
-    private String mAveHeartRate;
-    private Date mDate;
+    private double mDistance;
+    private int mCalorie;
+    private int mDuration;
+    private int mAvePace;
+    private int mAveHeartRate;
+    private long mDate;
 
     public Run() {
         mId = UUID.randomUUID();
-        mDate = new Date();
+        mDate = System.currentTimeMillis();
     }
 
     // For referring from existing uuid.
     public Run(UUID uuid) {
         mId = uuid;
-        mDate = new Date();
+        mDate = System.currentTimeMillis();
     }
 
     public String getPhotoFilename() {
+
         return "IMG_" + getId().toString() + ".jpg";
     }
 
     public UUID getId() {
+
         return mId;
     }
 
     public void setId(UUID id) {
+
         mId = id;
     }
 
-    public String getDistance() {
+    public double getDistance() {
+
         return mDistance;
     }
 
-    public void setDistance(String distance) {
+    public void setDistance(double distance) {
+
         mDistance = distance;
     }
 
-    public String getCalorie() {
-        return mCalorie;
-    }
+    public int getDuration() {
 
-    public void setCalorie(String calorie) {
-        mCalorie = calorie;
-    }
-
-    public String getDuration() {
         return mDuration;
     }
 
-    public void setDuration(String duration) {
+    public void setDuration(int duration) {
+
         mDuration = duration;
     }
 
-    public String getAvePace() {
+    public int getAvePace() {
+
         return mAvePace;
     }
 
-    public void setAvePace(String avePace) {
+    public void setAvePace(int avePace) {
+
         mAvePace = avePace;
     }
 
-    public String getAveHeartRate() {
-        return mAveHeartRate;
-    }
+    public long getDate() {
 
-    public void setAveHeartRate(String aveHeartRate) {
-        mAveHeartRate = aveHeartRate;
-    }
-
-    public Date getDate() {
         return mDate;
     }
 
-    public void setDate(Date date) {
+    public void setDate(long date) {
+        
         mDate = date;
+    }
+
+    public int getCalorie() {
+        
+        return mCalorie;
+    }
+
+    public void setCalorie(int calorie) {
+        
+        mCalorie = calorie;
+    }
+
+    public int getAveHeartRate() {
+        
+        return mAveHeartRate;
+    }
+
+    public void setAveHeartRate(int aveHeartRate) {
+
+        mAveHeartRate = aveHeartRate;
     }
 }

@@ -1,6 +1,8 @@
 package com.example.shouhei.runscanner.runresult;
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
@@ -26,11 +28,13 @@ import android.widget.ImageView;
 import com.example.shouhei.runscanner.R;
 import com.example.shouhei.runscanner.data.Run;
 import com.example.shouhei.runscanner.runs.Runs;
+import com.example.shouhei.runscanner.util.DistanceHelper;
 import com.example.shouhei.runscanner.util.ElementWrapper;
 import com.example.shouhei.runscanner.util.PictureUtils;
 import com.example.shouhei.runscanner.util.RightSideElementFilter;
 import com.example.shouhei.runscanner.util.RightSideElementsCalculator;
 import com.example.shouhei.runscanner.util.RightSideElementsList;
+import com.example.shouhei.runscanner.util.TimeHelper;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.ml.vision.FirebaseVision;
@@ -43,6 +47,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class RunsResultFragment extends Fragment {
 
@@ -138,12 +144,17 @@ public class RunsResultFragment extends Fragment {
                             CharSequence s, int start, int count, int after) {}
 
                     @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        mResultRun.setDistance(s.toString());
-                    }
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
                     @Override
-                    public void afterTextChanged(Editable s) {}
+                    public void afterTextChanged(Editable s) {
+                        if (isValidRealString(s.toString())) {
+                            mResultRun.setDistance(
+                                    DistanceHelper.convertMileStrToMeter(s.toString()));
+                        } else {
+                            mDistanceField.setError("error");
+                        }
+                    }
                 });
 
         mDurationField = root.findViewById(R.id.duration_value);
@@ -154,12 +165,18 @@ public class RunsResultFragment extends Fragment {
                             CharSequence s, int start, int count, int after) {}
 
                     @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        mResultRun.setDuration(s.toString());
-                    }
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
                     @Override
-                    public void afterTextChanged(Editable s) {}
+                    public void afterTextChanged(Editable s) {
+                        if (isValidIso8601String(s.toString())) {
+                            int durationAsSecond =
+                                    TimeHelper.convertIso8601StrToSecond(s.toString());
+                            mResultRun.setDuration(durationAsSecond);
+                        } else {
+                            mDurationField.setError("error");
+                        }
+                    }
                 });
 
         mCaloriesField = root.findViewById(R.id.calories_value);
@@ -170,12 +187,16 @@ public class RunsResultFragment extends Fragment {
                             CharSequence s, int start, int count, int after) {}
 
                     @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        mResultRun.setCalorie(s.toString());
-                    }
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
                     @Override
-                    public void afterTextChanged(Editable s) {}
+                    public void afterTextChanged(Editable s) {
+                        if (isValidIntegerString(s.toString())) {
+                            mResultRun.setCalorie(Integer.valueOf(s.toString()));
+                        } else {
+                            mCaloriesField.setError("error");
+                        }
+                    }
                 });
 
         mAvgPaceField = root.findViewById(R.id.avg_pace_value);
@@ -186,12 +207,18 @@ public class RunsResultFragment extends Fragment {
                             CharSequence s, int start, int count, int after) {}
 
                     @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        mResultRun.setAvePace(s.toString());
-                    }
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
                     @Override
-                    public void afterTextChanged(Editable s) {}
+                    public void afterTextChanged(Editable s) {
+                        if (isValidIso8601String(s.toString())) {
+                            int avgPaceAsSecond =
+                                    TimeHelper.convertIso8601StrToSecond(s.toString());
+                            mResultRun.setAvePace(avgPaceAsSecond);
+                        } else {
+                            mAvgPaceField.setError("error");
+                        }
+                    }
                 });
 
         mAvgHeartRateField = root.findViewById(R.id.avg_heart_rate_value);
@@ -202,12 +229,16 @@ public class RunsResultFragment extends Fragment {
                             CharSequence s, int start, int count, int after) {}
 
                     @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        mResultRun.setAveHeartRate(s.toString());
-                    }
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
                     @Override
-                    public void afterTextChanged(Editable s) {}
+                    public void afterTextChanged(Editable s) {
+                        if (isValidIntegerString(s.toString())) {
+                            mResultRun.setAveHeartRate(Integer.valueOf(s.toString()));
+                        } else {
+                            mAvgHeartRateField.setError("error");
+                        }
+                    }
                 });
 
         mScanFab = root.findViewById(R.id.scan_fab);
@@ -367,6 +398,11 @@ public class RunsResultFragment extends Fragment {
                                                 mAvgHeartRateField.setText(
                                                         elementsList.getAvgHeartRate());
 
+                                                // set taken date
+                                                mResultRun.setDate(
+                                                        getImageTakenDate(
+                                                                getContext(), mTargetUri));
+
                                                 mIsScanned = true;
                                                 setFab();
                                             }
@@ -497,6 +533,38 @@ public class RunsResultFragment extends Fragment {
             mScanFab.setVisibility(View.INVISIBLE);
             mDoneFab.setVisibility(View.VISIBLE);
         }
+    }
+
+    private long getImageTakenDate(Context context, Uri uri) {
+        if (uri.getScheme().equals("content")) {
+            String[] projection = {MediaStore.Images.ImageColumns.DATE_TAKEN};
+            Cursor c = context.getContentResolver().query(uri, projection, null, null, null);
+            if (c.moveToFirst()) {
+                return c.getLong(0);
+            }
+        }
+        return System.currentTimeMillis();
+    }
+
+    private boolean isValidRealString(String s) {
+        String regex = "^\\d+\\.\\d{2}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(s);
+        return matcher.matches();
+    }
+
+    private boolean isValidIso8601String(String s) {
+        String regex = "^[\\d{2}:]*\\d{2}:\\d{2}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(s);
+        return matcher.matches();
+    }
+
+    private boolean isValidIntegerString(String s) {
+        String regex = "^[0-9]+$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(s);
+        return matcher.matches();
     }
 
     private void debugFirebaseVisionText(FirebaseVisionText firebaseVisionText) {

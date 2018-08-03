@@ -24,16 +24,22 @@ public class RunBaseHelper extends SQLiteOpenHelper {
                         + RunTable.Cols.UUID
                         + ","
                         + RunTable.Cols.DISTANCE
+                        + " real"
                         + ","
                         + RunTable.Cols.CALORIE
+                        + " integer"
                         + ","
                         + RunTable.Cols.DURATION
+                        + " integer"
                         + ","
                         + RunTable.Cols.AVERAGE_PACE
+                        + " integer"
                         + ","
                         + RunTable.Cols.AVERAGE_HEART_RATE
+                        + " integer"
                         + ","
                         + RunTable.Cols.DATE
+                        + " integer"
                         + " )");
     }
 

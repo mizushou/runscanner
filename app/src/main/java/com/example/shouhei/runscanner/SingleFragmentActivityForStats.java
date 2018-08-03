@@ -4,13 +4,15 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.NavUtils;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 
-public abstract class SingleFragmentActivity extends AppCompatActivity {
+public abstract class SingleFragmentActivityForStats extends AppCompatActivity {
 
     private Toolbar mToolbar;
 
@@ -32,6 +34,7 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
 
         // set up the tool bar
         mToolbar = findViewById(R.id.toolbar);
+        mToolbar.setTitle("STATS");
         if (mToolbar != null) {
             setupActionBar(mToolbar);
         }
@@ -49,5 +52,19 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
 
     private void setupActionBar(Toolbar toolbar) {
         setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
