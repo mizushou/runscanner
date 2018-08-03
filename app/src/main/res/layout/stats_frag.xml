@@ -130,7 +130,7 @@
 
     <TextView
         android:id="@+id/distance_label"
-        style="@style/text_label"
+        style="@style/text_label_stats"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="@string/distance_value_label"
@@ -141,7 +141,7 @@
 
     <TextView
         android:id="@+id/distance_value"
-        style="@style/edit_text"
+        style="@style/text_value_stats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBaseline_toBaselineOf="@id/distance_label"
@@ -149,7 +149,7 @@
 
     <TextView
         android:id="@+id/distance_unit_mile"
-        style="@style/text_label"
+        style="@style/text_unit_stats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -159,7 +159,7 @@
 
     <TextView
         android:id="@+id/calorie_label"
-        style="@style/text_label"
+        style="@style/text_label_stats"
         android:layout_width="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
@@ -171,7 +171,7 @@
 
     <TextView
         android:id="@+id/calorie_value"
-        style="@style/edit_text"
+        style="@style/text_value_stats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBaseline_toBaselineOf="@id/calorie_label"
@@ -180,7 +180,7 @@
 
     <TextView
         android:id="@+id/calorie_unit_mile"
-        style="@style/text_label"
+        style="@style/text_unit_stats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -191,7 +191,7 @@
 
     <TextView
         android:id="@+id/duration_label"
-        style="@style/text_label"
+        style="@style/text_label_stats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -204,7 +204,7 @@
 
     <TextView
         android:id="@+id/duration_value"
-        style="@style/edit_text"
+        style="@style/text_value_stats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBaseline_toBaselineOf="@id/duration_label"
@@ -213,7 +213,7 @@
 
     <TextView
         android:id="@+id/avg_pace_label"
-        style="@style/text_label"
+        style="@style/text_label_stats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -226,7 +226,7 @@
 
     <TextView
         android:id="@+id/avg_pace_value"
-        style="@style/edit_text"
+        style="@style/text_value_stats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBaseline_toBaselineOf="@id/avg_pace_label"
@@ -234,7 +234,7 @@
 
     <TextView
         android:id="@+id/avg_heart_label"
-        style="@style/text_label"
+        style="@style/text_label_stats"
         android:layout_width="wrap_content"
         android:layout_height="28dp"
         android:layout_marginStart="8dp"
@@ -247,15 +247,15 @@
 
     <TextView
         android:id="@+id/avg_heart_rate_value"
-        style="@style/edit_text"
+        style="@style/text_value_stats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBaseline_toBaselineOf="@id/avg_heart_label"
         app:layout_constraintStart_toStartOf="@id/guideline_vertical_mid" />
 
     <TextView
-        android:id="@+id/avg_heart_unit_mile"
-        style="@style/text_label"
+        android:id="@+id/avg_heart_rate_unit_mile"
+        style="@style/text_unit_stats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -265,6 +265,7 @@
 
     <TextView
         android:id="@+id/stats_title"
+        style="@style/text_title_stats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -293,6 +294,7 @@
 
     <TextView
         android:id="@+id/run_count"
+        style="@style/text_count_stats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
