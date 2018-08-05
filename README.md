@@ -1,7 +1,52 @@
-### Database
----
-#### Table#1 [runs]
-| No. | Colunm name        | Type    | Unit                   |
+Runscanner
+===
+ Runscanner is a OCR app using ML Kit Text Recognition model.
+
+This app helps runner going to [Club 16](https://www.trevorlindenfitness.com/downtown-vancouver/).
+- Scan your running from picture.
+- Record your running with card.
+- Take statistics of your running
+
+## Demo
+<p align="center"><img src="https://github.com/mizushou/RunScanner/blob/media/gif/runscanner_ocr.gif" alt="RunScanner ocr" height="600px"></p>
+
+## Screenshots
+<p align="center">
+<img src="https://github.com/mizushou/RunScanner/blob/media/image/runscanner_stats_thisweek.png" width="280"/> <img src="https://github.com/mizushou/RunScanner/blob/media/image/runscanner_stats_thismonth.png" width="280"/> <img src="https://github.com/mizushou/RunScanner/blob/media/image/runscanner_stats_thisyear.png" width="280"/>
+</p>
+
+## App theme
+
+### Font
+
+1. Roboto Condensed
+    -  Character
+1.  Eczar
+    - Numerical character
+
+### Color
+1. Primary
+    - #1EB980
+1. PrimaryVariant
+    - #045D56
+1. Secondary
+    - 3B4859
+1. Background
+    - #37474f
+1. Surface
+    - #455a64
+1. OnPrimary
+    - #FFFFFF
+1. OnSecondary
+    - #000000
+1. OnBackground
+    - #FFFFFF
+1. OnSurface
+    - #FFFFFF
+
+## Data
+### Table#1 [runs]
+| No. | Column name        | Type    | Unit                   |
 |:----|:-------------------|:--------|:-----------------------|
 | 1   | __id               |         |                        |
 | 2   | uuid               |         |                        |
@@ -12,7 +57,7 @@
 | 7   | average_heart_rate | INTEGER | bpm                    |
 | 8   | date               | INTEGER | millisecond(unix time) |
 
-#### Model#1 [Run]
+### Model#1 [Run]
 | No. | Attribute name | Type   | Unit                   | Meaning            |
 |:----|:---------------|:-------|:-----------------------|:-------------------|
 | 1   | mId            | UUID   |                        |        uuid            |
@@ -23,9 +68,9 @@
 | 6   | mAveHeartRate  | int    | bpm                    | average heart rate |
 | 7   | mDate          | long   | millisecond(unix time) | taken date         |
 
-#### SQLite
+### SQLite
 1. select
-    1. fulll search
+    1. full search
         - ```select * from runs;```
     2. with where clause
         1. from ${BEGIN}
@@ -35,7 +80,7 @@
         3. from ${BEGIN} and before ${BEGIN}
             - ```select * from runs where date >= ${BEGIN} and date < ${END};```
 1. count
-    1. full conut
+    1. full count
         1. ```select count(*) from runs;```
     2. with where clause
         1. from ${BEGIN}
